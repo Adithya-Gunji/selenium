@@ -1,0 +1,1657 @@
+selenium 3 Mainframeworks and its installations with basic scripts
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+# jdk-8u121-windows-x64.exe
+# eclipse-jee-mars-2-win32-x86_64.zip
+# selenium-server-standalone-3.141.59.jar(configure from buildpath)
+# download CromeDriver.exe or edgeDriver.exe from selenium.dev and copy it to java memory(ecclipse)
+
+-------------------------------------------------------------------------
+
+Selenium automation scripts
+==================================
+==================================
+int eno;
+		String ename;
+		
+		double salary = 25000.50;
+		
+		eno = 10;
+		ename = "Richards";
+		
+		
+		System.out.println(eno);
+		System.out.println(ename);
+		
+		System.out.println("Salary: "+salary);
+------------------------------------------------------------------------
+//integers		
+		byte age = 25;
+		short marks = 900;
+		int salary = 50000;
+		long turnover = 10000000;
+		
+		System.out.println(age);
+		System.out.println(marks);
+		System.out.println(salary);
+		System.out.println("Turnover of the year 2021: "+turnover);
+------------------------------------------------------------------------------
+		//Real Number		
+		
+		float x = 10.25f;
+		double qty = 1.500;
+		
+		System.out.println(x);
+		System.out.println(qty);
+------------------------------------------------------------------------------
+		// Character
+		
+		char gendre = 'm';
+		System.out.println(gendre);		
+		
+		// Boolean
+			boolean status = true;
+			System.out.println(status);
+-----------------------------------------------------------------------------
+		String sname = "Richards";
+		System.out.println(sname);
+
+------------------------------------------------------------------------------
+String Class Functions		
+		.toUpperCase()
+		.toLowerCase()
+		.length()
+		.equals()
+		.equalsIgnoreCase()
+		.contains() etc.,
+-------------------------------------------------------------------------------
+Converting a String to Lowercase & Uppercase
+------------------------------------------------------------------------------
+		String course = "Selenium";
+		
+		System.out.println(course);
+		
+		System.out.println(course.toLowerCase());
+		System.out.println(course.toUpperCase());
+------------------------------------------------------------------------------
+Counting No. of Chars in a String
+--------------------------------------------------------------------------------
+		String course = "Selenium";
+		
+		System.out.println(course.length());
+-------------------------------------------------------------------------------
+Comparing two Strings
+------------------------------------------------------------------------------
+		String exptitle,acttitle;
+		
+		exptitle = "Gmail";		
+		acttitle = "gmail";
+		
+		if(exptitle.equals(acttitle))
+		{
+			System.out.println("Test Pass");
+		}else
+		{
+			System.out.println("Test Fail");
+		}
+		
+		if(exptitle.equalsIgnoreCase(acttitle))
+		{
+			System.out.println("Test Pass");
+		}else
+		{
+			System.out.println("Test Fail");
+		}
+
+------------------------------------------------------------------------------
+Check a String contains another String or not
+-------------------------------------------------------------------------------
+String exptitle,acttitle;
+		
+		exptitle = "Images";
+		acttitle = "Google Images";
+		
+		if(acttitle.contains(exptitle))
+		{
+			System.out.println("Test Pass");
+		}else
+		{
+			System.out.println("Test Fail");
+		}
+-----------------------------------------------------------------------------
+		String exptitle,acttitle;
+		
+		exptitle = "images";
+		acttitle = "Google Images";
+		
+		if(acttitle.toLowerCase().contains(exptitle))
+		{
+			System.out.println("Test Pass");
+		}else
+		{
+			System.out.println("Test Fail");
+		}
+--------------------------------------------------------------------------------
+String exptitle,acttitle;
+		
+		exptitle = "IMagES";
+		acttitle = "Google Images";
+		
+		if(acttitle.toLowerCase().contains(exptitle.toLowerCase()))
+		{
+			System.out.println("Test Pass");
+		}else
+		{
+			System.out.println("Test Fail");
+		}
+---------------------------------------
+======
+Example1 : Arrays
+-----------------------------------------------------------------------------
+		String[] sname = {"Ramya","Sowmya","Richards"};
+		
+		//Counting No. of elements		
+		System.out.println("No. of elements: "+sname.length); 
+		
+		//Accessing elements		
+		System.out.println(sname[0]);
+		System.out.println(sname[1]);
+		
+		System.out.println(sname[2]);		
+		
+		//Updating existing element
+		sname[2] = "New Data";		
+		System.out.println(sname[2]);
+		
+		//Note: We can't append new elements bcaz arrays are fixed size.
+-----------------------------------------------------------------------------------
+Example 2: Array
+-------------------------------------------------------------------------------
+		int[] marks = {60,70,80,90};
+		
+		System.out.println(marks.length);
+		
+		System.out.println(marks[0]);
+		System.out.println(marks[1]);
+		System.out.println(marks[2]);
+		System.out.println(marks[3]);
+		
+--------------------------------------------------------------------------
+Example 3: Array
+--------------------------------------------------------------------------
+		Object[] empdata = {101,"Richards",25,'m',45000.50,true};
+		
+		System.out.println(empdata[0]);
+		System.out.println(empdata[1]);
+		System.out.println(empdata[2]);
+		System.out.println(empdata[3]);
+		System.out.println(empdata[4]);
+		System.out.println(empdata[5]);
+--------------------------------------------------------------------------
+Example 1: ArrayList
+----------------------------------------------------------------------------
+ArrayList<String> carlist = new ArrayList<>();
+		
+		//Storing data into ArrayList using: add()
+		carlist.add("BMW");
+		carlist.add("Audi");
+		carlist.add("Volvo");
+		
+		//Counting no. of elements in a ArrayList using : size()
+		System.out.println(carlist.size());
+		
+		//Accessing data present in a ArrayList using : get()
+		System.out.println(carlist.get(0));
+		System.out.println(carlist.get(1));
+		System.out.println(carlist.get(2));
+		
+		carlist.add("New Car");
+		System.out.println(carlist.size());
+		System.out.println(carlist.get(3));
+-------------------------------------------------------------------------------
+Example2: ArrayList
+--------------------------------------------------------------------------------
+		ArrayList<Integer> marklist = new ArrayList<>(4);
+		
+		marklist.add(60);
+		marklist.add(70);
+		marklist.add(80);
+		marklist.add(90);		
+
+		//ArrayList size will be automatically extended
+		marklist.add(100);
+		
+		System.out.println(marklist.size());
+		
+		System.out.println(marklist.get(0));
+		System.out.println(marklist.get(4));
+-----------------------------------------------------------------------------
+Example 3: ArrayList
+-----------------------------------------------------------------------------
+		ArrayList<Object> empdata = new ArrayList<>();
+		
+		empdata.add(101);
+		empdata.add("Richards");
+		empdata.add('m');
+		empdata.add(40000.25);
+		
+		System.out.println(empdata.size());
+		
+		System.out.println(empdata.get(0));
+		System.out.println(empdata.get(1));
+		System.out.println(empdata.get(2));
+		System.out.println(empdata.get(3));
+---------------------------------------------------------------------------
+==================
+Ex: Nested if
+------------------------------------------------------------------------------
+		char course = 'x';
+		
+		if(course=='s' || course == 'S')
+		{
+			System.out.println("Selenium");
+		}else if(course=='q' || course=='Q')
+				{
+					System.out.println("QTP");
+				}else if(course == 'l' || course == 'L')
+					  {
+							System.out.println("LoadRunner");
+					  }else
+					  {
+						  System.out.println("Invalid Course");
+					  }
+----------------------------------------------------------------------------------------
+String course = "S";
+		
+		if(course.equalsIgnoreCase("s"))
+		{
+			System.out.println("Selenium");
+		}else if(course.equalsIgnoreCase("Q"))
+		{
+			System.out.println("QTP");
+		}else if(course.equalsIgnoreCase("l"))
+				{
+					System.out.println("LoadRunner");
+				}else
+				{
+					System.out.println("Invalid Course");
+				}
+----------------------------------------------------------------------------------
+Ex: switch case
+-------------------------------------------------------------------------------
+		String course = "x";
+		
+		switch (course.toLowerCase()) 
+		{
+		case "s":
+			 System.out.println("Selenium");
+			 break;
+		case "q": 
+			 System.out.println("QTP");
+			 break;
+		case "l":
+			 System.out.println("LoadRunner");
+			 break;
+		default:
+			System.out.println("Invalid Course");
+			break;		 
+		}		
+				
+-------------------------------
+=========================
+Ex: Do Loop
+------------------------------------------------------------------------------
+		int i = 101;
+		
+		do 
+		{
+			
+			System.out.println("Value of i : "+i);
+			
+		} while (i<=100);	
+		
+		
+		System.out.println("End of the Do loop");
+-------------------------------------------------------------------------------
+Ex: for loop
+-----------------------------------------------------------------------------
+for (int i = 0; i < 10; i++) 
+		{
+			System.out.println("value of i: "+i);
+		}
+		
+		System.out.println("End of the for loop");
+------------------------------------------------------------------------------
+Accessing elements present in a Array using for loop
+------------------------------------------------------------------------------
+		String[] cars = {"BMW","Audi","Volvo","Honda"};
+		
+		for(int i=0;i<cars.length;i++)
+		{
+			System.out.println(cars[i]);
+		}
+--------------------------------------------------------------------------------------
+Accessing elements present in a ArrayList using for loop
+--------------------------------------------------------------------------------
+ArrayList<String> carlist = new ArrayList<>();
+		
+		carlist.add("BMW");
+		carlist.add("Audi");
+		carlist.add("Volvo");
+		carlist.add("Honda");
+		
+		for(int i=0;i<carlist.size();i++)
+		{
+			System.out.println(carlist.get(i));
+		}
+-------------------------------------------------------------------------------
+Accessing elements present in a array using foreach loop
+----------------------------------------------------------------------------------
+		String[] cars = {"BMW","Audi","Volvo","Honda"};
+		
+		for (String data : cars) 
+		{
+			System.out.println(data);
+		}
+------------------------------------------------------------------------------
+Accessing elements present in a Array using for each loop
+-------------------------------------------------------------------------------------------
+int[] marks = {60,70,80,90};
+		
+		for(int x : marks)	
+		{
+			System.out.println(x);
+		}
+----------------------------------------------------------------------------
+Accessing elements present in a ArrayList using for each loop
+----------------------------------------------------------------------------
+ArrayList<String> carlist = new ArrayList<>();
+		
+		carlist.add("BMW");
+		carlist.add("Audi");
+		carlist.add("Volvo");
+		carlist.add("Honda");
+				
+		for(String data : carlist)
+		{
+			System.out.println(data);
+		}
+-------------------------------------------------------------------------------
+Ex: break;
+-----------------------------------------------------------------------------
+for(int i=0;i<100;i++)
+		{
+			System.out.println(i);
+			if(i==10)
+			{
+				break;
+			}
+		}
+		
+		System.out.println("End of the loop");
+------------------------------
+=============================
+
+Script to Open Firefox Browser
+-----------------------------------------------------------------------------
+		System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://google.com");
+-----------------------------------------------------------------------------
+Script to Open Chrome browser
+-----------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://facebook.com");
+------------------------------------------------------------------------------
+Script to Open Edge Browser
+--------------------------------------------------------------------------------
+		System.setProperty("webdriver.edge.driver", "msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.get("http://google.com");
+------------------------------------------------------------------------------
+Script to automate different browser operations
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://google.com");
+		driver.navigate().to("http://facebook.com");
+		driver.navigate().back();
+		driver.navigate().forward();
+		driver.navigate().refresh();
+		driver.close();
+------------------------------------
+==================
+findElement() : OrangeHRM Login Script : findElement()
+-----------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://orangehrm.qedgetech.com");
+		
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		WebElement  pwd = driver.findElement(By.name("txtPassword"));
+		pwd.sendKeys("Qedge123!@#");
+		
+		driver.findElement(By.className("button")).click(); 
+		
+		driver.findElement(By.partialLinkText("Welcome")).click();
+		
+		Thread.sleep(5000);
+		
+		driver.findElement(By.linkText("Logout")).click();
+		driver.close();
+-----------------------------------------------------------------------------
+findElements()
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://primusbank.qedgetech.com");
+		
+		driver.findElement(By.linkText("Site Map")).click();
+		List<WebElement> links = driver.findElements(By.linkText("Home"));
+		
+		System.out.println(links.size());
+------------------------------------------------------------------------------
+Script to count no. of links preseent in  page usimng : findElements()
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://facebook.com");
+		
+		List<WebElement> links = driver.findElements(By.tagName("a"));
+		System.out.println(links.size());
+------------------------------------------------------------------------------
+
+
+-
+
+==========================
+
+
+Script for Login in Flight Reservation App
+----------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://flights.qedgetech.com/");
+		
+		driver.findElement(By.name("email")).sendKeys("sureshbabu.qedge@gmail.com");
+		driver.findElement(By.name("password")).sendKeys("demo");
+		driver.findElement(By.xpath("//*[@type='submit']")).click();
+		
+		Thread.sleep(5000);
+		
+		driver.findElement(By.xpath("/html/body/header/nav/div/div[3]/ul/li[2]/div/a/i")).click();
+		driver.findElement(By.partialLinkText("Logout")).click();
+		driver.close();
+------------------------------------------------------------------------------------
+
+=================================
+
+Example: Using any other property in XPath
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();		
+		driver.get("http://primusbank.qedgetech.com");
+		
+		driver.findElement(By.xpath("//*[@href='aboutus.html']")).click();
+------------------------------------------------------------------------------------
+Using Multiple  properties in XPath
+------------------------------------------------------------------------------
+	Syntax:
+
+	//*[@propname='propvalue' and @propname='propvalue']
+
+	//*[@propname='propvalue' or @propname='propvalue']
+
+-----------------------------------------------------------------------------
+Script: Using Multiple  properties in XPath
+-----------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();		
+		driver.get("http://facebook.com");
+		
+		driver.findElement(By.xpath("//*[@name='email' or @placeholder='Enter Username']")).sendKeys("qedge");
+------------------------------------------------------------------------------
+Script: Using Multiple  properties in XPath
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();		
+		driver.get("http://facebook.com");		
+		driver.findElement(By.linkText("Create New Account")).click();
+		Thread.sleep(5000);
+		
+		driver.findElement(By.xpath("//input[@name='sex' and @value='2']")).click();
+-------------------------------------------------------------------------------------
+XPath:  starts-with()		
+
+Syntax:
+
+	//*[starts-with(@propname,'propvalue')]
+
+-------------------------------------------------------------------------------
+Example: XPath starts-with()
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();		
+		driver.get("http://facebook.com");		
+		driver.findElement(By.xpath("//*[starts-with(@id,'u_0_2')]")).click();
+--------------------------------------------
+
+==============================
+
+starts-with()
+-----------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();		
+		driver.get("http://orangehrm.qedgetech.com");
+		
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		driver.findElement(By.id("txtPassword")).sendKeys("Qedge123!@#");
+		driver.findElement(By.id("btnLogin")).click();
+		
+		driver.findElement(By.linkText("PIM")).click();
+		driver.findElement(By.linkText("Employee List")).click();
+		
+		List<WebElement> elementlist = driver.findElements(By.xpath("//input[starts-with(@id,'ohrmList_chkSelectRecord')]"));
+		for(WebElement element : elementlist)
+		{
+			element.click();
+		}
+----------------------------------------------------------------------------------
+contains()
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();		
+		driver.get("http://facebook.com");
+		
+		driver.findElement(By.xpath("//input[contains(@placeholder,'phone')]")).sendKeys("qedge");
+-------------------------------------------------------------------------------------
+Absolute XPath
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://flights.qedgetech.com/");
+		
+		driver.findElement(By.name("email")).sendKeys("sureshbabu.qedge@gmail.com");
+		driver.findElement(By.name("password")).sendKeys("demo");
+		driver.findElement(By.xpath("//*[@type='submit']")).click();
+		
+		Thread.sleep(5000);
+		
+		driver.findElement(By.xpath("/html/body/header/nav/div/div[3]/ul/li[2]/div/a/i")).click();
+----------------------------------------------------------------------------------------------------		
+Partial XPath
+------------------------------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://flights.qedgetech.com/");
+		
+		driver.findElement(By.name("email")).sendKeys("sureshbabu.qedge@gmail.com");
+		driver.findElement(By.name("password")).sendKeys("demo");
+		driver.findElement(By.xpath("//*[@type='submit']")).click();
+		
+		Thread.sleep(5000);
+		
+		driver.findElement(By.xpath("//div[3]/ul/li[2]/div/a/i")).click();
+-----------------------------------------------------------------------------------
+
+========================================
+
+CSSSelector
+--------------------------------------------------------------------------------
+Syntax:   tagname[propname='propvalue']
+
+Ex:
+
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://facebook.com/");
+		
+		
+		driver.findElement(By.cssSelector("input[placeholder='Email address or phone number']")).sendKeys("demo");
+----------------------------------------------------------------------------------
+Script to check "Images" link working or not in Google Page using : getTitle()
+----------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://google.com");
+		driver.findElement(By.linkText("Images")).click();
+		
+		String pgtitle = driver.getTitle();
+		
+		System.out.println(pgtitle);
+		
+		if(pgtitle.equalsIgnoreCase("google images"))
+		{
+			System.out.println("Images Link working, test pass");
+		}else
+		{
+			System.out.println("Images Link not working, test fail");
+		}
+		driver.close();
+---------------------------------------------------------------------------------
+Script to check GMail Link working or not using : getCurrentUrl()
+---------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://google.com");
+		
+		driver.findElement(By.linkText("Gmail")).click();
+		String pgurl = driver.getCurrentUrl();
+		System.out.println(pgurl);			
+
+		if(pgurl.toLowerCase().contains("gmail"))
+		{
+			System.out.println("GMail Link working, test pass");
+		}else
+		{
+			System.out.println("GMail Link not working, test fail");
+		}
+		
+		driver.close();
+------------------------------------------------------------------------------
+close() & quit()
+--------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://gmail.com");
+		
+		driver.findElement(By.linkText("Help")).click();
+		
+		//driver.close();  Close the Current Window
+		driver.quit();     //Close all windows
+------------------------------------------------
+=====================
+sendKeys() : It is used enter data in a Textbox element
+
+Syntax:   WebElement.sendKeys("data");
+------------------------------------------------------------------------------
+Ex:
+-----------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://facebook.com");
+		
+		driver.findElement(By.id("email")).sendKeys("qedge");
+		
+		WebElement pwd = driver.findElement(By.name("pass"));
+		pwd.sendKeys("demo");
+--------------------------------------------------------------------------------
+clear() : It removes data present in the specified element
+
+Synatx: WebElement.clear();
+
+-------------------------------------------------------------------------------
+Example:
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://facebook.com");
+		
+		WebElement uid = driver.findElement(By.name("email"));
+		
+		uid.sendKeys("QEdge");
+		Thread.sleep(2000);
+		uid.clear();
+--------------------------------------------------------------------------------
+getText() : It returns visibleText of the specified WebElement. 
+            Return type is String.
+
+Syntax:  WebElement.getText();
+------------------------------------------------------------------------------
+Example 1:
+-------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://google.com");
+		
+		String x = driver.findElement(By.partialLinkText("works")).getText();
+		System.out.println(x);
+-------------------------------------------------------------------------------
+Example 2
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("http://facebook.com");
+		
+		String x = driver.findElement(By.xpath("//div[1]/div/div/div/div[1]/h2")).getText();
+		System.out.println(x);
+---------------------------------------------------------------------------------
+Example 3:
+---------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://www.railyatri.in/");
+		driver.findElement(By.linkText("About us")).click();
+		
+		String x = driver.findElement(By.xpath("/html/body/div[3]/div/div/div[2]/p[2]")).getText();
+		System.out.println(x);
+--------------------------------------------------------------------------------------
+Example 4:
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		
+		driver.get("http://orangehrm.qedgetech.com");
+		driver.findElement(By.id("txtUsername")).sendKeys("abc");
+		driver.findElement(By.id("txtPassword")).sendKeys("xyz");
+		driver.findElement(By.id("btnLogin")).click();
+		
+		String errmsg = driver.findElement(By.id("spanMessage")).getText();
+		System.out.println(errmsg); 
+		
+		if(errmsg.toLowerCase().contains("invalid"))
+		{
+			System.out.println("Test Pass");
+		}else
+		{
+			System.out.println("Test Fail");
+		}
+		driver.close();
+------------------------------------------------------------------------------
+getAttribute(): It returns specified property of the element during runtime.
+		return type is string.
+
+Syntax:  WebElement.getAtrribute("propname");
+------------------------------------------------------------------------------
+Example 1:
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		
+		driver.get("http://google.com");
+		String x = driver.findElement(By.linkText("Gmail")).getAttribute("href");
+		System.out.println(x);
+-------------------------------------------------------------------------------
+Example 2:
+-------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		
+		driver.get("http://facebook.com");
+		String x =  driver.findElement(By.xpath("//img[@src='https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg']")).getAttribute("alt");
+		System.out.println(x);
+--------------------------------------------------------------------------------
+Example 3:
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		
+		driver.get("http://orangehrm.qedgetech.com");
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		driver.findElement(By.id("txtPassword")).sendKeys("Qedge123!@#");
+		driver.findElement(By.id("btnLogin")).click();
+		
+		driver.findElement(By.linkText("PIM")).click();
+		driver.findElement(By.linkText("Add Employee")).click();
+		
+		String empid = driver.findElement(By.id("employeeId")).getAttribute("value");
+		System.out.println(empid); 
+		
+------------------------------------------------------------------------------------
+click() : It performs leftclick(deafult) action on the specified element
+
+Synatx: WebElement.click();
+------------------------------------------------------------------------------
+
+=============================================
+
+getAttribute()
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		
+		driver.get("http://calc.qedgetech.com");
+		
+		driver.findElement(By.xpath("//input[@id='btn' and @value='1']")).click();
+		driver.findElement(By.xpath("//input[@id='btn' and @value='+']")).click();
+		driver.findElement(By.xpath("//input[@id='btn' and @value='2']")).click();
+		driver.findElement(By.xpath("//input[@id='btn' and @value='=']")).click();
+		
+		String res =  driver.findElement(By.name("display")).getAttribute("value");
+		System.out.println(res);
+-------------------------------------------------------------------------------
+isDisplayed() : It checks the specified element displayed in the page or not.
+                If present it returns "true". if not present it returns "false"
+
+Syntax: 	WebElement.isDisplayed();
+------------------------------------------------------------------------------
+Example : isDisplayed()
+-------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		
+		driver.get("http://orangehrm.qedgetech.com");
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		driver.findElement(By.id("txtPassword")).sendKeys("Qedge123!@#");
+		driver.findElement(By.id("btnLogin")).click();
+		
+		if(driver.findElement(By.linkText("Admin")).isDisplayed())
+		{
+			System.out.println("Admin Login Test Pass");
+		}else
+		{
+			System.out.println("Admin Login Test Fail");
+		}
+-------------------------------------------------------------------------------
+Example 2: isDisplayed()
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		
+		driver.get("http://primusbank.qedgetech.com/");
+		if(driver.findElement(By.name("login")).isDisplayed())
+		{
+			System.out.println("test pass");
+		}else
+		{
+			System.out.println("test fail");
+		}	
+------------------------------------------------------------------------------
+Example 3: 
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://google.com");
+		
+		try 
+		{
+			if(driver.findElement(By.linkText("Login")).isDisplayed())
+			{
+				System.out.println("Test Pass");
+			}			
+			
+		} catch (Exception e) 
+		{
+			System.out.println("Test Fail");
+		}
+--------------------------------------------------------------------------------------
+Script to check OrangeHRM Admin Login
+-------------------------------------------------------------------------------		
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://orangehrm.qedgetech.com");
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		driver.findElement(By.id("txtPassword")).sendKeys("Qedge123!@#");
+		driver.findElement(By.id("btnLogin")).click();
+		
+		try 
+		{
+			driver.findElement(By.linkText("Admin")).isDisplayed();
+			System.out.println("Admin Login Test Pass");
+		} catch (Exception e) 
+		{
+			System.out.println("Admin Login Test Fail");
+		}
+--------------------------------------------------------------------------------
+Script to check OrangeHRM Employee Login
+-------------------------------------------------------------------------------		
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://orangehrm.qedgetech.com");
+		driver.findElement(By.id("txtUsername")).sendKeys("Soumya");
+		driver.findElement(By.id("txtPassword")).sendKeys("Qedge123!@#");
+		driver.findElement(By.id("btnLogin")).click();
+		
+		try 
+		{
+			driver.findElement(By.linkText("Admin")).isDisplayed();
+			System.out.println("Employee Login Test Fail");
+		} catch (Exception e) 
+		{
+			System.out.println("Employee Login Test Pass");
+		}
+-----------------------------------------------------------------------------------
+isSelected() : It returns "true" if the specified element (checkbox / radiobutton)
+               is already selcted, if not selected it will return "false"
+
+Syntax:  WebEelement.isSelected();
+---------------------------------------------------------------------------------
+Example:
+-------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://flights.qedgetech.com");
+		driver.findElement(By.linkText("Register")).click();
+		
+		WebElement checkbox = driver.findElement(By.id("flexCheckChecked"));
+		
+		System.out.println(checkbox.isSelected());
+		checkbox.click();
+		System.out.println(checkbox.isSelected());
+--------------------------------------------------------------------------------
+
+ 
+
+
+==============================================
+
+Select Class Commands
+-----------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("file:///C:/Test/cars.html");
+				
+		//Select x = new Select(driver.findElement(By.id("cars")));
+		
+		WebElement carelement= driver.findElement(By.id("cars"));
+		Select x = new Select(carelement);
+		
+		//x.selectByIndex(1);
+		//x.selectByVisibleText("BMW");
+		//x.selectByValue("a");
+		
+		 List<WebElement> carlist = x.getOptions();
+		 System.out.println(carlist.size()-1);
+		
+		 for(int i=1;i<carlist.size();i++)
+		 {
+			 String carname = carlist.get(i).getText();
+			 System.out.println(carname);
+		 }
+-----------------------------------------------------------------------------
+Script to Select an item from DropDownList Element
+-----------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://amazon.com");
+
+		Select cat = new Select(driver.findElement(By.id("searchDropdownBox")));
+		
+		cat.selectByIndex(1);
+		
+		Thread.sleep(2000);
+		
+		cat.selectByVisibleText("Books");
+------------------------------------------------------------------------------
+Script to Count & print all items present in a DropDownList
+-------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://amazon.com");
+
+		Select cat = new Select(driver.findElement(By.id("searchDropdownBox")));
+		
+		List<WebElement> catlist = cat.getOptions();
+		
+		//Counting No. of items present in a dropdownlist
+		System.out.println(catlist.size());
+		
+		//Accessing elements present in a List
+		for(int i=0;i<catlist.size();i++)
+		{
+			String catname =  catlist.get(i).getText();
+			System.out.println(catname);
+		}
+--------------------------------------------------------------------------------
+Script to Select DOB in facebook App
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.edge.driver", "msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://facebook.com");
+		driver.findElement(By.linkText("Create New Account")).click();
+		
+		Select date = new Select(driver.findElement(By.id("day")));
+		date.selectByVisibleText("4");
+		Select month = new Select(driver.findElement(By.id("month")));
+		month.selectByValue("3");
+		Select year = new Select(driver.findElement(By.id("year")));
+		year.selectByValue("2012");
+
+-----------------------------------------------------------------------------
+===========================================
+
+Script to check specified item present in the DropDownList or not?
+-----------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://amazon.com");
+
+		String expval = "Cars";
+	
+		Select cat = new Select(driver.findElement(By.id("searchDropdownBox")));
+		List<WebElement> catlist = cat.getOptions();
+		
+		boolean isitem_present = false;
+		
+		for(int i=0;i<catlist.size();i++)
+		{
+			String actval = catlist.get(i).getText();
+			if(expval.equalsIgnoreCase(actval))
+			{
+				isitem_present = true;
+				break;
+			}
+		}
+		if(isitem_present)
+		{
+			System.out.println(expval+" is present in the list, test pass"); 
+		}else
+		{
+			System.out.println(expval+" is not present in the list, test fail");
+		}
+-----------------------------------------------------------------------------------------------
+Script to check all items present in a dropdown list are displayed in ascending 
+order or not?
+------------------------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://amazon.com");	
+	
+		Select cat = new Select(driver.findElement(By.id("searchDropdownBox")));
+		List<WebElement> catlist = cat.getOptions();
+		
+		String item1=null;
+		String item2= null;
+		boolean ordered = true;
+		
+		for(int i=1;i<catlist.size();i++)
+		{
+			item1 = catlist.get(i-1).getText();
+			item2 = catlist.get(i).getText();
+			if(item2.compareToIgnoreCase(item1)<0)
+			{
+				ordered = false;
+				break;
+			}			
+		}
+----------------------------------------------------------------------------------
+Script to Move Mouse over specified element
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://snapdeal.com");	
+	
+		Actions act = new Actions(driver);
+		act.moveToElement(driver.findElement(By.linkText("Electronics")));
+		act.build().perform();
+----------------------------------------------------------------------------
+==================================
+
+Script to Automate Mouse MoveToElement & RightClick Action
+----------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://snapdeal.com");	
+	
+		Actions act = new Actions(driver);
+		act.moveToElement(driver.findElement(By.linkText("Electronics")));
+		act.contextClick();
+		act.build().perform();
+------------------------------------------------------------------------------
+Script to automate Muse Drag and Drop Operation
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("https://jqueryui.com/");	
+		driver.findElement(By.linkText("Droppable")).click();
+		
+		driver.switchTo().frame(driver.findElement(By.className("demo-frame")));
+		
+		WebElement srcelement,trgelement;
+		srcelement = driver.findElement(By.id("draggable"));
+		trgelement = driver.findElement(By.id("droppable"));
+		
+		Actions act = new Actions(driver);
+		act.dragAndDrop(srcelement, trgelement);
+		act.build().perform();
+------------------------------------------------------------------------------
+Script to capture current window id using : getWindowHandle()
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("https://gmail.com/");	
+		String curwindowid =  driver.getWindowHandle();
+		System.out.println(curwindowid);
+----------------------------------------------------------------------------
+Script to capture all browser window ids using : getWindowHandles()
+----------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("https://gmail.com/");	
+		String curwindowid =  driver.getWindowHandle();
+		System.out.println(curwindowid);
+				
+		driver.findElement(By.linkText("Help")).click();
+		
+		Set<String> allwindows = driver.getWindowHandles();
+		System.out.println(allwindows);
+------------------------------------------------------------------------------
+========================================
+
+Script to switch driver focus between multiple windows
+-------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("https://gmail.com/");				
+		driver.findElement(By.linkText("Help")).click();
+		
+		Set<String> allwindows = driver.getWindowHandles();
+		System.out.println(allwindows);
+		
+		Object[] windows = allwindows.toArray();
+		
+		String window1 = windows[0].toString();
+		String window2 = windows[1].toString();
+		
+		System.out.println(driver.getTitle());
+		
+		driver.switchTo().window(window2);
+		
+		System.out.println(driver.getTitle());
+		
+		driver.switchTo().window(window1);
+		
+		System.out.println(driver.getTitle());
+------------------------------------------------------------------------------
+Script to Switch driver focus to New Window
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("https://gmail.com/");				
+		driver.findElement(By.linkText("Help")).click();
+		
+		Set<String> allwindows = driver.getWindowHandles();
+		Object[] windows = allwindows.toArray();
+				
+		driver.switchTo().window(windows[1].toString());
+		
+		driver.findElement(By.linkText("Community")).click();
+-------------------------------------------------------------------------- 
+Script to handle alerts
+-----------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://primusbank.qedgetech.com");				
+		driver.findElement(By.id("txtuId")).sendKeys("abc");
+		driver.findElement(By.id("txtPword")).sendKeys("xyz");
+		driver.findElement(By.name("login")).click();
+		
+		String alertmsg =  driver.switchTo().alert().getText();
+		System.out.println(alertmsg);
+		
+		Thread.sleep(2000);
+		
+		driver.switchTo().alert().accept();
+		
+-----------------------------------------------------------------------------------
+Script to handle alert
+-------------------------------------------------------------------------------
+driver.get("http://flights.qedgetech.com/");				
+		driver.findElement(By.name("email")).sendKeys("sureshbabu.qedge@gmail.com");
+		driver.findElement(By.name("password")).sendKeys("demo");
+		driver.findElement(By.xpath("//*[@type='submit']")).click();
+		driver.findElement(By.partialLinkText("Bookings")).click();
+		
+		driver.findElement(By.partialLinkText("Delete")).click();
+		
+		
+		String alertmsg = driver.switchTo().alert().getText();
+		if(alertmsg.toLowerCase().contains("delete this"))
+		{
+			driver.switchTo().alert().accept();
+		}else
+		{
+			driver.switchTo().alert().dismiss();
+		}
+-------------------------------------------------------------------------------
+=================================================
+
+Script to count no. of Rows in a Table
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("https://money.rediff.com/tools/forex");
+		//List<WebElement> rows = driver.findElement(By.className("dataTable")).findElements(By.tagName("tr"));
+		
+		WebElement curtable =  driver.findElement(By.className("dataTable"));
+		List<WebElement> rows = curtable.findElements(By.tagName("tr"));
+		
+		System.out.println(rows.size());
+------------------------------------------------------------------------------
+Script to count no. of rows in IRCTC Trains Table
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("https://www.railyatri.in/time-table");
+		WebElement trainstable =  driver.findElement(By.xpath("//div[2]/div/div/div/div/div/table"));
+		List<WebElement> rows = trainstable.findElements(By.tagName("tr"));
+		System.out.println(rows.size());
+------------------------------------------------------------------------------
+Script to count no. of columns in a table Row
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("https://www.railyatri.in/time-table");
+		WebElement trainstable =  driver.findElement(By.xpath("//div[2]/div/div/div/div/div/table"));
+		List<WebElement> rows = trainstable.findElements(By.tagName("tr"));
+		
+		List<WebElement> cols = rows.get(1).findElements(By.tagName("td"));
+		System.out.println(cols.size());
+-----------------------------------------------------------------------------
+Script to Read Train_No & Train_Name present in IRCTC Trains Table
+-----------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("https://www.railyatri.in/time-table");
+		WebElement trainstable =  driver.findElement(By.xpath("//div[2]/div/div/div/div/div/table"));
+		List<WebElement> rows = trainstable.findElements(By.tagName("tr"));
+		
+		for(int i=1;i<rows.size();i++)
+		{
+			List<WebElement> cols = rows.get(i).findElements(By.tagName("td"));
+			String trainno = cols.get(0).getText();
+			String trainname = cols.get(1).getText();
+			System.out.println(trainno+"  "+trainname);
+		}
+-------------------------------------------------------------------------------
+Script to Read all rows of Data present in IRCTC Trains Table
+------------------------------------------------------------------------------
+	System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("https://www.railyatri.in/time-table");
+		WebElement trainstable =  driver.findElement(By.xpath("//div[2]/div/div/div/div/div/table"));
+		List<WebElement> rows = trainstable.findElements(By.tagName("tr"));
+		
+		for(int i=1;i<rows.size();i++)
+		{
+			List<WebElement> cols = rows.get(i).findElements(By.tagName("td"));
+			for(int j=0;j<cols.size();j++)
+			{
+				String data =  cols.get(j).getText();
+				System.out.print(data+"    ");
+			}
+			System.out.println();
+		}
+		
+		driver.close();
+--------------------------------------------------------------------------------
+Script to delete the specified Order No in Flight App Bookings Table
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://flights.qedgetech.com/");	
+		
+		driver.findElement(By.name("email")).sendKeys("sureshbabu.qedge@gmail.com");
+		driver.findElement(By.name("password")).sendKeys("demo");
+		driver.findElement(By.xpath("//*[@type='submit']")).click();
+		
+		driver.findElement(By.partialLinkText("Bookings")).click();
+		
+		String orderno = "1795";
+		
+		WebElement flightstable = driver.findElement(By.className("flights_table"));
+		List<WebElement> rows,cols;
+ 		
+		rows = flightstable.findElements(By.tagName("tr"));
+		for(int i=1;i<rows.size();i++)
+		{
+			cols = rows.get(i).findElements(By.tagName("td"));
+			if(cols.get(0).getText().equals(orderno))
+			{
+				cols.get(9).findElement(By.partialLinkText("Delete")).click();				
+				break;
+			}
+		}
+		
+		driver.switchTo().alert().accept();
+-----------------------------------------------------------------------------------------
+Selecting Date from calendar using sendKeys()
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://flights.qedgetech.com/");	
+		
+		driver.findElement(By.name("email")).sendKeys("sureshbabu.qedge@gmail.com");
+		driver.findElement(By.name("password")).sendKeys("demo");
+		driver.findElement(By.xpath("//*[@type='submit']")).click();
+		
+		driver.findElement(By.id("search-date")).sendKeys("12/12/2023");
+---------------------------------------------------------------------------------
+
+========================================================
+
+Script to select specified date from Calendar 
+-----------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://flights.qedgetech.com/");	
+		
+		driver.findElement(By.name("email")).sendKeys("sureshbabu.qedge@gmail.com");
+		driver.findElement(By.name("password")).sendKeys("demo");
+		driver.findElement(By.xpath("//*[@type='submit']")).click();
+		
+		String doj = "24/August/2025";
+		String[] temp = doj.split("/");
+		String dt = temp[0];
+		String month = temp[1];
+		String year = temp[2];
+		
+		driver.findElement(By.id("search-date")).click();
+		
+		String calyear = driver.findElement(By.className("ui-datepicker-year")).getText();
+		
+		while(!calyear.equals(year))
+		{
+			driver.findElement(By.linkText("Next")).click();
+			calyear = driver.findElement(By.className("ui-datepicker-year")).getText();
+		}
+		
+		String calmonth = driver.findElement(By.className("ui-datepicker-month")).getText();
+		while(!calmonth.equalsIgnoreCase(month))
+		{
+			driver.findElement(By.linkText("Next")).click();
+			calmonth = driver.findElement(By.className("ui-datepicker-month")).getText();
+		}
+		
+		WebElement cal = driver.findElement(By.className("ui-datepicker-calendar"));
+		List<WebElement> rows = cal.findElements(By.tagName("tr"));
+		for(int i=1;i<rows.size();i++)
+		{
+			List<WebElement> cols = rows.get(i).findElements(By.tagName("td"));
+			for(int j=0;j<cols.size();j++)
+			{
+				String caldt = cols.get(j).getText();
+				if(caldt.equals(dt))
+				{
+					cols.get(j).click();
+					break;
+				}
+			}
+		}
+------------------------------------------------------------------------------
+Script to Read suggetions[AJAX] displayed in Google
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://google.com");
+		driver.findElement(By.name("q")).sendKeys("Selenium");
+		
+		Thread.sleep(5000);
+		
+		WebElement key = driver.findElement(By.xpath("//*[@role='listbox']"));		
+		List<WebElement> keywordlist = key.findElements(By.tagName("li"));
+		System.out.println(keywordlist.size());
+		
+		for(WebElement element:keywordlist)
+		{
+			System.out.println(element.getText());
+		}
+		
+------------------------------------------------------------------------------
+Script to click Selenium download from suggetion list in google
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://google.com");
+		driver.findElement(By.name("q")).sendKeys("Selenium");
+		
+		Thread.sleep(5000);
+		
+		WebElement key = driver.findElement(By.xpath("//*[@role='listbox']"));		
+		List<WebElement> keywordlist = key.findElements(By.tagName("li"));
+		
+		for(int i=0;i<keywordlist.size();i++)
+		{
+			if(keywordlist.get(i).getText().toLowerCase().contains("download"))
+			{
+				keywordlist.get(i).click();
+				break;
+			}
+		}
+
+============================================================
+
+WebDriverWait[Explicit Wait Condition]
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://primusbank.qedgetech.com");
+		driver.findElement(By.name("txtuId")).sendKeys("abc");
+		driver.findElement(By.name("txtPword")).sendKeys("xyz");
+		driver.findElement(By.name("login")).click();
+		
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.alertIsPresent()); 
+		
+		driver.switchTo().alert().accept();
+-----------------------------------------------------------------------------------
+Scroll Page vertically for specified no of pixels
+-------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://booking.com");
+		
+		Thread.sleep(2000);
+		
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(0, 1000)");
+----------------------------------------------------------------------------------
+Script to Scroll Page upto visibility of the specified element
+------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://booking.com");
+		
+		Thread.sleep(2000);
+		
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].scrollIntoView()", driver.findElement(By.name("to")));
+		
+		driver.findElement(By.name("to")).sendKeys("demo.qedge@gmail.com");
+---------------------------------------------------------------------------------------------------------
+
+==============================================
+
+Script to capture Screenshot of a file
+-------------------------------------------------------------------------------
+System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();		
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();	
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		
+		driver.get("http://primusbank.qedgetech.com");
+		driver.findElement(By.id("txtuId")).sendKeys("Admin");
+		driver.findElement(By.id("txtPword")).sendKeys("Admin");
+		driver.findElement(By.id("login")).click();
+		
+		driver.findElement(By.xpath("//img[@src='images/admin_but_02.jpg']")).click();
+		
+		TakesScreenshot ts = (TakesScreenshot)driver;
+		File srcfile = ts.getScreenshotAs(OutputType.FILE);
+		File destfile = new File("c:\\temp\\defect1.bmp");
+		
+		FileUtils.copyFile(srcfile, destfile);
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1)TestNG_framework
+----------------
+download TestNG from ecclipsemarketplace
+==========================================================================================================================================================================================
+
+
