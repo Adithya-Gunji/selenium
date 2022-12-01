@@ -1,0 +1,839 @@
+About postman tool 
+=================================================================================
+
+what is a client or client mechine ?
+------------------------------------
+A client is a computer hardware device or software that access a service made available by a server.
+The server is often located on a separate physical computer.
+
+computer or
+Mobile  or ---------> Internet -------------> Server
+Desktop
+ 
+computer(request) < ----------- Internet <----------- Server(response)
+
+
+what is a server ?
+-----------------------------------
+
+A server is a physical computer dedicated to run services to serve the needs of other computers. 
+Depending on the service that is running , it could be a file server ,database server ,home media server , print server or web server. 
+-----------------------------------------------------------------------------------------------------------------------
+
+
+
+client or server Architecture
+------------------------------
+
+1.Presentation Layer(html5,java script and CSS).
+2.Application Layer(java,.Net,C#,python,C++).
+3.Data Layer(MY SQL,Oracle,postgreSQL,Sql server,MongoDB).
+
+
+ |PRESENTATION     |           |BUSINESS  |            |DATABASE|
+ |LAYER            |==========>|LAYER     |===========>|LAYER   |
+ |     ||          |           |          |            |        |
+       ||                          ||                      ||
+       ||                          ||                      ||
+       ||                          ||                      ||
+       \/                          \/                      \/
+ GUI 
+    TESTING                   API Testing            Database Testing
+(selenium etc)            (postman maually)
+                          (REST Assured for Automation)
+----------------------------------------------------------------------------------------------------------------------
+
+what is an API
+------------------
+API is an  Application programming Interface.
+It enables communication and data exchange between two separate software systems. 
+
+The methods we are using in postmantool
+---------------------------------------
+1.GET(Select)
+2.POST(Insert)
+3.PUT
+4.DELETE
+
+GET: This HTTP method is used to retrieve data from an API.
+
+POST: To send the new data to an API, we can use this method.
+
+DELETE: This is used to remove or delete the existing data.
+
+
+PATCH: This method is used to update the existing data.
+
+PUT: This method is used to update the existing data that belogs to the enire data of the Object.
+---------------------------------------------------------------------------------------------------------------------
+
+what is an API Testing ?
+-------------------------
+> API Testing is entirely different from GUI Testing and it mainly concentrates on business logic layer of the software Architecture . this testing won't concentrates the look 
+  and feel of an Application.
+> API Testing requires an application to interact with an API.In order to Test an API you will need to 
+  1. use Testing tool to Drive an API.
+  2. write your own code to Test an API.
+     
+
+what is web service ?
+----------------------
+> web-service is define as service available over the web.
+> Enables communication between applications over the web.
+> provides a standard protocol/format for communication.
+
+why we are use it?
+-------------------
+> platform independent communication -using web services two different applications(implementation) can interact with each other and exchange data/information to each other.
+
+  CLIENT(Client request)==========>WEB-SERVICE API(API Request)========>SERVER
+   ----                         ----------------------------          -------
+--------------------------------------------------------------------------------------------------------------------
+
+Difference betweeen API and web-service
+---------------------------------------
+
+1.web service is an API wrapped in HTTP.
+2.ALL web-service's are API's but All API'S are not web-service's.
+3.web-service might not perform all operations that an API would perform.
+4.A web-service needs a network while an API doesn't need a network for it's operation.
+-------------------------------------------------------------------------------------------------------------------
+
+TYPES OF WEB-SERVICES
+-------------------------
+> there are mainly two types of web-services 
+  1.SOAP web-services(Simple Object Access Protocol). it is old one and it will give code with only the format of XML.It supportsonly postrequests only.
+  2.RESTfull web-services(Representational State Transfer). this is the latest one we are using , it gives all formats of the code like html,
+  j_son and XML etc.....! , and it supports multiple operations like Post, put, get, set, etc. Most of companiesareusingRESTful API nowadays as it’sthelatest and
+    has morefeatures
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+GET : URL :  .... https://reqres.in/api/users?page=2
+
+here we get the list of users.............................
+
+{
+    "page": 2,
+    "per_page": 6,
+    "total": 12,
+    "total_pages": 2,
+    "data": [
+        {
+            "id": 7,
+            "email": "michael.lawson@reqres.in",
+            "first_name": "Michael",
+            "last_name": "Lawson",
+            "avatar": "https://reqres.in/img/faces/7-image.jpg"
+        },
+        {
+            "id": 8,
+            "email": "lindsay.ferguson@reqres.in",
+            "first_name": "Lindsay",
+            "last_name": "Ferguson",
+            "avatar": "https://reqres.in/img/faces/8-image.jpg"
+        },
+        {
+            "id": 9,
+            "email": "tobias.funke@reqres.in",
+            "first_name": "Tobias",
+            "last_name": "Funke",
+            "avatar": "https://reqres.in/img/faces/9-image.jpg"
+        },
+        {
+            "id": 10,
+            "email": "byron.fields@reqres.in",
+            "first_name": "Byron",
+            "last_name": "Fields",
+            "avatar": "https://reqres.in/img/faces/10-image.jpg"
+        },
+        {
+            "id": 11,
+            "email": "george.edwards@reqres.in",
+            "first_name": "George",
+            "last_name": "Edwards",
+            "avatar": "https://reqres.in/img/faces/11-image.jpg"
+        },
+        {
+            "id": 12,
+            "email": "rachel.howell@reqres.in",
+            "first_name": "Rachel",
+            "last_name": "Howell",
+            "avatar": "https://reqres.in/img/faces/12-image.jpg"
+        }
+    ],
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+-----------------------------------------------------------
+
+https://reqres.in/api/users/2
+
+here we are getting the details of the single user with id=2
+
+{
+    "data": {
+        "id": 2,
+        "email": "janet.weaver@reqres.in",
+        "first_name": "Janet",
+        "last_name": "Weaver",
+        "avatar": "https://reqres.in/img/faces/2-image.jpg"
+    },
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+
+------------------------------------------------------------
+
+https://reqres.in/api/users/23
+
+here we are getting the error 404 because of the single user with id=23 not in the list
+
+------------------------------------------------------------
+
+https://reqres.in/api/users?page/unknown
+
+by using above url we will get all the elements present in the page:1
+
+{
+    "page": 1,
+    "per_page": 6,
+    "total": 12,
+    "total_pages": 2,
+    "data": [
+        {
+            "id": 1,
+            "email": "george.bluth@reqres.in",
+            "first_name": "George",
+            "last_name": "Bluth",
+            "avatar": "https://reqres.in/img/faces/1-image.jpg"
+        },
+        {
+            "id": 2,
+            "email": "janet.weaver@reqres.in",
+            "first_name": "Janet",
+            "last_name": "Weaver",
+            "avatar": "https://reqres.in/img/faces/2-image.jpg"
+        },
+        {
+            "id": 3,
+            "email": "emma.wong@reqres.in",
+            "first_name": "Emma",
+            "last_name": "Wong",
+            "avatar": "https://reqres.in/img/faces/3-image.jpg"
+        },
+        {
+            "id": 4,
+            "email": "eve.holt@reqres.in",
+            "first_name": "Eve",
+            "last_name": "Holt",
+            "avatar": "https://reqres.in/img/faces/4-image.jpg"
+        },
+        {
+            "id": 5,
+            "email": "charles.morris@reqres.in",
+            "first_name": "Charles",
+            "last_name": "Morris",
+            "avatar": "https://reqres.in/img/faces/5-image.jpg"
+        },
+        {
+            "id": 6,
+            "email": "tracey.ramos@reqres.in",
+            "first_name": "Tracey",
+            "last_name": "Ramos",
+            "avatar": "https://reqres.in/img/faces/6-image.jpg"
+        }
+    ],
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+--------------------------------------------------------
+
+https://reqres.in/api/users/2
+
+here we will get the details of the single user with id =2
+
+{
+    "data": {
+        "id": 2,
+        "email": "janet.weaver@reqres.in",
+        "first_name": "Janet",
+        "last_name": "Weaver",
+        "avatar": "https://reqres.in/img/faces/2-image.jpg"
+    },
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+-------------------------------------------------------
+
+Realtime Database
+===================================
+
+GET METHOD:...!
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFhHk-1tCL0-HD2g_80/data.json
+
+[
+    {
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+        "email": "michael.lawson@reqres.in",
+        "first_name": "Michael",
+        "id": 7,
+        "last_name": "Lawson"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/8-image.jpg",
+        "email": "lindsay.ferguson@reqres.in",
+        "first_name": "Lindsay11",
+        "id": 8,
+        "last_name": "Ferguson11"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/9-image.jpg",
+        "email": "tobias.funke@reqres.in",
+        "first_name": "Tobias",
+        "id": 9,
+        "last_name": "Funke"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/10-image.jpg",
+        "email": "byron.fields@reqres.in",
+        "first_name": "Byron",
+        "id": 10,
+        "last_name": "Fields"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/11-image.jpg",
+        "email": "george.edwards@reqres.in",
+        "first_name": "George",
+        "id": 11,
+        "last_name": "Edwards"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/12-image.jpg",
+        "email": "rachel.howell@reqres.in",
+        "first_name": "Rachel",
+        "id": 12,
+        "last_name": "Howell"
+    }
+]
+-----------------------------------------------------------
+
+POST METHOD
+
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFhHk-1tCL0-HD2g_80/data/1.json
+
+RAW Body inside
+     {
+                        
+                       "avatar": "https://reqres.in/img/faces/8-image.jpg",
+                              "email": "lindsay.ferguson@reqres.in",
+                             "first_name": "Lindsay11................",
+                                "id": 18,
+                                 "last_name": "Ferguson11................"
+                    }
+
+console Body in json
+
+{
+    "name": "-NFia0PwWUfg-NP2xvFF"
+}
+---------------------------------------------
+
+PUT IS used to update the existing data
+
+ {
+                        
+                       "avatar": "https://reqres.in/img/faces/8-image.jpg",
+                              "email": "lindsay.ferguson@reqres.in",
+                             "first_name": "Lindsay11................",
+                                "id": 18,
+                                 "last_name": "Ferguson11................"
+                    }
+----------------------------------------------- 
+
+
+
+
+----------------------------------------------------------------
+
+[
+
+    {
+
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+
+        "email": "adi@gmail.com",
+
+        "first_name": "Adi",
+
+        "id": 1,
+
+        "last_name": ""
+
+    },
+
+    {
+
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+
+        "email": "sai@gmail.com",
+
+        "first_name": "sai",
+
+        "id": 2,
+
+        "last_name": "suneel"
+
+    },
+
+    {
+
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+
+        "email": "raja@gmail.com",
+
+        "first_name": "raja",
+
+        "id": 3,
+
+        "last_name": ""
+
+    },
+
+    {
+
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+
+        "email": "prasanth@gmail.com",
+
+        "first_name": "prasanth raj",
+
+        "id": 4,
+
+        "last_name": ""
+
+    }
+
+]
+---------------------------------------------------------------
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/data/0.json(url we creating from firebasedatabase or RealtimeDatabase)
+
+---------------------------------------------------------------
+
+
+{
+    "-NFtAqfvowImX2StFG1k": [
+        {
+            "avatar": "https://reqres.in/img/faces/7-image.jpg",
+            "email": "adi@gmail.com",
+            "first_name": "Adi",
+            "id": 1,
+            "last_name": ""
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/7-image.jpg",
+            "email": "sai@gmail.com",
+            "first_name": "sai",
+            "id": 2,
+            "last_name": "suneel"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/7-image.jpg",
+            "email": "raja@gmail.com",
+            "first_name": "raja",
+            "id": 3,
+            "last_name": ""
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/7-image.jpg",
+            "email": "prasanth@gmail.com",
+            "first_name": "prasanth raj",
+            "id": 4,
+            "last_name": ""
+        }
+    ],
+    "email": "adi.hamsa@reqres.in",
+    "first_name": "adi",
+    "id": 14,
+    "last_name": "hamsa"
+}
+-------------------------------------------------------------------------------------
+
+POST:
+------
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/0/-NFwenyj6-voR6HXrMXg/data.json
+
+{
+    "data": [
+        {
+            "id": 1,
+            "email": "george.bluth@reqres.in",
+            "first_name": "George",
+            "last_name": "Bluth",
+            "avatar": "https://reqres.in/img/faces/1-image.jpg"
+        },
+        {
+            "id": 2,
+            "email": "janet.weaver@reqres.in",
+            "first_name": "Janet",
+            "last_name": "Weaver",
+            "avatar": "https://reqres.in/img/faces/2-image.jpg"
+        },
+        {
+            "id": 3,
+            "email": "emma.wong@reqres.in",
+            "first_name": "Emma",
+            "last_name": "Wong",
+            "avatar": "https://reqres.in/img/faces/3-image.jpg"
+        },
+        {
+            "id": 4,
+            "email": "eve.holt@reqres.in",
+            "first_name": "Eve",
+            "last_name": "Holt",
+            "avatar": "https://reqres.in/img/faces/4-image.jpg"
+        },
+        {
+            "id": 5,
+            "email": "charles.morris@reqres.in",
+            "first_name": "Charles",
+            "last_name": "Morris",
+            "avatar": "https://reqres.in/img/faces/5-image.jpg"
+        },
+        {
+            "id": 6,
+            "email": "tracey.ramos@reqres.in",
+            "first_name": "Tracey",
+            "last_name": "Ramos",
+            "avatar": "https://reqres.in/img/faces/6-image.jpg"
+        }
+    ]
+}
+------------------------------------
+
+GET
+-----
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/0/-NFwenyj6-voR6HXrMXg/data.json
+
+[
+    {
+        "avatar": "https://reqres.in/img/faces/1-image.jpg",
+        "email": "george.bluth@reqres.in",
+        "first_name": "George",
+        "id": 1,
+        "last_name": "Bluth"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/2-image.jpg",
+        "email": "janet.weaver@reqres.in",
+        "first_name": "Janet",
+        "id": 2,
+        "last_name": "Weaver"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/3-image.jpg",
+        "email": "emma.wong@reqres.in",
+        "first_name": "Emma",
+        "id": 3,
+        "last_name": "Wong"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/4-image.jpg",
+        "email": "eve.holt@reqres.in",
+        "first_name": "Eve",
+        "id": 4,
+        "last_name": "Holt"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/5-image.jpg",
+        "email": "charles.morris@reqres.in",
+        "first_name": "Charles",
+        "id": 5,
+        "last_name": "Morris"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/6-image.jpg",
+        "email": "tracey.ramos@reqres.in",
+        "first_name": "Tracey",
+        "id": 6,
+        "last_name": "Ramos"
+    }
+]
+-------------------------------------------------------------------------------------
+
+GET Unique Record based on index number:
+------------
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/0/-NFwenyj6-voR6HXrMXg/data/0.json
+
+{
+    "avatar": "https://reqres.in/img/faces/1-image.jpg",
+    "email": "george.bluth@reqres.in",
+    "first_name": "George",
+    "id": 1,
+    "last_name": "Bluth"
+}
+------------------------------------------------------------------------------------
+
+PUT we want to update the bulk_data that belongs to the Object then use put Method
+---------
+
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/0/-NFwenyj6-voR6HXrMXg/data.json
+
+{
+    "data": [
+        {
+            "avatar": "https://reqres.in/img/faces/1-image.jpg",
+            "email": "george.bluth@reqres.in",
+            "first_name": "George................!",
+            "id": 1,
+            "last_name": "Bluth"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/2-image.jpg",
+            "email": "janet.weaver@reqres.in",
+            "first_name": "Janet...............!",
+            "id": 2,
+            "last_name": "Weaver"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/3-image.jpg",
+            "email": "emma.wong@reqres.in",
+            "first_name": "Emma",
+            "id": 3,
+            "last_name": "Wong"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/4-image.jpg",
+            "email": "eve.holt@reqres.in",
+            "first_name": "Eve",
+            "id": 4,
+            "last_name": "Holt"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/5-image.jpg",
+            "email": "charles.morris@reqres.in",
+            "first_name": "Charles",
+            "id": 5,
+            "last_name": "Morris"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/6-image.jpg",
+            "email": "tracey.ramos@reqres.in",
+            "first_name": "Tracey",
+            "id": 6,
+            "last_name": "Ramos"
+        }
+    ]
+}
+-------------------------------------------------------------
+
+PATCH : WE want to update single user record with based on index_number(unique)
+----------
+
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/0/-NFwenyj6-voR6HXrMXg/data/0.json
+
+Original_Record :
+-------------------
+{
+    "avatar": "https://reqres.in/img/faces/1-image.jpg",
+    "email": "george.bluth@reqres.in",
+    "first_name": "George",
+    "id": 1,
+    "last_name": "Bluth"
+}
+
+updated_Record :
+------------------
+{
+            "avatar": "https://reqres.in/img/faces/1-image.jpg",
+            "email": "george.bluth@reqres.in",
+            "first_name": "Goldberg",
+            "id": 1,
+            "last_name": "Bluth"
+        }
+
+Console same as updated_Record :
+-------------
+
+{
+    "first_name": "Goldberg",
+    "avatar": "https://reqres.in/img/faces/1-image.jpg",
+    "email": "george.bluth@reqres.in",
+    "id": 1,
+    "last_name": "Bluth"
+}
+
+DELETE : it is used to Delete the single_record(based on index_number) or multiple records of the customers 
+--------
+
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/4.json
+
+
+After deleting index_number_4(id=5) Record then we use GET Method to verify  the data wether the unique record successfully deleted or not
+
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data.json
+
+[
+    {
+            "avatar": "https://reqres.in/img/faces/1-image.jpg",
+            "email": "george.bluth@reqres.in",
+            "first_name": "George................!",
+            "id": 1,
+            "last_name": "Bluth"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/2-image.jpg",
+            "email": "janet.weaver@reqres.in",
+            "first_name": "Janet...............!",
+            "id": 2,
+            "last_name": "Weaver"
+        },
+    {
+        "avatar": "https://reqres.in/img/faces/3-image.jpg",
+        "email": "emma.wong@reqres.in",
+        "first_name": "Emma",
+        "id": 3,
+        "last_name": "Wong"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/4-image.jpg",
+        "email": "eve.holt@reqres.in",
+        "first_name": "Eve",
+        "id": 4,
+        "last_name": "Holt"
+    }
+]
+---------------------------------------------------------------------------------------
+
+DELETE:this bellow url is going to delete overall_data
+--------
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data.json
+
+GET: https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi.json
+----- 
+After deleting the whole_data we have to check  for the null_data(console) using GET Method.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+TestCases
+------------
+
+pm.test("Response", function () {  
+
+     // assert that the status code is 200  
+
+     pm.response.to.be.ok;   
+
+     pm.response.to.be.withBody;  
+
+     pm.response.to.be.json;  
+
+  });  
+----------------------------
+pm.test("response is ok.....", function(){
+
+    pm.response.to.have.status(200);
+
+});
+-----------------------------
+pm.test("API response contains the expected fields", () => {
+
+  const response = pm.response.json();
+
+
+
+  // the line below checks value of the id field is 3 (number).
+
+  pm.expect(response).to.have.property("id", 2);
+
+
+
+  // the line below checks value of the name field is raja (string).
+
+  pm.expect(response).to.have.property("first_name", "Janet.........!");
+
+});
+--------------------------------------
+
+pm.test("Response time is less than 200ms", function () {
+    pm.expect(pm.response.responseTime).to.be.above(10);
+});
+--------------------------------------
+pm.test("Body matches string", function () {
+    pm.expect(pm.response.text()).to.include("Weaver"); //String present in the data
+});
+--------------------------------------
+
+pm.test("Successful POST request", function () {
+    pm.expect(pm.response.code).to.be.oneOf([200, 202]);
+});
+
+--------------------------------------
+
+
+pm.test("Status code name has string", function () {
+    pm.response.to.have.status("OK");
+});
+
+--------------------------------------
+
+pm.test("Content-Type header is present", function () {
+    pm.response.to.have.header("Content-Type");
+})
+---------------------------------------
+pm.globals.get("variable_key");
+
+pm.globals.get("13");
+----------------------------------------
+var response = JSON.parse(responseBody);tests["verify_first_name"]=
+response.first_name=="John";
+
+----------------------------------------
+
+pm.test("Content-Type Header Present Or Not", () => {pm.response.to.have.header("Content-type");
+pm.response.to.have.header("Server");})
+
+-----------------------------------------
+Test Results
+-------------
+PASS
+Response
+
+PASS
+response is ok.....
+
+PASS
+API response contains the expected fields
+
+PASS
+PASS
+
+PASS
+Successful POST request
+
+PASS
+Status code name has string
+
+PASS
+Content-Type header is present
+
+PASS
+Status code is 200
+
+PASS
+verify_first_name
+
+PASS
+Content-Type Header Present Or Not
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
