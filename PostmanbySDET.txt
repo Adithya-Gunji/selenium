@@ -1,0 +1,3376 @@
+Git-hub:Adithya-Gunji
+        Adithya9666108118
+---------------------------
+
+NOTE:best-sites for Data collection for practice :: reqres & http://dummy.restapiexample.com
+
+About postman tool (we can do manual testing of APIs using postman tool)
+=================================================================================
+ TOOLS USED FOR TESTING API’S 
+
+1.RapidAPI
+2.Rest-assured
+3.Postman
+4.PAW
+5.SoapUI
+6.Katalon Studio
+7.JMeter
+8.KarateDSL
+9.Tricentis Tosca
+10.Assertible
+---------------------------------------------------------------------
+URI::Uniform resource identifier
+URL::Uniform resource locator
+URN::Uniform resource name
+---------------------------------------------------------------------
+
+
+what is a client or client mechine ?
+------------------------------------
+A client is a computer hardware device or software that access a service made available by a server.
+The server is often located on a separate physical computer.
+
+computer or
+Mobile  or ---------> Internet -------------> Server
+Desktop
+ 
+computer(request) < ----------- Internet <----------- Server(response)
+
+
+what is a server ?
+-----------------------------------
+
+A server is a physical computer dedicated to run services to serve the needs of other computers. 
+Depending on the service that is running , it could be a file server ,database server ,home media server , print server or web server. 
+-----------------------------------------------------------------------------------------------------------------------
+
+
+
+client or server Architecture
+------------------------------
+
+1.Presentation Layer(html5,java script and CSS).
+2.Application Layer(java,.Net,C#,python,C++).
+3.Data Layer(MY SQL,Oracle,postgreSQL,Sql server,MongoDB).
+
+
+ |PRESENTATION     |           |BUSINESS  |            |DATABASE|
+ |LAYER            |==========>|LAYER     |===========>|LAYER   |
+ |     ||          |           |          |            |        |
+       ||                          ||                      ||
+       ||                          ||                      ||
+       ||                          ||                      ||
+       \/                          \/                      \/
+ GUI 
+    TESTING                   API Testing            Database Testing
+(selenium etc)            (postman maually)
+                          (REST Assured for Automation)
+----------------------------------------------------------------------------------------------------------------------
+
+what is an API
+------------------
+API is an  Application programming Interface.
+It enables communication and data exchange between two separate software systems. 
+
+The methods we are using in postmantool
+---------------------------------------
+1.GET(Select)
+2.POST(Insert)
+3.PUT
+4.DELETE
+5.PATCH
+
+GET: This HTTP method is used to retrieve data from an API.
+
+POST: To send the new data to an API, we can use this method.
+
+DELETE: This is used to remove or delete the existing data.
+
+
+PATCH: This method is used to update the existing data.
+
+PUT: This method is used to update the existing data that belogs to the enire data of the Object.
+---------------------------------------------------------------------------------------------------------------------
+
+what is an API Testing ?
+-------------------------
+> API Testing is entirely different from GUI Testing and it mainly concentrates on business logic layer of the software Architecture . 
+  this testing won't concentrates the look and feel of an Application.
+  
+> API Testing requires an application to interact with an API.In order to Test an API you will need to 
+  1. use Testing tool to Drive an API.
+  2. write your own code to Test an API.
+     
+
+what is web service ?
+----------------------
+> web-service is define as service available over the web.
+> Enables communication between applications over the web.
+> provides a standard protocol/format for communication.
+
+why we are use it?
+-------------------
+> platform independent communication -using web services two different applications(implementation) can interact with each other and exchange 
+  data/information to each other.
+
+  CLIENT(Client request)==========>WEB-SERVICE API(API Request)========>SERVER
+   ----                         ----------------------------          -------
+--------------------------------------------------------------------------------------------------------------------
+
+Difference betweeen API and web-service
+---------------------------------------
+
+1.web service is an API wrapped in HTTP.
+2.ALL web-service's are API's but All API'S are not web-service's.
+3.web-service might not perform all operations that an API would perform.
+4.A web-service needs a network while an API doesn't need a network for it's operation.
+5.once the API put with the internet then it is called as Webservice.
+-------------------------------------------------------------------------------------------------------------------
+
+TYPES OF WEB-SERVICES
+-------------------------
+> there are mainly two types of web-services 
+  1.SOAP web-services(Simple Object Access Protocol). it is old one and it will give code with only the format of XML.It supportsonly postrequests only.
+  2.RESTfull web-services(Representational State Transfer). this is the latest one we are using , it gives all formats of the code like html,
+  j_son and XML etc.....! , and it supports multiple operations like Post, put, get, set, etc. Most of companiesareusingRESTful API nowadays as it’sthelatest and
+    has morefeatures
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+HTTP Status Codes
+------------------
+
+Level 200::
+-----------
+200:Ok
+201:Created
+202:Accepted
+203:Non-Authoritative Information
+204:No Content
+
+Level 400::
+-----------
+400:Bad Request
+401:Unauthorized
+403:Forbidden
+404:Not Found
+409:Conflict
+
+Level 500::
+----------- 
+500:Internal Server Error
+501:Not Implemeted
+502:Bad Gateway
+503:Service Unavailable
+504:Gateway Timeout
+599:Network Timeout
+
+---------------------------------------------------------------------------------------
+
+Creating own API
+----------------
+step:1)Install Node js
+       npm -node package manager
+
+ node--version
+ npm--version
+
+step:2)json-server
+
+run the bellow command in the cmd at very-first time after completion of the installation.
+         npm install -g json-server
+//Note :: After completing the json-server installation then Go to the file-location open the cmd and type the command json-server students.json and 
+          then Run .it will created the own API with the url:http://localhost:3000/students . use this in the postman tool for operations.
+--------------------
+
+create .json(java script Object Notation) file with like bellow data
+
+{
+  "students":[
+    {
+     "id":1,
+     "name":"john",
+     "location":"india",
+     "phone":"9666108118",
+     "courses":[
+                "java",
+                "selenium"
+           ]
+     },
+    {
+     "id":2,
+     "name":"kim",
+     "location":"US",
+     "phone":"9666108111",
+     "courses":[
+                "python",
+                "Appium"
+           ]
+     },
+     
+    {
+     "id":3,
+     "name":"smith",
+     "location":"canada",
+     "phone":"9666122111",
+     "courses":[
+                "java",
+                "RestAssured"
+           ]
+     }
+    ]
+  } 
+
+Note:The json data should be format of key and value pair always.
+
+------------------------
+
+go to the file location and type cmd 
+
+it will open cmd with exact file location.
+
+then type json-server students.json and then run.
+
+-----------------------
+
+Microsoft Windows [Version 10.0.22621.963]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\adith\Documents\jsontestdoc>json-server employees.json
+
+  \{^_^}/ hi!
+
+  Loading employees.json
+  Done
+
+  Resources
+  http://localhost:3000/students
+
+  Home
+  http://localhost:3000
+
+  Type s + enter at any time to create a snapshot of the database
+GET /students 200 24.823 ms - 447
+GET /students 200 27.575 ms - 447
+
+--------------------------------------------------------------------------------
+
+then open any favourite browser and submit and enter the system genrated url.
+
+http://localhost:3000/students
+
+[
+  {
+    "id": 1,
+    "name": "john",
+    "location": "india",
+    "phone": "9666108118",
+    "courses": [
+      "java",
+      "selenium"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "kim",
+    "location": "US",
+    "phone": "9666108111",
+    "courses": [
+      "python",
+      "Appium"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "smith",
+    "location": "canada",
+    "phone": "9666122111",
+    "courses": [
+      "java",
+      "RestAssured"
+    ]
+  }
+]
+-----------------------------------------------------------------------------------------
+
+1)Go to the postman use GET Method with the url:http://localhost:3000/students then enter.
+
+Response we get the overall data as shown bellow
+
+[
+    {
+        "id": 1,
+        "name": "john",
+        "location": "india",
+        "phone": "9666108118",
+        "courses": [
+            "java",
+            "selenium"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "kim",
+        "location": "US",
+        "phone": "9666108111",
+        "courses": [
+            "python",
+            "Appium"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "smith",
+        "location": "canada",
+        "phone": "9666122111",
+        "courses": [
+            "java",
+            "RestAssured"
+        ]
+    }
+]
+(200 Ok)
+---------------------------------------
+
+2)GET:http://localhost:3000/students/1
+
+the above url will retrive the unique record based on the id_number.
+
+{
+    "id": 1,
+    "name": "john",
+    "location": "india",
+    "phone": "9666108118",
+    "courses": [
+        "java",
+        "selenium"
+    ]
+}
+
+(200 Ok)
+----------------------------------------
+
+3)To create new record(student) in the existing data base we have to use Post_Method.
+
+POST:http://localhost:3000/students
+
+Body with_out Id::
+------------------
+{
+    
+    "name": "Rock",
+    "location": "US",
+    "phone": "9666108111",
+    "courses": [
+        "API_Manual",
+        "Postman"
+    ]
+}
+
+---------------------
+
+Response with status (201Created) 
+
+{
+    "name": "Rock",
+    "location": "US",
+    "phone": "9666108111",
+    "courses": [
+        "API_Manual",
+        "Postman"
+    ],
+    "id": 4
+}
+
+----------------------
+4)For we want to update the existing unique_record by using PUT_Method with the bellow 
+  
+PUT:: url::http://localhost:3000/students/1
+
+ {
+        "id": 1,
+        "name": "johnCeena",
+        "location": "UnitedStatesOfAmerica",
+        "phone": "9666108118",
+        "courses": [
+            "java",
+            "selenium"
+        ]
+    }
+status :(200 OK)
+------------------------
+5)For we want to delete the unique record from the existing data we have to pass the url
+
+DELETE ::http://localhost:3000/students/1
+
+ {
+        "id": 1,
+        "name": "johnCeena",
+        "location": "UnitedStatesOfAmerica",
+        "phone": "9666108118",
+        "courses": [
+            "java",
+            "selenium"
+        ]
+    }
+
+status code :: (200 OK)
+---------------------------------
+
+Note: PATCH and PUT is almost same.
+
+PUT is a method of modifying resource where the client sends data that updates the entire resource . 
+
+PATCH is a method of modifying resources where the client sends partial data that is to be updated without modifying the entire data.
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+About JSON::
+============
+=>JSON-Java Script Object Notation.
+=>JSON is a syntax for storing and exchanging data.
+=>Basically it was designed for human-readable data interchange.
+=>JSON is text,written with java script object Notation.
+=>it has been extended from the java script scripting language.
+=>the file name extension is .JSON
+=>JSON internet media type is application/json.
+
+JSON Data Types::
+=================
+=>Number
+=>String
+=>Boolean
+=>Null
+=>Object
+=>Array
+
+
+Data-Types::
+============
+
+*String:
+--------
+=>String in JSON must be written in double quotes.
+
+Ex:-
+    {"name":"Akhil"}
+
+*Number:
+--------
+=>Number in JSON must be an integer or a floating point.
+
+Ex:-
+    {"age":30}
+
+*Object:
+--------
+=>values in JSON can be objects.
+
+Ex:-
+    {
+     "employee":{ "name":"John","age":30, "city":"New York" }
+     }
+
+*Array:
+-------
+=>values in JSON can be arrays.
+
+Ex:-
+    {
+     "employees":["john","Rock","peter"]
+     }
+
+*Boolean:
+---------
+=>values in JSON can be true/false.
+
+Ex:-
+    {"sale":true}
+
+*Null:
+------
+=>values in JSON can be null.
+   {"middlename":null}
+
+--------------------------------------------------------------------------------------------
+
+JSON-Syntax
+---------------
+=>Data should be name/value pairs.
+=>Data should be separated by commas.
+=>Curly braces should hold objects.
+=>square brackets hold Arrays.
+
+{
+ "student": [
+
+        {
+          "id":01,
+          "name": "Akhil",
+          "lastname": "Price"
+        },
+        
+        {
+          
+          "id":01,
+          "name": "Akhil",
+          "lastname": "Price"
+        }
+     ]
+}
+
+------------------------------------------------------------------------------------------------
+
+JSON vs XML
+--------------
+
+=>json is simple to Read and write.
+=>It also supports array.
+=>JSON files are more human-readable than XML.
+=>It supports only text and number data types.
+
+=>XML is less simple as compared to JSON.
+=>It doesn't support Array.
+=>XML files are less human-readable.
+=>It supports many data-types such as text,number,images,charts and graphs etc.
+
+
+JSON example
+------------
+{
+ "employess":[
+   {"name":"Akhil" , "email":"adithya@techbulls.co.in"},
+   {"name":"Rahul" , "email":"Rahul@techbulls.co.in"},
+   {"name":"David" , "email":"David@techbulls.co.in"}
+  ]
+}
+
+XML example
+-----------
+ <employees>
+   <employee>
+     <name>Akhil</name>
+     <email>adithya@techbulls.co.in</email>
+   </employee>
+
+   <employee>
+     <name>Rahul</name>
+     <email>Rahul@techbulls.co.in</email>
+   </employee>
+   
+   <employee>
+     <name>David</name>
+     <email>David@techbulls.co.in</email>
+   </employee>
+ </employees>
+
+-----------------------------------------------------------------------------------------------
+
+JSON Object
+------------
+=>JSON Object holds key/value pair.Each key is represented as a string in JSON.
+=>The keys and values are separated by colon.Each key /value pair is separated by comma.
+=>The curly brace represents JSON Object.
+
+ Ex:-
+     {
+      "employee":
+                 {
+                   "name":"Akhil",
+                   "salary" : 25000,
+                   "Married" : true
+                 }
+      }
+
+
+JSON Object with strings
+------------------------
+ {
+   "name" : "Scott",
+   "email" : "Scott@gmail.com"
+ }
+
+JSON Object with Booleans
+-------------------------
+ {
+   "first" : true,
+   "second" : false
+ }
+
+JSON Object with Numbers
+------------------------
+ {
+   "Integer" : 25,
+   "fraction" : .25
+ }
+
+JSON Nested Object
+------------------------
+ {
+   "firstName" : "Scott",
+   "lastName" : "gunji",
+   "age" : 25,
+   
+   "Address" : {
+          "streetAddress" : "ankammatallistreetNGP",
+          "City"  : "Hyderabad",
+          "state" : "TL",
+          "postalcode" : 523183
+     }
+ }
+
+
+----------------------------------------------------------------------------------
+
+JSON Array::
+============
+=>JSON array represents ordered list of values.
+=>JSON array can store multiple values. it can store string,number,boolean or 
+  Object in JSON array.
+=>In JSON array,values must be separated by comma.
+=>The [(Square bracket) represents JSON array.
+
+
+JSON Array of Strings
+---------------------
+
+    ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
+
+JSON Array of Numbers
+---------------------
+
+    [12,25,49,46,53]
+
+JSON Array of Booleans
+----------------------
+
+    [true,true,false,false,true]
+
+JSON Array of Objects
+--------------------- 
+   
+    {
+     "employees":
+                 [
+                   {"name":"Akhil","email":"adithya@techbulls.co.in","age":27},
+                   {"name":"Rahul","email":"Rahul@techbulls.co.in","age":27},
+                   {"name":"David","email":"David@techbulls.co.in","age":25}
+                 ]
+       }
+
+
+--------------------------------------------------------------------------------
+
+https://jsonpathfinder.com
+
+https://jsonpath.com
+
+--------------------------------------------------------------------------------
+
+
+Response Validations(Adding Tests)::
+====================================
+=>Status code
+=>Headers
+=>Cookies
+=>Response time
+=>Response body
+
+
+GET::http://localhost:3000/students/3
+
+----------------------------
+
+
+pm.test("Status code is 200", ()=> {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response time is less than 200ms", ()=> {
+    pm.expect(pm.response.responseTime).to.be.below(200);
+});
+
+
+pm.test("Successfull Get request", ()=>{
+pm.expect(pm.response.code).to.be.oneOf([200,201]);
+});
+
+pm.test("Content-Type Header is present", ()=>{
+    pm.response.to.have.header("Content-Type");
+});
+
+pm.test("Content-Type Header is application/json", () =>{
+    pm.expect(pm.response.headers.get("Content-Type")).to.eql("application/json; charset=utf-8");
+});
+
+pm.test("Cookie language is present", ()=> {
+    pm.expect(pm.cookies.has("language")).to.be.true;
+});
+
+pm.test("Cookie language has value 1", ()=> {
+    pm.expect(pm.cookies.get("language")).to.eql("en-g");
+});
+
+const jsonData = pm.response.json();
+pm.test("Test data type of the response", () =>{
+    pm.expect(jsonData).to.be.an("object");
+    pm.expect(jsonData.id).to.be.a("number");
+    pm.expect(jsonData.name).to.be.a("string");
+    pm.expect(jsonData.courses).to.be.an("array");
+});
+
+//test array contents in body
+   pm.test("test array properties", () => {
+      //courses include java
+   pm.expect(jsonData.courses).to.include("java");
+      //corses array must include all listed
+   pm.expect(jsonData.courses).to.have.members(["java","RestAssured"]);
+});
+ 
+    //validating JSON fields in response
+    
+    pm.test("values of fields in response", () => {
+     //Note::you have to specifying any where in the console of Tests of the return command bellow for reqesting fields
+
+        // const jsonData = pm.response.json(); 
+
+        pm.expect(jsonData.id).to.eql(3);
+        pm.expect(jsonData.name).to.eql("smith");
+        pm.expect(jsonData.location).to.eql("canada");
+        pm.expect(jsonData.phone).to.eql("9666122111");
+        pm.expect(jsonData.courses[0]).to.eql("java");
+        pm.expect(jsonData.courses[1]).to.eql("RestAssured");
+
+    });
+
+
+ //JSON schema validation
+   //const jsonData = pm.response.json(); or
+   //var schema = pm.response.json();
+
+   var schema = {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "courses": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "location",
+    "phone",
+    "courses"
+  ]
+}
+
+pm.test("schema is valid", function(){
+    //tv4 means tiny_validation of version-4
+     pm.expect(tv4.validate(jsonData,schema)).to.be.true;
+ });
+
+
+
+//Note1:: for validating the JSON schema then go to the any browser and search online json schema converter or then directly go to bellow url 
+   https://www.liquid-technologies.com/online-json-to-schema-converter
+//Note2:: always take singe user_datails for schema validation , then take the schema genrated by the url and paste this scema in the postman tool 
+          and equate it to (var schema =) and write the test case for schema validation and then execute.
+------------------------------------------------------------------------------------------
+
+PASS
+Status code is 200
+
+PASS
+Response time is less than 200ms
+
+PASS
+Successfull Get request
+
+PASS
+Content-Type Header is present
+
+PASS
+Content-Type Header is application/json
+
+FAIL
+Cookie language is present | AssertionError: expected false to be true
+
+FAIL
+Cookie language has value 1 | AssertionError: expected undefined to deeply equal 'en-g'
+
+PASS
+Test data type of the response
+
+PASS
+test array properties
+
+PASS
+values of fields in response
+
+PASS
+schema is valid
+----------------------------------------------------------------------------------------------------------------------
+
+Scripts
+---------
+
+*Pre-request scripts
+*Tests
+
+
+
+             Pre-request scripts----->Request------>Response------>Tests
+
+
+
+*Collection
+*Folder
+*Request
+
+----------------------------------------------------
+
+    Collection
+(pre-requestScript)
+      |
+      |
+      |
+  Folder-Level
+(pre-requestScript)
+      |
+      |
+      |
+   Request-Level
+(pre-requestScript)----->|REQUEST|------->|RESPONSE|----->Collection
+                                                          (Test-Script)
+                                                               |
+                                                               |
+                                                               |
+                                                           Folder-Level
+                                                           (Test-Script)
+                                                               |
+                                                               |
+                                                               |
+                                                           Request-Level
+                                                           (Test-Script)
+step:1)Create a collection
+step:2)Create a Folder
+step:3)Create a Request
+
+
+
+
+console.log("pre-requst script at collection level");
+console.log("Test script at collection level");
+
+console.log("pre-requst script at folder level");
+console.log("Test script at folder level");
+
+console.log("pre-requst script at requst level");
+console.log("Test script at requst level");
+
+
+GET:https://reqres.in/api/users?page=2      and then Run the collection.
+
+Console::
+----------
+ 
+pre-requst script at collection level
+ 
+pre-requst script at folder level
+ 
+pre-requst script at requst level
+ 
+GET:: https://reqres.in/api/users?page=2
+200
+151 ms
+ 
+Test script at collection level
+ 
+Test script at folder level
+ 
+Test script at requst level
+
+-------------------------------------------------------------------------------------------------------------------
+
+
+Variables
+-------------
+*what?
+*why?
+*where?
+
+Scope
+-------
+
+workspace---->collections----->requests
+
+
+Global---->accessible every where with in the work space(undr_collection-Level,under_request-Level)
+
+Collection---->accessible with in the collection.
+
+Environment--->accessible all collections but we need to switch into particular environment.
+
+Local----->accessible only within request(specific to request)
+
+
+data----> external files csv/text.......!
+
+Creation of Global variable
+----------------------------
+
+GET:: https://reqres.in/api/users?page=2
+
+GET:: {{global_url}}/api/users?page=2 =========>::https://reqres.in
+
+
+*url_global
+*url_collect
+*url_env_qa
+*url_local
+
+
+Creation of Environment
+-----------------------------
+
+choose the env option in the postman tool and name it as like QA.
+
+In that QA create a collection like user_details.
+
+variable:env_qa  =======> value:https://reqres.in
+
+GET::{{env_qa}}/api/users?page=2 =========>::https://reqres.in
+
+
+--------------------------------------------------------------------------------------------------------------
+
+Creating variables using pre-requestScripts ::
+==============================================
+
+Local variable
+----------------
+Ex:- inside the pre-requestScript write the bellow command.
+
+                //Local variable
+           pm.variables.set("url_local","https://reqres.in");
+
+GET::{{url_local}}/api/users?page=2
+
+
+
+------------------------------------------
+
+Global variable
+----------------
+Ex:- inside the pre-requestScript write the bellow command.
+
+               //Global variable
+        pm.globals.set("userid_global","2");
+
+GET::{{url_local}}/api/users?page={{userid_global}}
+
+--------------------------------------------
+
+Environment variable
+--------------------
+Ex:- inside the pre-requestScript write the bellow command.
+
+              //Environment variable
+           pm.environment.set("userid_qa_env","2");
+
+GET::{{url_local}}/api/users?page={{userid_qa_env}}
+
+---------------------------------------------
+
+Collection variable
+-------------------
+Ex:- inside the pre-requestScript write the bellow command.
+
+             //Collection variable
+          pm.collectionVariables.set("userid_collect","2");
+
+GET::{{url_local}}/api/users?page={{userid_collect}}
+
+--------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
+
+
+1)Inside the pre-requestScripts
+--------------------------------
+
+//Local variable
+pm.variables.set("url_local","https://reqres.in");
+
+//Global variable
+pm.globals.set("userid_global","2");
+
+//Environment variable
+pm.environment.set("userid_qa_env","2");
+
+//Collection variable
+pm.collectionVariables.set("userid_collect","2");
+
+-------------------------------------------------------------------------------------------------------------
+
+2)Inside the Test-Scripts
+(unset and Removal of variables using script and capture the values from variables):
+------------------------------------------------------------------------------------
+
+console.log(pm.variables.get("url_local"));
+console.log(pm.globals.get("userid_global"));
+console.log(pm.environment.get("userid_qa_env"));
+console.log(pm.collectionVariables.get("userid_collect"));
+
+
+pm.variables.unset("url_local");
+pm.globals.unset("userid_global");
+pm.environment.unset("userid_qa_env");
+pm.collectionVariables.unset("userid_collect");
+
+-----------------------------------------------------
+
+The above two-sets of commands we are Running at a singleShot and we observe the console_window and as well as Removal of variables at Icon
+
+console:
+--------
+
+GET https://reqres.in/api/users?page=2
+200
+970 ms
+ 
+GET https://reqres.in/api/users?page=2
+200
+211 ms
+ 
+GET https://reqres.in/api/users?page=2
+200
+814 ms
+ 
+https://reqres.in
+ 
+2
+ 
+2
+ 
+2
+-------------------------------------------------------
+
+=>SET:  Global,env,collection,local
+=>UNSET:Global,env,collection,local
+=>GET:  Global,env,collection,local
+
+---------------------------------------------------------------------------------------------------------------------------
+
+API-CHAINING
+=============
+ 
+Step:1)Create a environment with name like QA.
+
+Step:2)Create a collection with the name StudentAPIs-Chaining.
+
+Step:3)Create the Three requests POST,GET and DELETE.
+
+
+POST::http://localhost:3000/students
+
+      Body
+     ------
+    {
+     
+     "name":"john",
+     "location":"india",
+     "phone":"9666108118",
+     "courses":[
+                "java",
+                "selenium"
+           ]
+     }
+ ------------------
+     
+     TESTS
+     ------
+               //bellow code snippet we are Caturing the student Id to provide this Id for the usage of further Methods 
+               //we are able to see the captured Id in the Environment section by clicking the Icon(after Running the collection)
+
+           var jsonData=JSON.parse(responseBody);
+          pm.environment.set("id",jsonData.id);
+
+
+         pm.test("POST request Successful ", function () {  
+             pm.expect(pm.response.code).to.be.oneOf([201,202]);  
+                 }); 
+
+----------------------------
+
+GET::http://localhost:3000/students/{{id}}
+
+
+                      pm.test("Status code is 200", ()=> {
+                                 pm.response.to.have.status(200);
+                                    });
+ 
+-------------------------------
+
+DELETE::  http://localhost:3000/students/{{id}}
+
+
+-------------------------------
+
+Postman-Console(Afetr Running the entire collection)
+-----------------------------------------------------
+
+POST http://localhost:3000/students
+201
+115 ms
+ 
+GET http://localhost:3000/students/8
+200
+38 ms
+ 
+DELETE http://localhost:3000/students/8
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+https://gorest.co.in(we will get access token and all the urls belongs to the user_details from this site)::
+============================================================================================================
+
+step:1) Create a Token::d843e7c3f2a46ad08825a7f1063445bf8d0aecfa668d5c1be68f796050e0c936
+
+step:2) Create a collection with the name like GorestAPI-Chaining.
+
+step:3) Create a post-method createuser 
+
+        POST::https://gorest.co.in/public/v2/users
+
+        Body
+        ----
+        {
+            "name" : "scott",
+            "gender" : "male",
+            "email"  : "scott@gmail.com",
+            "status" : "inactive"
+           }
+
+step:4) Add created token to collection-level,choose Barer-token then save and goto all request-levels and take option inheritAuthfromparent then save,Run.
+
+        {
+             "id": 29559,
+             "name": "scott",
+             "email": "scott@gmail.com",
+             "gender": "male",
+             "status": "inactive"
+            }
+
+step:5) GET::https://gorest.co.in/public/v2/users/29559
+
+        {
+         "id": 29559,
+         "name": "scott",
+         "email": "scott@gmail.com",
+         "gender": "male",
+         "status": "inactive"
+           }
+
+step:5) PUT::https://gorest.co.in/public/v2/users/29559
+
+        Body:-
+       -------
+        {
+          "email"  : "scottish@gmail.com",
+          "status" : "active"
+            }
+      
+       Response:-
+      -----------
+     {
+         "email": "scottish@gmail.com",
+         "status": "active",
+         "id": 29559,
+         "name": "scott",
+         "gender": "male"
+            }
+
+step:6) DELETE::https://gorest.co.in/public/v2/users/29559
+
+        204No Content
+
+Note::Here there is no-Chaining process is going on we are doing Each-method Manually......!
+----------------------------------------------------------------------------------------------------
+
+Chaining_process::
+==================
+
+
+https://gorest.co.in(we will get access token and all the urls belongs to the user_details from this site)::
+============================================================================================================
+
+step:1) Create a Token::d843e7c3f2a46ad08825a7f1063445bf8d0aecfa668d5c1be68f796050e0c936
+
+step:2) Create a collection with the name like "GorestAPI-Chaining".
+
+step:3) Add created token to collection-level,choose Barer-token then save and goto all request-levels and take option inheritAuthfromparent then save.
+
+step:4) Create a post-method createuser 
+
+        POST::https://gorest.co.in/public/v2/users
+
+        Body
+        ----
+        {
+            "name" : "{{name_env}}",
+            "gender" : "male",
+            "email"  : "{{email_env}}",
+            "status" : "inactive"
+               }
+
+     pre-requestscripts
+     ------------------
+     var random= Math.random().toString(36).substring(2);
+
+     var useremail = "techbulls"+random+"@gmail.com";
+     var username = "techbulls"+random
+
+     pm.environment.set("email_env",useremail);
+     pm.environment.set("name_env",username);
+
+     Tests
+     -----
+     var jsonData = JSON.parse(responseBody);
+     pm.environment.set("userid_env",jsonData.id);
+    
+     Response
+     --------
+     {
+       "id": 29828,
+       "name": "techbullsjv05mbyout",
+       "email": "techbullsjv05mbyout@gmail.com",
+       "gender": "male",
+       "status": "inactive"
+          }
+
+step:5) GET::https://gorest.co.in/public/v2/users/{{userid_env}}
+
+        Tests
+        ------
+       //validating json fields in the response
+
+            pm.test("values of json fields", ()=>{
+            var jsonData=pm.response.json();
+
+            pm.expect(jsonData.id).to.eql(pm.environment.get("userid_env"));
+            pm.expect(jsonData.email).to.eql(pm.environment.get("email_env"));
+            pm.expect(jsonData.name).to.eql(pm.environment.get("name_env"));
+               });
+
+        Response
+        --------
+              {
+                  "id": 29559,
+                  "name": "scott",
+                  "email": "scott@gmail.com",
+                  "gender": "male",
+                  "status": "inactive"
+                     }
+step:6)PUT::https://gorest.co.in/public/v2/users/{{userid_env}}
+
+        Body
+        ----
+        {
+              "name" : "{{name_env}}",
+              "email"  : "{{email_env}}",
+              "status" : "active"
+                  }
+
+     
+         pre-requestscripts
+         ------------------
+
+         var random= Math.random().toString(36).substring(2);
+
+         var useremail = "techbulls"+random+"@gmail.com";
+         var username = "techbulls"+random
+
+         pm.environment.set("email_env",useremail);
+         pm.environment.set("name_env",username);
+
+
+         Response
+         --------
+         {
+           "email": "scottish@gmail.com",
+           "status": "active",
+           "id": 29559,
+           "name": "scott",
+           "gender": "male"
+             }
+
+
+step:7)DELETE::https://gorest.co.in/public/v2/users/{{userid_env}}
+            
+                Tests
+                ------
+           //It will unset(clear) the variables at Environment-side(After deleting details of the user) by going to the Icon-section we can Observe that.
+                pm.environment.unset("userid_env");
+                pm.environment.unset("email_env");
+                pm.environment.unset("name_env");
+
+Note::Run the entire collection 
+
+     Postman Console
+     ----------------
+
+     POST https://gorest.co.in/public/v2/users
+     201
+     415 ms
+ 
+     GET https://gorest.co.in/public/v2/users/29915
+     200
+     867 ms
+ 
+     PUT https://gorest.co.in/public/v2/users/29915
+     200
+     779 ms
+ 
+     DELETE https://gorest.co.in/public/v2/users/29915
+     204
+     729 ms
+---------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Create a collection with the name like Books-API
+================================================
+
+POST::https://simple-books-api.glitch.me/api-clients/
+
+       Body
+      -------
+
+   {  
+       "clientName" : "Training",
+       "clientEmail" : "adithya.gunji@gmail.com"
+     }
+
+
+  =>The Token-genrated by the system for to access the url given bellow
+
+   {
+      "accessToken": "31e1f231257d9994d7e9890a258954a6b5901c20fa982f21b269353548664274"
+  }
+
+Note:The system genrated token we have to use at the time of Ordering the books.
+
+
+-----------------------------
+
+
+GET::https://simple-books-api.glitch.me/status
+
+     Response
+     --------
+   {
+      "status": "OK"
+      }
+--------------------------
+
+
+GET::https://simple-books-api.glitch.me/books
+
+
+     Response
+     --------
+
+[
+    {
+        "id": 1,
+        "name": "The Russian",
+        "type": "fiction",
+        "available": true
+    },
+    {
+        "id": 2,
+        "name": "Just as I Am",
+        "type": "non-fiction",
+        "available": false
+    },
+    {
+        "id": 3,
+        "name": "The Vanishing Half",
+        "type": "fiction",
+        "available": true
+    },
+    {
+        "id": 4,
+        "name": "The Midnight Library",
+        "type": "fiction",
+        "available": true
+    },
+    {
+        "id": 5,
+        "name": "Untamed",
+        "type": "non-fiction",
+        "available": true
+    },
+    {
+        "id": 6,
+        "name": "Viscount Who Loved Me",
+        "type": "fiction",
+        "available": true
+    }
+]
+
+-----------------------------
+
+GET::https://simple-books-api.glitch.me/books/6
+
+
+     Response
+     --------
+       {
+          "id": 6,
+          "name": "Viscount Who Loved Me",
+          "author": "Julia Quinn",
+          "type": "fiction",
+          "price": 15.6,
+          "current-stock": 1021,
+          "available": true
+              }
+
+
+-------------------------------
+
+POST::https://simple-books-api.glitch.me/orders
+
+      Body
+      -----
+
+            {
+                 "bookId" : "1",
+                 "customerName" : "john"
+         }
+
+
+     Response
+     --------
+
+           {
+             "error": "Missing Authorization header."
+         }
+
+------------------------------
+
+POST::https://simple-books-api.glitch.me/orders
+
+      Body
+      -----
+{
+    "bookId" : "1",
+    "customerName" : "john"
+}
+
+Note::"accessToken": "31e1f231257d9994d7e9890a258954a6b5901c20fa982f21b269353548664274"
+
+     Response
+     --------
+
+{
+    "created": true,
+    "orderId": "iVr2aOz585JM8xA2v08Tr"
+}
+
+---------------------------------
+
+"orderId": "iVr2aOz585JM8xA2v08Tr"
+
+GET::https://simple-books-api.glitch.me/orders/iVr2aOz585JM8xA2v08Tr
+
+
+     Response
+     --------
+
+
+{
+    "id": "iVr2aOz585JM8xA2v08Tr",
+    "bookId": 1,
+    "customerName": "john",
+    "createdBy": "0a26719bc23aad83f7a048d6632a21cef15921cb22f7fd078cd2b5d96ce58d47",
+    "quantity": 1,
+    "timestamp": 1672904003845
+}
+
+----------------------------------
+
+
+PATCH::https://simple-books-api.glitch.me/orders/iVr2aOz585JM8xA2v08Tr
+
+
+
+      Body
+      -----
+      {
+  
+    "customerName": "Scott"
+}
+
+          Response
+          --------
+        204No Content
+
+
+GET::https://simple-books-api.glitch.me/orders/iVr2aOz585JM8xA2v08Tr
+
+     Response
+     --------
+
+
+{
+    "id": "iVr2aOz585JM8xA2v08Tr",
+    "bookId": 1,
+    "customerName": "Scott",
+    "createdBy": "0a26719bc23aad83f7a048d6632a21cef15921cb22f7fd078cd2b5d96ce58d47",
+    "quantity": 1,
+    "timestamp": 1672904003845
+}
+
+------------------------------------
+
+DELETE::https://simple-books-api.glitch.me/orders/iVr2aOz585JM8xA2v08Tr
+
+
+          Response
+          --------
+        204No Content
+
+GET::https://simple-books-api.glitch.me/orders/iVr2aOz585JM8xA2v08Tr
+
+
+          Response
+          --------
+             {
+                "error": "No order with id iVr2aOz585JM8xA2v08Tr."
+                   }
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+DataDriven Testing::
+====================
+
+step:1) Create a collection with the name like Books-API Datadriven,and add the Token under collection-level and then save.
+
+step:2) Create the Methods for Datadriven for to access data from external_files, and take each-request-level InheritAuthfromParent.
+
+POST::https://simple-books-api.glitch.me/orders
+
+
+             Body
+             ----
+
+{
+    "bookId" : "{{bookId}}",
+    "customerName" : "{{customerName}}"
+}
+
+
+             Tests
+             -----
+
+          pm.test("Successful POST request", ()=> {
+          pm.expect(pm.response.code).to.be.oneOf([201, 202]);
+             });
+
+        var jsonData=JSON.parse(responseBody);
+        pm.environment.set("orderid_env",jsonData.orderId);
+
+
+
+GET::https://simple-books-api.glitch.me/orders/{{orderid_env}}
+
+
+
+             Tests
+             -----
+
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+
+pm.test("check orderID present in the response body", () =>{
+    var jsonData=pm.response.json();
+    pm.expect(jsonData.id).to.eql(pm.environment.get("orderid_env"));
+});
+
+
+DELETE::https://simple-books-api.glitch.me/orders/{{orderid_env}}
+
+             Tests
+             -----
+
+pm.test("status code is 204 ", ()=>{
+    pm.response.to.have.status(204);
+});
+
+pm.environment.unset("orderid_env");
+
+
+
+Run the collection take no.of Iterations that belongs to the Rows present in the CSV/JSON file and it is better to take 2 to 3 sec Delay-time for execution-gap 
+between each Iteration.Take preview option it will display the user_details present in the file.
+
+usersdata.csv
+==============
+-----------------------
+bookId	customerName
+-----------------------
+1	      john
+-----------------------
+1	      kim
+-----------------------
+3	      Scott
+-----------------------
+4	      David
+-----------------------
+5	      Mary
+-----------------------
+
+Note:: we can convert .CSV to .JSON file shown bellow by using convertion tools like search convert csv to json online .
+
+usersdata.JSON
+==============
+
+[
+  {
+    "bookId": 1,
+    "customerName": "john"
+  },
+  {
+    "bookId": 1,
+    "customerName": "kim"
+  },
+  {
+    "bookId": 3,
+    "customerName": "Scott"
+  },
+  {
+    "bookId": 4,
+    "customerName": "David"
+  },
+  {
+    "bookId": 5,
+    "customerName": "Mary"
+  }
+]
+
+----------------------------------------
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+FileUpload-API
+===============
+https://tinyurl.com/bdhuh6xe
+
+Download jar file by Above-Link and and go to the jar-file location and type cmd then type java -jar file-upload-RestAPI.jar.......!
+
+
+prepare the file names like Test1.txt,Test2.txt.......!
+
+
+step:1) go to the browser then enter http://localhost:8080/ . we will see the Front-end page with files upload options...! we can upload files through this also.
+
+step:2) go to the postman then create a collection with the name like Fileupload.
+
+        Create a Request with the name like singlefileupload....!
+   
+        POST::http://localhost:8080/uploadFile
+
+        GO To the Body the choose form-data  then give key name like file and then brows the single file....!
+
+
+
+        Response
+        --------
+
+   {
+    "fileName": "Test1.txt",
+    "fileDownloadUri": "http://localhost:8080/downloadFile/Test1.txt",
+    "fileType": "text/plain",
+    "size": 0
+}
+
+
+
+Note-1::By using the above Response with the url http://localhost:8080/downloadFile/Test1.txt we can download the uploaded file....!
+
+Note-2::By going to the C:/ drive here we can observe a folder uploads.this folder having the posted Text-files.
+
+
+
+       POST::http://localhost:8080/uploadMultipleFiles
+
+       GO To the Body the choose form-data  then give key name like files and then brows the multiple files....!
+       
+
+
+        Response
+        --------
+[
+    {
+        "fileName": "Test1.txt",
+        "fileDownloadUri": "http://localhost:8080/downloadFile/Test1.txt",
+        "fileType": "text/plain",
+        "size": 0
+    },
+    {
+        "fileName": "Test2.txt",
+        "fileDownloadUri": "http://localhost:8080/downloadFile/Test2.txt",
+        "fileType": "text/plain",
+        "size": 334
+    }
+]
+
+
+-------------------------------------------------------------------------------------------------------
+
+
+Authentication Types
+====================
+
+Create a collection with the name like Authentications....!
+
+basicAuthentication(Req_name)
+
+GET::https://postman-echo.com/basic-auth
+
+Authorization Type:Basic Auth.
+
+Username::postman
+Password::password
+
+        Response
+        --------
+
+{
+    "authenticated": true
+}
+
+-----------------------------------------------------------------------
+
+step:1) go to the front_end then type url:https://the-internet.herokuapp.com/basic_auth
+
+      Username::admin
+      Password::admin
+
+
+      Response of Front-end
+      ----------------
+
+Basic Auth
+Congratulations! You must have the proper credentials.
+
+ 
+                                                    Powered by Elemental Selenium 
+
+
+step:2) go to the postman
+
+basicAuth(Req_name)
+
+
+GET::https://the-internet.herokuapp.com/basic_auth
+
+Authorization Type::Basic Auth.
+
+Username::admin
+Password::admin
+
+
+         Response of postman body
+         ------------------------
+
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<html>
+  <head>
+    <script src="/js/vendor/298279967.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>The Internet</title>
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <script src="/js/vendor/jquery-1.11.3.min.js"></script>
+    <script src="/js/vendor/jquery-ui-1.11.4/jquery-ui.js"></script>
+    <script src="/js/foundation/foundation.js"></script>
+    <script src="/js/foundation/foundation.alerts.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </head>
+  <body>
+    <div class="row">
+      <div id="flash-messages" class="large-12 columns">
+      
+         </div>
+    </div>
+    <div class="row">
+      <a href="https://github.com/tourdedave/the-internet"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/img/forkme_right_green_007200.png" alt="Fork me on GitHub"></a>
+      <div id="content" class="large-12 columns">
+        <div class="example">
+  <h3>Basic Auth</h3>
+  <p>
+    Congratulations! You must have the proper credentials.
+  </p>
+</div>
+
+      </div>
+    </div>
+    <div id='page-footer' class="row">
+      <div class="large-4 large-centered columns">
+        <hr>
+        <div style="text-align: center;">Powered by <a target="_blank" href="http://elementalselenium.com/">Elemental Selenium</a></div>
+      </div>
+    </div>
+  </body>
+</html>
+------------------------------------------------------------------
+
+DigetAuth(Req_name)
+
+GET::https://postman-echo.com/digest-auth
+
+Authorization Type::DigetAuth.
+
+Username::postman
+Password::password
+
+        Response
+        --------
+
+{
+    "authenticated": true
+}
+
+Note::step:1) first send the request to take check-box disable,Retrying the request.
+
+      step:2) send the request with-out selecting the check-box then we get Response.
+
+---------------------------------------------------------------------
+
+BearerTokenAuth_Github(Req_name)
+
+GET::https://api.github.com/user/repos
+
+Authorization Type::Bearer Token.
+
+process to create a token for to access Git-hub Repository:.....!
+
+*settings
+*Developer settings
+*personal access token
+*token classic
+*Generate token
+
+Token genrated by personal Git-hub Repository::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
+
+
+Response
+--------
+[
+    {
+        "id": 572823028,
+        "node_id": "R_kgDOIiSV9A",
+        "name": "selenium",
+        "full_name": "Adithya-Gunji/selenium",
+        "private": false,
+        "owner": {
+            "login": "Adithya-Gunji",
+            "id": 119559081,
+            "node_id": "U_kgDOByBTqQ",
+            "avatar_url": "https://avatars.githubusercontent.com/u/119559081?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/Adithya-Gunji",
+            "html_url": "https://github.com/Adithya-Gunji",
+            "site_admin": false
+        },
+        "html_url": "https://github.com/Adithya-Gunji/selenium",
+        "description": null,
+        "fork": false,
+        "url": "https://api.github.com/repos/Adithya-Gunji/selenium",
+        "forks_url": "https://api.github.com/repos/Adithya-Gunji/selenium/forks",
+  
+        "clone_url": "https://github.com/Adithya-Gunji/selenium.git",
+        "svn_url": "https://github.com/Adithya-Gunji/selenium",
+        "homepage": null,
+        "size": 212
+        "license": null,
+        "allow_forking": true,
+        "is_template": false,
+        "web_commit_signoff_required": false,
+        "topics": [],
+        "visibility": "public",
+        "forks": 0,
+        "open_issues": 0,
+        "watchers": 0,
+        "default_branch": "main",
+        "permissions": {
+            "admin": true,
+            "maintain": true,
+            "push": true,
+            "triage": true,
+            "pull": true
+        }
+    }
+]
+-------------------------------------------------------------
+
+APIKeyAuth_openweathermap(Req_name)
+
+GET::api.openweathermap.org/data/2.5/forecast/daily?q=Delhi&units=metric&cnt=7
+
+Authorization Type::API Key
+
+                       Key  :: appid
+                       Value:: fe9c5cddb7e01d747b4611c3fc9eaf2c
+                      Add to:: Query Params
+
+Response
+--------
+{
+    "city": {
+        "id": 1273294,
+        "name": "Delhi",
+        "coord": {
+            "lon": 77.2167,
+            "lat": 28.6667
+        },
+        "country": "IN",
+        "population": 10927986,
+        "timezone": 19800
+    },
+    "cod": "200",
+    "message": 0.0391574,
+    "cnt": 7,
+    "list": [
+        {
+            "dt": 1673332200,
+            "sunrise": 1673315108,
+            "sunset": 1673352674,
+            "temp": {
+                "day": 12.37,
+                "min": 8.05,
+                "max": 22.3,
+                "night": 15.59,
+                "eve": 19.95,
+                "morn": 11.16
+            },
+            "feels_like": {
+                "day": 11.41,
+                "night": 14.35,
+                "eve": 18.86,
+                "morn": 9.35
+            },
+            "pressure": 1021,
+            "humidity": 67,
+            "weather": [
+                {
+                    "id": 803,
+                    "main": "Clouds",
+                    "description": "broken clouds",
+                    "icon": "04d"
+                }
+            ],
+            "speed": 4.22,
+            "deg": 298,
+            "gust": 6.1,
+            "clouds": 60,
+            "pop": 0
+        },
+       
+       
+        {
+            "dt": 1673764200,
+            "sunrise": 1673747098,
+            "sunset": 1673784914,
+            "temp": {
+                "day": 15.71,
+                "min": 9.51,
+                "max": 18.62,
+                "night": 11.5,
+                "eve": 16.32,
+                "morn": 9.59
+            },
+            "feels_like": {
+                "day": 13.91,
+                "night": 9.33,
+                "eve": 14.56,
+                "morn": 7.78
+            },
+            "pressure": 1016,
+            "humidity": 22,
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "sky is clear",
+                    "icon": "01d"
+                }
+            ],
+            "speed": 5.25,
+            "deg": 301,
+            "gust": 8.18,
+            "clouds": 0,
+            "pop": 0
+        },
+        {
+            "dt": 1673850600,
+            "sunrise": 1673833492,
+            "sunset": 1673871363,
+            "temp": {
+                "day": 16.11,
+                "min": 9,
+                "max": 19.53,
+                "night": 12.65,
+                "eve": 17.26,
+                "morn": 9
+            },
+            "feels_like": {
+                "day": 14.56,
+                "night": 10.78,
+                "eve": 15.72,
+                "morn": 7.38
+            },
+            "pressure": 1014,
+            "humidity": 30,
+            "weather": [
+                {
+                    "id": 801,
+                    "main": "Clouds",
+                    "description": "few clouds",
+                    "icon": "02d"
+                }
+            ],
+            "speed": 4.19,
+            "deg": 295,
+            "gust": 6.48,
+            "clouds": 14,
+            "pop": 0
+        }
+    ]
+}
+-------------------------------------------------------------------------------
+
+Swagger:: It is a Interactive Documentation.
+
+Curl :: Client url.
+
+curl -X GET "https://fakerestapi.azurewebsites.net/api/v1/Activities" -H  "accept: text/plain; v=1.0"
+
+swagger documents
+--------------------
+=>https://fakerestapi.azurewebsites.net/index.html
+=>https://petstore.swagger.io/
+=>https://httpbin.org/#/
+
+----------------------------------
+
+Create a collection with the name like Swagger...!
+
+process to import the curl to get url:
+-------
+* go to the collection and import the curl inside(Raw Text) then we get url to access....!
+
+
+curl -X GET "https://fakerestapi.azurewebsites.net/api/v1/Activities" -H  "accept: text/plain; v=1.0"
+
+https://fakerestapi.azurewebsites.net/api/v1/Activities
+
+Note::Swagger is Exploring the functionality of an API,Here we are unable to do validations.but postman is
+      used to do all validations...!
+
+--------------------------------------------
+
+https://petstore.swagger.io/
+
+
+https://documenter.getpostman.com/view/4924228/UzXNVdJS(published by SDET we are unable to change the code,just we able to run it once publishing)
+
+the above url is the published petstore API that is used to import the collection in postman.
+
+we are able to publish our own document collection then we get the url like above then we will able to use to import(once publishing the doc then unable to do changes).
+
+
+creating and publishing own API document and then export it and imported by seperate mechine(same mechine also possible) to use for testing
+===========================================================================================================================================
+Export the collection
+=====================
+
+Export the Results
+==================
+
+
+Creation & Publishing the Document
+==================================
+
+After completion of the collection and Running the collection successfully,
+
+step:1) click on view documentation
+step:2) Take the format http or curl
+step:3) then click on publish
+step:4) then agian click on publish and hence system providing the published url like : https://documenter.getpostman.com/view/24120796/2s8Z76xA8w
+
+step:5) Go to any browser and then by the published url we have to import the entire collection. 
+step:6) take option Runin postman,postman for windows then import to workspace you want to import and then Run the collection for testing.
+
+Note:: we can use the Tools in online to manage and convert XML Data to JSON format to simplification and easy to understand.
+Note2:: we can Run the collections through the following approaches
+        approach:1)through cmd
+        approach:2)through JENKINS
+        approach:3)through Git-hub.
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+
+
+GET : URL :  .... https://reqres.in/api/users?page=2
+
+here we get the list of users.............................
+
+{
+    "page": 2,
+    "per_page": 6,
+    "total": 12,
+    "total_pages": 2,
+    "data": [
+        {
+            "id": 7,
+            "email": "michael.lawson@reqres.in",
+            "first_name": "Michael",
+            "last_name": "Lawson",
+            "avatar": "https://reqres.in/img/faces/7-image.jpg"
+        },
+        {
+            "id": 8,
+            "email": "lindsay.ferguson@reqres.in",
+            "first_name": "Lindsay",
+            "last_name": "Ferguson",
+            "avatar": "https://reqres.in/img/faces/8-image.jpg"
+        },
+        {
+            "id": 9,
+            "email": "tobias.funke@reqres.in",
+            "first_name": "Tobias",
+            "last_name": "Funke",
+            "avatar": "https://reqres.in/img/faces/9-image.jpg"
+        },
+        {
+            "id": 10,
+            "email": "byron.fields@reqres.in",
+            "first_name": "Byron",
+            "last_name": "Fields",
+            "avatar": "https://reqres.in/img/faces/10-image.jpg"
+        },
+        {
+            "id": 11,
+            "email": "george.edwards@reqres.in",
+            "first_name": "George",
+            "last_name": "Edwards",
+            "avatar": "https://reqres.in/img/faces/11-image.jpg"
+        },
+        {
+            "id": 12,
+            "email": "rachel.howell@reqres.in",
+            "first_name": "Rachel",
+            "last_name": "Howell",
+            "avatar": "https://reqres.in/img/faces/12-image.jpg"
+        }
+    ],
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+-----------------------------------------------------------
+
+https://reqres.in/api/users/2
+
+here we are getting the details of the single user with id=2
+
+{
+    "data": {
+        "id": 2,
+        "email": "janet.weaver@reqres.in",
+        "first_name": "Janet",
+        "last_name": "Weaver",
+        "avatar": "https://reqres.in/img/faces/2-image.jpg"
+    },
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+
+------------------------------------------------------------
+
+https://reqres.in/api/users/23
+
+here we are getting the error 404 because of the single user with id=23 not in the list
+
+------------------------------------------------------------
+
+https://reqres.in/api/users?page/unknown
+
+by using above url we will get all the elements present in the page:1
+
+{
+    "page": 1,
+    "per_page": 6,
+    "total": 12,
+    "total_pages": 2,
+    "data": [
+        {
+            "id": 1,
+            "email": "george.bluth@reqres.in",
+            "first_name": "George",
+            "last_name": "Bluth",
+            "avatar": "https://reqres.in/img/faces/1-image.jpg"
+        },
+        {
+            "id": 2,
+            "email": "janet.weaver@reqres.in",
+            "first_name": "Janet",
+            "last_name": "Weaver",
+            "avatar": "https://reqres.in/img/faces/2-image.jpg"
+        },
+        {
+            "id": 3,
+            "email": "emma.wong@reqres.in",
+            "first_name": "Emma",
+            "last_name": "Wong",
+            "avatar": "https://reqres.in/img/faces/3-image.jpg"
+        },
+        {
+            "id": 4,
+            "email": "eve.holt@reqres.in",
+            "first_name": "Eve",
+            "last_name": "Holt",
+            "avatar": "https://reqres.in/img/faces/4-image.jpg"
+        },
+        {
+            "id": 5,
+            "email": "charles.morris@reqres.in",
+            "first_name": "Charles",
+            "last_name": "Morris",
+            "avatar": "https://reqres.in/img/faces/5-image.jpg"
+        },
+        {
+            "id": 6,
+            "email": "tracey.ramos@reqres.in",
+            "first_name": "Tracey",
+            "last_name": "Ramos",
+            "avatar": "https://reqres.in/img/faces/6-image.jpg"
+        }
+    ],
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+--------------------------------------------------------
+
+https://reqres.in/api/users/2
+
+here we will get the details of the single user with id =2
+
+{
+    "data": {
+        "id": 2,
+        "email": "janet.weaver@reqres.in",
+        "first_name": "Janet",
+        "last_name": "Weaver",
+        "avatar": "https://reqres.in/img/faces/2-image.jpg"
+    },
+    "support": {
+        "url": "https://reqres.in/#support-heading",
+        "text": "To keep ReqRes free, contributions towards server costs are appreciated!"
+    }
+}
+-------------------------------------------------------
+
+Realtime Database
+===================================
+
+GET METHOD:...!
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFhHk-1tCL0-HD2g_80/data.json
+
+[
+    {
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+        "email": "michael.lawson@reqres.in",
+        "first_name": "Michael",
+        "id": 7,
+        "last_name": "Lawson"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/8-image.jpg",
+        "email": "lindsay.ferguson@reqres.in",
+        "first_name": "Lindsay11",
+        "id": 8,
+        "last_name": "Ferguson11"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/9-image.jpg",
+        "email": "tobias.funke@reqres.in",
+        "first_name": "Tobias",
+        "id": 9,
+        "last_name": "Funke"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/10-image.jpg",
+        "email": "byron.fields@reqres.in",
+        "first_name": "Byron",
+        "id": 10,
+        "last_name": "Fields"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/11-image.jpg",
+        "email": "george.edwards@reqres.in",
+        "first_name": "George",
+        "id": 11,
+        "last_name": "Edwards"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/12-image.jpg",
+        "email": "rachel.howell@reqres.in",
+        "first_name": "Rachel",
+        "id": 12,
+        "last_name": "Howell"
+    }
+]
+-----------------------------------------------------------
+
+POST METHOD
+
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFhHk-1tCL0-HD2g_80/data/1.json
+
+RAW Body inside
+     {
+                        
+                       "avatar": "https://reqres.in/img/faces/8-image.jpg",
+                              "email": "lindsay.ferguson@reqres.in",
+                             "first_name": "Lindsay11................",
+                                "id": 18,
+                                 "last_name": "Ferguson11................"
+                    }
+
+console Body in json
+
+{
+    "name": "-NFia0PwWUfg-NP2xvFF"
+}
+---------------------------------------------
+
+PUT IS used to update the existing data
+
+ {
+                        
+                       "avatar": "https://reqres.in/img/faces/8-image.jpg",
+                              "email": "lindsay.ferguson@reqres.in",
+                             "first_name": "Lindsay11................",
+                                "id": 18,
+                                 "last_name": "Ferguson11................"
+                    }
+----------------------------------------------- 
+
+
+
+
+----------------------------------------------------------------
+
+[
+
+    {
+
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+
+        "email": "adi@gmail.com",
+
+        "first_name": "Adi",
+
+        "id": 1,
+
+        "last_name": ""
+
+    },
+
+    {
+
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+
+        "email": "sai@gmail.com",
+
+        "first_name": "sai",
+
+        "id": 2,
+
+        "last_name": "suneel"
+
+    },
+
+    {
+
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+
+        "email": "raja@gmail.com",
+
+        "first_name": "raja",
+
+        "id": 3,
+
+        "last_name": ""
+
+    },
+
+    {
+
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+
+        "email": "prasanth@gmail.com",
+
+        "first_name": "prasanth raj",
+
+        "id": 4,
+
+        "last_name": ""
+
+    }
+
+]
+---------------------------------------------------------------
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/data/0.json(url we creating from firebasedatabase or RealtimeDatabase)
+
+---------------------------------------------------------------
+
+
+{
+    "-NFtAqfvowImX2StFG1k": [
+        {
+            "avatar": "https://reqres.in/img/faces/7-image.jpg",
+            "email": "adi@gmail.com",
+            "first_name": "Adi",
+            "id": 1,
+            "last_name": ""
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/7-image.jpg",
+            "email": "sai@gmail.com",
+            "first_name": "sai",
+            "id": 2,
+            "last_name": "suneel"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/7-image.jpg",
+            "email": "raja@gmail.com",
+            "first_name": "raja",
+            "id": 3,
+            "last_name": ""
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/7-image.jpg",
+            "email": "prasanth@gmail.com",
+            "first_name": "prasanth raj",
+            "id": 4,
+            "last_name": ""
+        }
+    ],
+    "email": "adi.hamsa@reqres.in",
+    "first_name": "adi",
+    "id": 14,
+    "last_name": "hamsa"
+}
+-------------------------------------------------------------------------------------
+
+POST:
+------
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/0/-NFwenyj6-voR6HXrMXg/data.json
+
+{
+    "data": [
+        {
+            "id": 1,
+            "email": "george.bluth@reqres.in",
+            "first_name": "George",
+            "last_name": "Bluth",
+            "avatar": "https://reqres.in/img/faces/1-image.jpg"
+        },
+        {
+            "id": 2,
+            "email": "janet.weaver@reqres.in",
+            "first_name": "Janet",
+            "last_name": "Weaver",
+            "avatar": "https://reqres.in/img/faces/2-image.jpg"
+        },
+        {
+            "id": 3,
+            "email": "emma.wong@reqres.in",
+            "first_name": "Emma",
+            "last_name": "Wong",
+            "avatar": "https://reqres.in/img/faces/3-image.jpg"
+        },
+        {
+            "id": 4,
+            "email": "eve.holt@reqres.in",
+            "first_name": "Eve",
+            "last_name": "Holt",
+            "avatar": "https://reqres.in/img/faces/4-image.jpg"
+        },
+        {
+            "id": 5,
+            "email": "charles.morris@reqres.in",
+            "first_name": "Charles",
+            "last_name": "Morris",
+            "avatar": "https://reqres.in/img/faces/5-image.jpg"
+        },
+        {
+            "id": 6,
+            "email": "tracey.ramos@reqres.in",
+            "first_name": "Tracey",
+            "last_name": "Ramos",
+            "avatar": "https://reqres.in/img/faces/6-image.jpg"
+        }
+    ]
+}
+------------------------------------
+
+GET
+-----
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/0/-NFwenyj6-voR6HXrMXg/data.json
+
+[
+    {
+        "avatar": "https://reqres.in/img/faces/1-image.jpg",
+        "email": "george.bluth@reqres.in",
+        "first_name": "George",
+        "id": 1,
+        "last_name": "Bluth"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/2-image.jpg",
+        "email": "janet.weaver@reqres.in",
+        "first_name": "Janet",
+        "id": 2,
+        "last_name": "Weaver"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/3-image.jpg",
+        "email": "emma.wong@reqres.in",
+        "first_name": "Emma",
+        "id": 3,
+        "last_name": "Wong"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/4-image.jpg",
+        "email": "eve.holt@reqres.in",
+        "first_name": "Eve",
+        "id": 4,
+        "last_name": "Holt"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/5-image.jpg",
+        "email": "charles.morris@reqres.in",
+        "first_name": "Charles",
+        "id": 5,
+        "last_name": "Morris"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/6-image.jpg",
+        "email": "tracey.ramos@reqres.in",
+        "first_name": "Tracey",
+        "id": 6,
+        "last_name": "Ramos"
+    }
+]
+-------------------------------------------------------------------------------------
+
+GET Unique Record based on index number:
+------------
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/0/-NFwenyj6-voR6HXrMXg/data/0.json
+
+{
+    "avatar": "https://reqres.in/img/faces/1-image.jpg",
+    "email": "george.bluth@reqres.in",
+    "first_name": "George",
+    "id": 1,
+    "last_name": "Bluth"
+}
+------------------------------------------------------------------------------------
+
+PUT we want to update the bulk_data that belongs to the Object then use put Method
+---------
+
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/0/-NFwenyj6-voR6HXrMXg/data.json
+
+{
+    "data": [
+        {
+            "avatar": "https://reqres.in/img/faces/1-image.jpg",
+            "email": "george.bluth@reqres.in",
+            "first_name": "George................!",
+            "id": 1,
+            "last_name": "Bluth"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/2-image.jpg",
+            "email": "janet.weaver@reqres.in",
+            "first_name": "Janet...............!",
+            "id": 2,
+            "last_name": "Weaver"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/3-image.jpg",
+            "email": "emma.wong@reqres.in",
+            "first_name": "Emma",
+            "id": 3,
+            "last_name": "Wong"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/4-image.jpg",
+            "email": "eve.holt@reqres.in",
+            "first_name": "Eve",
+            "id": 4,
+            "last_name": "Holt"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/5-image.jpg",
+            "email": "charles.morris@reqres.in",
+            "first_name": "Charles",
+            "id": 5,
+            "last_name": "Morris"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/6-image.jpg",
+            "email": "tracey.ramos@reqres.in",
+            "first_name": "Tracey",
+            "id": 6,
+            "last_name": "Ramos"
+        }
+    ]
+}
+-------------------------------------------------------------
+
+PATCH : WE want to update single user record with based on index_number(unique)
+----------
+
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/0/-NFwenyj6-voR6HXrMXg/data/0.json
+
+Original_Record :
+-------------------
+{
+    "avatar": "https://reqres.in/img/faces/1-image.jpg",
+    "email": "george.bluth@reqres.in",
+    "first_name": "George",
+    "id": 1,
+    "last_name": "Bluth"
+}
+
+updated_Record :
+------------------
+{
+            "avatar": "https://reqres.in/img/faces/1-image.jpg",
+            "email": "george.bluth@reqres.in",
+            "first_name": "Goldberg",
+            "id": 1,
+            "last_name": "Bluth"
+        }
+
+Console same as updated_Record :
+-------------
+
+{
+    "first_name": "Goldberg",
+    "avatar": "https://reqres.in/img/faces/1-image.jpg",
+    "email": "george.bluth@reqres.in",
+    "id": 1,
+    "last_name": "Bluth"
+}
+
+DELETE : it is used to Delete the single_record(based on index_number) or multiple records of the customers 
+--------
+
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data/4.json
+
+
+After deleting index_number_4(id=5) Record then we use GET Method to verify  the data wether the unique record successfully deleted or not
+
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data.json
+
+[
+    {
+            "avatar": "https://reqres.in/img/faces/1-image.jpg",
+            "email": "george.bluth@reqres.in",
+            "first_name": "George................!",
+            "id": 1,
+            "last_name": "Bluth"
+        },
+        {
+            "avatar": "https://reqres.in/img/faces/2-image.jpg",
+            "email": "janet.weaver@reqres.in",
+            "first_name": "Janet...............!",
+            "id": 2,
+            "last_name": "Weaver"
+        },
+    {
+        "avatar": "https://reqres.in/img/faces/3-image.jpg",
+        "email": "emma.wong@reqres.in",
+        "first_name": "Emma",
+        "id": 3,
+        "last_name": "Wong"
+    },
+    {
+        "avatar": "https://reqres.in/img/faces/4-image.jpg",
+        "email": "eve.holt@reqres.in",
+        "first_name": "Eve",
+        "id": 4,
+        "last_name": "Holt"
+    }
+]
+---------------------------------------------------------------------------------------
+
+DELETE:this bellow url is going to delete overall_data
+--------
+https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi/-NFwecL2LG-9fKxUH3Eg/data.json
+
+GET: https://aditya-271b2-default-rtdb.asia-southeast1.firebasedatabase.app/adi.json
+----- 
+After deleting the whole_data we have to check  for the null_data(console) using GET Method.
+
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+validation's
+-------------
+=>status code 
+=>time
+=>size data
+=>response body(json/xml)
+=>cookies
+=>headers
+=>http status codes
+----------------------------------------------------------------------------------------------
+
+TestCases(validations)
+------------------------
+
+pm.test("Response", function () {  
+
+     // assert that the status code is 200  
+
+     pm.response.to.be.ok;   
+
+     pm.response.to.be.withBody;  
+
+     pm.response.to.be.json;  
+
+  });  
+----------------------------
+pm.test("response is ok.....", function(){
+
+    pm.response.to.have.status(200);
+
+});
+-----------------------------
+pm.test("API response contains the expected fields", () => {
+
+  const response = pm.response.json();
+
+
+
+  // the line below checks value of the id field is 3 (number).
+
+  pm.expect(response).to.have.property("id", 2);
+
+
+
+  // the line below checks value of the name field is raja (string).
+
+  pm.expect(response).to.have.property("first_name", "Janet.........!");
+
+});
+--------------------------------------
+
+pm.test("Response time is less than 200ms", function () {
+    pm.expect(pm.response.responseTime).to.be.above(10);
+});
+--------------------------------------
+pm.test("Body matches string", function () {
+    pm.expect(pm.response.text()).to.include("Weaver"); //String present in the data
+});
+--------------------------------------
+
+pm.test("Successful POST request", function () {
+    pm.expect(pm.response.code).to.be.oneOf([200, 202]);
+});
+
+--------------------------------------
+
+
+pm.test("Status code name has string", function () {
+    pm.response.to.have.status("OK");
+});
+
+--------------------------------------
+
+pm.test("Content-Type header is present", function () {
+    pm.response.to.have.header("Content-Type");
+})
+---------------------------------------
+pm.globals.get("variable_key");
+
+pm.globals.get("13");
+----------------------------------------
+var response = JSON.parse(responseBody);tests["verify_first_name"]=
+response.first_name=="John";
+
+----------------------------------------
+
+pm.test("Content-Type Header Present Or Not", () => {pm.response.to.have.header("Content-type");
+pm.response.to.have.header("Server");})
+
+-----------------------------------------
+Test Results
+-------------
+PASS
+Response
+
+PASS
+response is ok.....
+
+PASS
+API response contains the expected fields
+
+PASS
+PASS
+
+PASS
+Successful POST request
+
+PASS
+Status code name has string
+
+PASS
+Content-Type header is present
+
+PASS
+Status code is 200
+
+PASS
+verify_first_name
+
+PASS
+Content-Type Header Present Or Not
+------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
+--------------------
+
+tests["validating status code"] = responseCode.code == 200;
+
+tests["validating response body"] = responseBody.has("data");
+
+var response=JSON.parse(responseBody);
+tests["page no"]=response.page==2
+
+-----------------------
+
+PASS
+validating status code
+PASS
+validating response body
+PASS
+page no
+---------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+INTERVIEW QUESTION'S
+=====================
+1)what is client and server?
+
+A server is a connection point for several clients,that will handle their requests.A client is a software that(usually) connects to 
+the server to perform actions. The client provide a user interface that allows users to carry out actions.
+
+2)what is presentation,Business&Database Layer?
+
+=>presentation layer is a GUI and it developed by using HTML5,java script and CSSetc.
+=>Application Layer(Business Layer) is a middle Layer and it is developed by using java,.Net,C#,python and C++ etc.
+=>Data Layer it is a Database Layer and developed by using MYSQL,Oracle,PostgreSQL,SQL Server and MongoDB.
+
+3)What is an API?Can you give some examples ?
+
+=>API means an Application programming Interface.
+=>It enables communication and Data exchange between two separate software systems.
+=>A software system implementing an API contains functions/sub-routines which can be executed by another software system.
+=>examples: Google Maps API,Amazon Advertising API,Twitter API,YouTube API etc...!
+
+4)what are the main difference between API and Web Service?
+
+=>All Web services are API's but not all API's are Web services.
+=>Web services might not contain all the specifications and can't perform all the Tasks that APIs would perform.
+=>A Web service uses only three styles of use:SOAP and REST for communication where as API may be exposed to in multiple ways.
+=>A web service always needs a network to operate while APIs doesn't need a network for operation.
+
+5)Who can use a Web API?
+
+=>web API can be consumed by any clients which support HTTP verbs such as GET,PUT,DELETE and POST.
+=>since Web API services do not require configuration,they can be easily used by any client.
+=>In fact,even portable devices such as mobile devices can easily use Web API.
+
+6)What is API testing?
+
+=>API testing is a kind of software testing which determinates if the developed APIs meet the expectations regarding the functionality,
+  reliability,performance and security of the application.
+
+7)What are the advantages of API Testing?
+
+=>API tesing provides access to the Application without a user interface. The core and code-level of the functionalities of the application 
+  will be tested and evaluated early before the GUI Tests.This will help and detect the minor issues which can become bigger during the GUI testing.
+=>API Testing usually is less time consuming than functional GUI testing.
+=>API Test Automation requires less code so it can provide better and faster test coverage compared to GUI test automation.
+=>In API Testing,data is exchanged using XML or JSON.These transfer modes are completely language-independent,allowing users to select any code language when 
+  adopting automation testing services for the project.
+
+8)what are the difference between API testing and Unit TESTING?
+
+          API testing                                          Unit TESTING
+       ------------------                                 -------------------
+=>conducted by QA team.                                 =>coducted by development team.
+=>mostly black-box testing.                             =>white-box testing.    
+
+9)what are the types of web-services?
+
+=>REST(Representational State trnsfer)
+=>SOAP(Simple Object access protocol).
+
+10)SOAP vs REST Web Services
+
+      SOAP
+    ---------
+=>SOAP is protocol.
+=>SOAP stands for simple Object access protocol.
+=>SOAP defines standards to be strictly followed.
+=>SOAP requires more band-width and resource than REST.
+=>SOAP defines it's own security.
+=>SOAP can permits XML data format only.
+
+    REST
+   ---------
+=>REST is a Architectural style.
+=>REST stands for Representational state transfer.
+=>REST Doesn't define too much standards like SOAP.
+=>It Requires less band-width and resource than SOAP.
+=>REST full web-services inherits security measures from
+  the underlying transport.
+=>It supports different data formats such as Plain-Text,HTML,XML and Json.
+=>It is most-preffered one than SOAP.
+
+11)What are the common API Testing types?
+
+=>Functional Testing.
+=>Load Testing.
+=>Runtime/Error Detection.
+=>Security Testing.
+=>Penetration Testing.
+=>Fuzz Testing.
+=>Interoperability Testing.  
+
+12)what must be checked when performing API TESTING?
+
+=>During the API testing process,a request is raised to the API with the known data.this way you can analize the validation response.
+  while Testing an API You should consider:
+=>Accuracy of data 
+=>schema validation
+=>HTTP Status codes
+=>Data type,validations,Order and completeness. 
+=>Authorization checks.
+=>implementation of response timeout.
+=>Error codes in case of API returns and
+=>Non-functional testing like performance and security testing. 
+
+13)what is the best approach method to perform API TESTING ?
+
+=>The following factors should be considered when performing API testing:
+=>Defining the correct input parameters.
+=>Verifying the calls of the mixture of two or more added value parameters.
+=>Defning the basic functionality and scope of the API program.
+=>writing appropriate API test cases and making use of testing techniques such as equivalance class,boundary value, etc to check the operability.
+=>test case execution.
+=>Comparing the test result with the expected result.
+=>verifying the API behaviour under conditions such as connection to files so on.
+
+14)what are the tools could be used for API testing?
+
+=> A few of ommon tools are:
+   =>Postman.
+   =>SoapUi.
+   =>Tosca
+   =>Apigee.
+   =>Katalon Studio etc.  
+
+15)what are the major challenges faced in API Testing?
+
+=>Parameter selection
+=>Parameter combination
+=>Call sequencing
+=>Out-put verification and validation.
+=>Another important challenge is providing input values,which is very difficult as GUI is not available in this case.  
+
+16)what kind of bugs that API testing would often find?
+
+=>Missing or Duplicate functionality.
+=>Fails to handle error conditions gracefully.
+=>Stress.
+=>Reliability.
+=>Security.
+=>Unused flags.
+=>Not implemented errors.
+=>Inconsistent error handling.
+=>performance.
+=>Multi-threading issues.
+=>improper errors.
+
+17)what is API Documentation?
+
+=>The API documentation is a complete,accurate technical writing giving instructions on how to effectively use and integrate with an API.
+
+=>It is a compact reference manual that has all the information needed to work with the API.
+
+18)What are API documentation templates that are commonly used?
+
+=>Swagger
+=>Miredot
+=>Slate
+=>FlatDoc
+=>API blueprint
+=>RestDoc.
+
+19)What is Postman?
+
+=>postman is a rest client software that started as an chrome extension but is now available as native application also.
+=>Postman is basically used for API testing in which you can test your APIs with different types of request method types like post,put etc 
+  and parameters,headers and cookies.
+=>Apart from setting the query parameters and checking the response,postman also let us see different response stats like time,status,headers and cookies etc.
+
+20)In which type of encoding does postman accept authorization credentials?why?
+
+=>Postman accept authorization in base64 encoding only.
+
+=>This is provided inbuilt in postman or else you can also refer third part websites to convert the credentials in base64.
+
+=>we use base64 particularly because it transmits the data into textual form and send it in easier form such as HTML form data.
+
+=>we use base64 because we can rely on the same 64 charecters in any encoding language that we use.
+
+21)what is ment by the term Environment with respect to postman?
+
+=>An environment in postman is a set of key-value pairs.
+
+=>you can create multiple env in postman which can be switched quickly with a press of a button.
+
+=>There are two types of environment,global and local.they define the scope of the variable to use it in the requests.
+
+=>Most commonly the variable is defined inside the environment for the same purpose.The most common variable we use is url because url is used in every requests
+  and changing it can be very time consuming.When we create an environment inside postman,we can change the value of the key value pairs and the changes are 
+  reflected in our requests.
+
+22)Can we have two global scope variables with the same name in Postman?
+
+=>Since global variables are global i.e without any environment,they can't have duplicate names as it creates confusion for the softwares.
+
+=>Local variables can have same name but in different environments.
+
+23)Which one has the higher priority in Postman?A Global variable or a local variable?
+
+=>In Postman,if two variables have the same name(one being local and one being Global) then the higher priority is of the local variable.
+  it will overwrite the global variable.
+
+24)Explain the following piece of test code in postman 
+   tests["Status code is 200"]=responseCode.code===200.
+
+=>tests-variable on one of type array
+=>Status code is 200-A string or the test name which will be represented in the test result box so that we can know what test was it.
+  It is important as we use many tests on one request.
+=>responseCode.code=responseCode is used to save all the response that we get from the server.Since we do not need complete response,we need to create one 
+  object to extract our required info.code object is then called to output the status code(like200) from the entire response which we have saved.
+
+25)What is the difference between Postman Monitors and postman Collection Runner?
+
+=>The postman monitor is an automated way of running collections.Collections are triggered automatically as per specified parameters whereas Postman Collections 
+  required some manual effort to start and monitor the execution.
+
+=>A postman collection runner runs the collection for the iterations you want to.It will be stoped when you stop the software and it is not automated.
+
+=>A postman monitor will run your collection at regular user defined intervals till the time you have specified. 
+  your collection will be run even if your system has shutdown as it is connected through postman cloud. 
+
+26)Describe any four response things you recive from a response?
+
+=>Status code.
+=>Response Status.
+=>Response time.
+=>Response size.
+=>Response Headers.
+=>Response Coockies.
+=>Response Date and Time.
+=>Response Session limit.
+=>Response Server.
+=>Response type.
+
+27)What is a collection in postman?
+
+=>A collection in postman is similaer to a folder in your system.
+
+=>A collection is the grouping of requests,It is one of the most vital feature of postman and it is also provides nice features such as running a 
+  whole group of request together with just one click.
+
+=>A collection is also important for sharing many requests at once and contains many more features.
+
+28)should we save our work in postman cloud if we are working in a company?why?
+
+=>A postman cloud is postman company's repository like Microsoft has One Drive etc.
+
+=>In Postman cloud you can save your work instantly after logging in and also retrive it from anywhere you want.
+
+=>It is not preferred to save your work in postman cloud as company's work is often confidential and it should not be leaked out.
+
+=>Postman cloud needs signing in and hence security can be compromised,therefore team work space is preferred instead of saving the work in postman cloud.
+
+29)State any 5 types of Request Method types?
+
+=>Get
+=>Post
+=>Put
+=>Delete
+=>Patch
+=>Head
+
+30)Define status code 401.Also,a situation in which we can incur such status code.
+
+=>status code 401 is reffered for an unauthorized request.An unauthorized request is a request for which you are not authorized.
+  we can incur such a status code when you are not authorized to access the server or you have entered wrong credentials.
+
+=>Other status codes which are seen commonly are 
+
+=>200(ok):Defines that the request was correct.
+=>201(Created):The value wrapped with the request has been created in the database.it is needless to say that the request was correct.
+
+=>204(No content):This status code means that the request was correct and recived but there is no response to send to the client by the server.
+
+=>400(Bad Request):A bad request means that the syntax of the request was incorrect.It can happen if you have sent wrong parameters along with the request url 
+  or in the body of the request.
+
+=>404(Not Found):A response code 404 means that the server was connected but it could not find what was requested.you can normally see this status code when you
+  request a web page which is not available. 
+
+31)What are different types by which we can see response body in postman.
+
+=>In postman,a response body can be seen by three different types
+
+1.Pretty
+2.Raw
+3.Preview
+
+=>Although all the three have their own importance and value in postman,the commonly used is Pretty as it shows the response code in different format and 
+  colors which is easy to read and analyze the response.It is just like any good text editor used for coding. 
+
+32)what is "x-www-urlencoded" in post method in Postman?
+
+=>Form-data and x-www-urlencoded are very similar.they both are used for almost the same purpose.the only difference of both is that the url will be encoded
+  when sent through x-www-urlencoded.
+
+=>Encoded means the data which is sent will be encoded to different charecters so that it is unrecognizable even if it is under attack.
+
+
+33)What is binary in Post method in Postman?
+
+=>Binary form in postman is designed to send the information in a format that cannot be entered manually.Since everything in a computer is converted to binary,we
+  use these options which can't be written manually such as an image,a file etc....
+
+34)What is Pre-Request script in Postman?
+
+=>A pre-request script is a script that runs before the execution of a Request.....!
+
+35)what is the difference between authorization and authentication?
+
+=>authentication is a process of presenting your credentials to the system and the system validating your credentials.These credentials tell the system about who you are.
+
+=>authorization is a process of allowing or denying someone from accessing something,once authentication is done.
+
+36)What are the different scopes of an environment variable in postman?
+
+=>A scope of a variable is defined as the boundaries through which it can accessed.They are
+  
+   *Local scope: Can be accessed only in the environment in which it was created.
+
+   *Global scope:Can be accessed globally in any environment or no environment.
+
+37)what are the two ways in which tests can be written in postman?
+
+=>In postman we can write tests in either Javascript method or Functional method.
+
+=>Although functional method also uses Javascript but the syntax is different.
+
+=>Functional method is officially recomended and used method in postman.
+
+38)write a test code to check wether the response status is 200 or not.?
+
+=>tests["Status Code is 200"]=responseCode.code===200;
+
+39)what is the importance of setNextRequest in postman?
+
+=>setNextRequest in postman is used to define the workflow.setNextRequest is needed to change the order of the request being executed.
+
+40)What are the two types of scripts in postman?
+
+=>We can write two types of scripts in postman
+  
+  *Test script
+  *Pre-request script.
+
+41)What command line interface is used with Postman normally to serve continuous integration?
+
+=>Newman is used.
+
+42)Write the command for running a folder in Newman?
+
+=>newman run<collection_name>-folder<folder name>
+
+43)what is SOAPUI&ReadyAPI?
+
+=>SOAPUI  is a Webservice/API Testing tool.
+
+=>SOAPUI Pro(Ready API) which is Licensed version of SOAPUI.
+
+44)What is WSDL?
+
+=>WSDL stands for Web service Description Language and is a document written in XML.
+
+=>It uses XML to define the service layer document which consists of origin of web service,headers,port types,request and response data.
+
+=>This one can provide the information about web methods and web service.
+
+=>It describes:
+
+  *Origin of the web service
+  *Header information
+  *Port type
+  *Input and output message.
+
+45)what is the role of WSDL document in web service testing?
+
+=>validating web services in only possible with WSDL document because to configure web services in SoapUI,WSDL document is mandatory.If the 
+  WSDL document is not valid,SoapUI will throw an exception immediately.
+
+46)What is UDDI?
+
+=>Universal Description,Discovery and Integration- a directory or global repository ehere all the web services can be found.
+
+=>A new webservice can also be registred through this.
+
+=>This is also the place where WSDL Detailed definitions are found.
+
+47)what is SOAP?
+
+=>Simple Object access protocol that uses XML to interact with web applications.
+
+=>It uses XML based content to communicate between two client mechines across any network.
+
+48)what would be the message format of SOAP protocol?
+
+=>Generally,all the SOAP-based web services are written by using XML language which uses standard message format that is accepted across the universe.In this format,it is easy to read,
+  identify the errors,avoids interoperability problems. etc..
+=>Here's the sample SOAP message format bellow...!
+
+Example::-
+----------
+Content-Type: application/soap+xml
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope">
+    <env:Header>
+        <m:GetLastTradePrice xmlns:m="Some-URI" />
+    </env:Header>
+    <env:Body>
+        <symbol xmlns:p="Some-URI" >DIS</symbol>
+    </env:Body>
+</env:Envelope>
+
+
+49)What are the advantages of SOAP?
+
+=>Since it is XML based, it is platform and programming language independent.
+  RPC(Remote procedure calls) are sometimes blocked by firewalls and proxy servers-Soap overcomes that.
+
+50)SoapUI and SoapUI Pro?
+
+51)what we can do with the help of SoapUI?
+
+=>SoapUI offers us to perform automation testing which includes functional testing,load testing and Data Driven testing.
+
+=>It also provides in build reporting tool and export test results.
+
+=>We assert our services using various types of assertions.
+
+52)what hierarchy does SoapUI follow to build a proper testing project?
+
+53)what is the basic method to automate web services in SoapUI?
+
+54)what are SoapUI assertions?
+
+55)what are the major types of assertions available in SoapUI?
+
+56)Explain about XPath Assertion in SoapUI?
+
+57)what is Data Driven testing?
+
+58)what are the different types of assertions used in SoapUI?
+
+59)what is Groovy script and where can it be used?
+
+60)how to group tests?
+
+61)how to save the responses recived?
+
+62)what are the properties available in SoapUI?
+
+63)what can data sources be used in SoapUI?
+
+=>Excel Files
+=>CSV Files
+=>ODBC Sources
+=>SQL/ADO Objects
+========================================================================================================================================================================
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+========================================================================================================================================================================
+
