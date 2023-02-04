@@ -1,0 +1,2654 @@
+Git-hub:Adithya-Gunji
+        Adithya9666108118
+---------------------------
+
+RestAssured
+-----------
+
+RestAssured is an API/Library through which we can automate RestAPI's.
+
+Pre-requisites:
+---------------
+
+1) java & Eclipse
+2) TestNG
+3) Maven ( comes with Eclipse)
+
+dependencies
+------------
+rest-assured
+
+json-path
+
+json
+
+gson
+
+testNG
+
+scribejava-apis
+
+json-schema-validator
+
+xml-schema-validator
+
+
+Grerkin-keywords
+----------------
+  given  --pre-condition
+ .when() --user action
+ .then() --used to specify expected outcome
+
+static packages
+---------------
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+pom.xml
+---------------
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>RestAssured</groupId>
+  <artifactId>RestAssured</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+     
+     <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>rest-assured</artifactId>
+    <version>5.1.1</version>
+    <scope>test</scope>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>json-path</artifactId>
+    <version>5.1.1</version>
+    <scope>test</scope>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/org.json/json -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20220320</version>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+<dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>7.3.0</version>
+    <scope>test</scope>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+ <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.13.4</version>
+</dependency>
+
+ <!-- https://mvnrepository.com/artifact/net.krotscheck.dfr/data-file-reader-base -->
+<dependency>
+    <groupId>net.krotscheck.dfr</groupId>
+    <artifactId>data-file-reader-base</artifactId>
+    <version>1.0.8</version>
+</dependency>
+
+ <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi</artifactId>
+    <version>4.0.1</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml-schemas</artifactId>
+    <version>4.0.1</version>
+</dependency>
+ 
+ </dependencies>
+ 
+</project>
+------------------------------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------
+*Error:#1
+---------
+ we are getting error to missing the mvn dependency 
+
+  java.lang.IllegalStateException:Cannot serialize object because no JSON serializer found in classpath. 
+                                           Please put Jackson (Databind), Gson, Johnzon, or Yasson in the classpath.
+
+*Error:#2
+-------
+The constructor FileReader(File) is undefined
+
+
+Code sample
+-----------
+java.io.FileReader fr = new java.io.FileReader(file);
+br = new BufferedReader(fr);
+String line;
+while( (line = br.readLine()) != null ) {
+  System.out.println(line);...
+
+
+-------------------------------------------------------------------------------
+
+BDD framework i.e. Behavior Driven Development.........!
+
+------------------------
+
+package Day1;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import java.util.HashMap;
+
+import org.testng.annotations.Test;
+
+/*
+ * given()
+ *   content type, set cookies,add auth, add param, set headers info etc...
+ *   
+ *  .when()
+ *     get, post, put, delete
+ *     
+ *  .then()
+ *     validate status code, extract response, extract headers cookies & response body.....
+ */
+
+public class HTTPRequests {
+	
+     int id;
+     
+	@Test(priority = 1)
+	 void getUser()
+	 {
+		 given()
+	     
+	      
+	      
+	   .when()
+	       .get("https://reqres.in/api/users?page=2")
+	       
+	   .then()
+          .statusCode(200)
+          .body("page",equalTo(2))
+	       .log().all();
+	 }
+
+      @Test(priority = 2)
+      void createUser()
+      {
+    	  HashMap data = new HashMap<>();
+    	  data.put("name","Akhil");
+    	  data.put("job","TestEngineer");
+    	  
+    	  
+    	  id= given()
+ 	          .contentType("application/json")
+	          .body(data)
+	      
+   	   .when()
+   	       .post("https://reqres.in/api/users")
+   	       .jsonPath().getInt("id");
+   	       
+   	   //.then()
+            // .statusCode(200)
+            // .body("page",equalTo(2))
+   	      // .log().all();
+      }
+      @Test(priority = 3,dependsOnMethods = {"createUser"})
+      void updateUser()
+      {
+    	  HashMap hm = new HashMap();
+    	  hm.put("name","Akhil");
+    	  hm.put("job","SeleniumAutomationTestEngineer");
+    	  
+    	  given()
+	          .contentType("application/json")
+              .body(hm)
+          
+          .when()
+             .put("https://reqres.in/api/users/"+id)
+    	    
+           .then()
+              .statusCode(200)
+              .log().all();
+          
+      }
+      @Test(priority = 4)
+      void deleteUser()
+      {
+    	  given()
+    	  
+    	  .when()
+    	     .delete("https://reqres.in/api/users/"+id)
+    	  .then()
+    	      .statusCode(204)
+    	      .log().all();
+      }
+}
+
+------------------------------------------------------------------------------------------------------------------
+
+How many ways we create POST-request body
+------------------------------------
+1)Hashmap
+2)using org.json
+3)usingPOJO(Plain Old java Object)
+4)using external json file.
+
+
+----------------------------------------------------------------
+
+package Day2;
+
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import java.io.File;
+import java.io.Reader;
+import java.util.HashMap;
+
+import org.json.JSONObject;
+import org.json.JSONTokener;
+import org.testng.annotations.Test;
+
+import io.restassured.internal.support.FileReader;
+
+public class DiffwaytoCreatePostreqbody {
+
+	 // post request body by using hashMap
+	
+	 //@Test(priority = 1)
+	  void testpostusingHashMap()
+	  {
+		  HashMap data = new HashMap();
+		  
+		  data.put("name","scott");
+		  data.put("location","india");
+		  data.put("phone","9666108118");
+		  
+		  String courseArr[] = {"RestAssured","java"};
+		  data.put("courses", courseArr);
+		  
+		  
+		  given()
+		      .contentType("application/json")
+		      .body(data)
+		      
+		   .when()
+		       .post("http://localhost:3000/students")
+		       
+		   .then()
+               .statusCode(201)
+               .body("name",equalTo("scott"))
+               .body("location",equalTo("india"))
+		       .body("phone",equalTo("9666108118"))
+		       .body("courses[0]",equalTo("RestAssured"))
+		       .body("courses[1]",equalTo("java"))
+		       .header("Content-Type","application/json; charset=utf-8")
+		       .log().all();
+		      
+	  }
+	 
+	 
+	// post request body by using JsonLibrary
+	@Test(priority = 1)
+	  void testpostusingJsonLibrary()
+	  {
+		 JSONObject data = new JSONObject();
+		  
+		  data.put("name","scott");
+		  data.put("location","india");
+		  data.put("phone","9666108118");
+		  
+		  String courseArr[] = {"RestAssured","java"};
+		  data.put("courses", courseArr);
+		  
+		  
+		  given()
+		      .contentType("application/json")
+		      .body(data.toString())
+		      
+		   .when()
+		       .post("http://localhost:3000/students")
+		       
+		   .then()
+               .statusCode(201)
+               .body("name",equalTo("scott"))
+               .body("location",equalTo("india"))
+		       .body("phone",equalTo("9666108118"))
+		       .body("courses[0]",equalTo("RestAssured"))
+		       .body("courses[1]",equalTo("java"))
+		       .header("Content-Type","application/json; charset=utf-8")
+		       .log().all();
+		      
+	  }
+	 
+	  
+	 @Test(priority = 2)
+	 void testDelete()
+	 {
+		 given()
+		 
+		 .when()
+		     .delete("http://localhost:3000/students/5")
+		     
+		  .then()
+		      .statusCode(200);
+	 }
+}
+
+--------------------------------------------------------------------------
+
+create a file body.json
+------------------------
+ 
+    {
+     
+      "name": "scott",
+      "location": "india",
+      "phone": "9666108118",
+      "courses": [
+        "RestAssured",
+        "java"
+  ]
+}
+
+--------------------------------------------------------------------------
+
+package Day2;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.Reader;
+import java.util.Scanner;
+
+import org.json.JSONObject;
+import org.json.JSONTokener;
+import org.testng.annotations.Test;
+
+import io.restassured.internal.support.FileReader;
+
+public class postrequsingExternalJsonfile {
+	
+	// post request body by using External JSON file
+	
+	
+	 @Test(priority = 1)
+	  void testpostusingExternalJsonFile() throws FileNotFoundException
+	  {
+		 
+		 
+	  java.io.FileReader fr = new java.io.FileReader(".//body.json");
+	 BufferedReader br = new BufferedReader(fr);
+	  
+		 JSONTokener jt = new JSONTokener(br);
+		 //Scanner sc = new Scanner(f);
+		 
+		 JSONObject data = new JSONObject(jt);
+		  
+		  
+		  given()
+		      .contentType("application/json")
+		      .body(data.toString())
+		      
+		   .when()
+		       .post("http://localhost:3000/students")
+		       
+		   .then()
+              .statusCode(201)
+              .body("name",equalTo("Akhil"))
+              .body("location",equalTo("india"))
+		       .body("phone",equalTo("9666108118"))
+		       .body("courses[0]",equalTo("RestAssured"))
+		       .body("courses[1]",equalTo("java"))
+		       .header("Content-Type","application/json; charset=utf-8")
+		       .log().all();
+		      
+	  }
+	  
+	  
+	 @Test(priority = 2)
+	 void testDelete()
+	 {
+		 given()
+		 
+		 .when()
+		     .delete("http://localhost:3000/students/5")
+		     
+		  .then()
+		      .statusCode(200);
+	 }
+
+
+}
+
+------------------------------------------------------------------------------------------------------------------------
+
+package Day2;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+
+
+public class postreqbodyusingpojo {
+  
+      // post request body by using POJO Object class 
+
+	@Test(priority = 1)
+	void TestpostusingPOJO()
+	{
+		pojo_posRequest data = new pojo_posRequest();
+		
+		data.setName("Akhil");
+		data.setLocation("unitedstates");
+		data.setPhone("9666108118");
+		
+		String coursesArray[]= {"java","selenium"};
+		data.setCourses(coursesArray);
+		
+		given()
+	      .contentType("application/json")
+	      .body(data)
+	      
+	   .when()
+	       .post("http://localhost:3000/students")
+	       
+	   .then()
+	   .statusCode(201)
+       .body("name",equalTo("Akhil"))
+       .body("location",equalTo("unitedstates"))
+       .body("phone",equalTo("9666108118"))
+       .body("courses[0]",equalTo("java"))
+       .body("courses[1]",equalTo("selenium"))
+       .header("Content-Type","application/json; charset=utf-8")
+       .log().all();
+	}
+	@Test(priority = 2)
+	 void testDelete()
+	 {
+		 given()
+		 
+		 .when()
+		     .delete("http://localhost:3000/students/5")
+		     
+		  .then()
+		      .statusCode(200);
+	 }
+	
+}
+-----------------------------------------------------------------
+
+package Day2;
+
+public class pojo_posRequest {
+
+	  private String name;
+      private String Location;
+	  
+	  private String phone;
+	  
+	  private String courses[];
+	
+	
+	  public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLocation() {
+		return Location;
+	}
+
+	public void setLocation(String location) {
+		Location = location;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String[] getCourses() {
+		return courses;
+	}
+
+	public void setCourses(String[] courses) {
+		this.courses = courses;
+	}
+
+		
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Day:3 ::
+--------
+
+1)Path&Query parameters
+
+https://reqres.in/api/users?page=2
+https://reqres.in/api/users?page=2&id=5
+
+
+cookies and headers
+
+https://www.google.com/ --Postman tool we get cookies & headers(cookie values randomly changed for every Run)
+
+
+headername : value
+
+log()
+
+--------------------------------------------------
+
+package Day3;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import java.util.Map;
+
+import org.testng.annotations.Test;
+
+import io.restassured.response.Response;
+
+
+public class CookiesAPI {
+     
+	//@Test(priority = 1)
+	 void TestCookies()
+	 {
+		 given()
+		 
+		  .when()
+		     .get("https://www.google.com/")
+		     
+		  .then()
+		      .cookie("AEC","ARSKqsJfHAVnNecOxhQnz7aK9SL5IWo53htlvNX-HCqQTKx50pOjb3Eh-Q")
+		      .log().all();
+	 }
+	
+	 @Test(priority = 2)
+	 void getCookiesInfo()
+    
+	 {
+		 
+		Response  res= given()
+		 
+		  .when()
+		     .get("https://www.google.com/");
+		     
+		     
+		    //get single Cookie Info
+		    // String cookie_value  = res.getCookie("AEC");
+		    //System.out.println("value of cookie is : " +cookie_value);
+		
+		    // get all cookies info
+		
+		     Map<String,String> cookie_values = res.getCookies();
+		     
+		    //System.out.println(cookie_values.keySet());
+		     
+		     for(String k :cookie_values.keySet())
+		     {
+		    	String cookie_value= res.getCookie(k);
+		    	
+		    	System.out.println(k+"                   ::                      "+cookie_value);
+		     }
+		     
+		     
+	 }
+}
+
+----------------------------------------------------------------------------
+
+package Day3;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
+import io.restassured.response.Response;
+
+
+public class HeadersTestAPI {
+	
+	@Test(priority = 1)
+	void TestHeaders()
+	{
+		  given()
+		   
+		     
+		   .when()
+		       .get("https://www.google.com/")
+		       
+		   .then()
+		       .header("Content-Type","text/html; charset=ISO-8859-1")
+		       
+		       .header("Content-Encoding","gzip")
+		       
+		       .header("Server","gws");
+	}
+	
+	@Test(priority = 2)
+	void getHeaders()
+	{
+	      
+	Response res = given()
+		   
+	     
+		   .when()
+		       .get("https://www.google.com/");
+		
+		    // Get single header Info
+		      
+	     // String header_value= res.getHeader("Content-Type");
+	      
+	      //System.out.println("The value of the Content-Type header is :" +header_value);
+	
+	     //Get All Headers info
+	
+	     Headers myHeaders= res.getHeaders();
+	     
+	     for(Header hd : myHeaders)
+	     {
+	    	 System.out.println(hd.getName()+"     ::      "+hd.getValue());
+	     }
+	}
+
+}
+
+------------------------------------------------------------------------------------
+
+package Day3;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+
+public class LoggingTypes {
+	
+	@Test
+	void TestLogs()
+	{
+		given()
+		
+		.when()
+		   .get("https://reqres.in/api/users?page=2")
+		   
+		.then()
+		   //.log().body();
+		   // .log().headers();
+		   //  .log().cookies();
+		     .log().all();
+	}
+
+}
+
+----------------------------------------------------------------------------------
+
+package Day3;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+
+public class PathAndQueryParameters {
+
+	//https://reqres.in/api/users?page=2&id=5
+	  
+	  @Test
+	  void TestQueryAndPathParams()
+	  {
+		  given()
+		     .pathParam("mypath","users") //path parameters
+		     .queryParam("page",2) //Query param
+		     .queryParam("id",5) //Query parameters
+		     
+		   .when()
+		       .get("https://reqres.in/api/{mypath}")
+		       
+		   .then()
+		       .statusCode(200)
+		       .log().all();
+	  }
+}
+
+-----------------------------------------------------------------------------------
+
+package Day3;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import java.util.Map;
+
+import org.testng.annotations.Test;
+
+import io.restassured.response.Response;
+
+
+public class CookiesAPI {
+     
+	//@Test(priority = 1)
+	 void TestCookies()
+	 {
+		 given()
+		 
+		  .when()
+		     .get("https://www.google.com/")
+		     
+		  .then()
+		      .cookie("AEC","ARSKqsJfHAVnNecOxhQnz7aK9SL5IWo53htlvNX-HCqQTKx50pOjb3Eh-Q")
+		      .log().all();
+	 }
+	
+	 @Test(priority = 2)
+	 void getCookiesInfo()
+    
+	 {
+		 
+		Response  res= given()
+		 
+		  .when()
+		     .get("https://www.google.com/");
+		     
+		     
+		    //get single Cookie Info
+		    // String cookie_value  = res.getCookie("AEC");
+		    //System.out.println("value of cookie is : " +cookie_value);
+		
+		    // get all cookies info
+		
+		     Map<String,String> cookie_values = res.getCookies();
+		     
+		    //System.out.println(cookie_values.keySet());
+		     
+		     for(String k :cookie_values.keySet())
+		     {
+		    	String cookie_value= res.getCookie(k);
+		    	
+		    	System.out.println(k+"           ::           "+cookie_value);
+		     }
+		     
+		     
+	 }
+}
+
+
+----------------------------------------------------------------------------------------
+
+package Day3;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
+import io.restassured.response.Response;
+
+
+public class HeadersTestAPI {
+	
+	@Test(priority = 1)
+	void TestHeaders()
+	{
+		  given()
+		   
+		     
+		   .when()
+		       .get("https://www.google.com/")
+		       
+		   .then()
+		       .header("Content-Type","text/html; charset=ISO-8859-1")
+		       
+		       .header("Content-Encoding","gzip")
+		       
+		       .header("Server","gws");
+	}
+	
+	@Test(priority = 2)
+	void getHeaders()
+	{
+	      
+	Response res = given()
+		   
+	     
+		   .when()
+		       .get("https://www.google.com/");
+		
+		    // Get single header Info
+		      
+	     // String header_value= res.getHeader("Content-Type");
+	      
+	      //System.out.println("The value of the Content-Type header is :" +header_value);
+	
+	     //Get All Headers info
+	
+	     Headers myHeaders= res.getHeaders();
+	     
+	     for(Header hd : myHeaders)
+	     {
+	    	 System.out.println(hd.getName()+"     ::      "+hd.getValue());
+	     }
+	}
+
+}
+
+----------------------------------------------------------------------------------------------
+
+
+package Day3;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+
+public class LoggingTypes {
+	
+	@Test
+	void TestLogs()
+	{
+		given()
+		
+		.when()
+		   .get("https://reqres.in/api/users?page=2")
+		   
+		.then()
+		   //.log().body();
+		   // .log().headers();
+		   //  .log().cookies();
+		     .log().all();
+	}
+
+}
+
+-----------------------------------------------------------------------------------------------
+
+Day-4:
+------
+{
+  "store":{
+
+  "book" : [
+
+       {
+         "author" : "Nigel Reese",
+         "category" : "reference",
+         "price" : 150.5,
+         "title" : "Sayings of the century"
+       },
+
+       {
+         "author" : "Evelyn waugh",
+         "category" : "fiction",
+         "price" : 100,
+         "title" : "Sword of honour"
+       },
+       
+       {
+         "author" : "Herman Melville",
+         "category" : "fiction",
+         "isbn" : "0-553-21311-3",
+         "price" :    75.5,
+         "title" : "Moby"
+       },
+
+       {
+         "author" : "J.R.R Tolkein",
+         "category" : "fiction",
+         "isbn" : "0-395-21311-8",
+         "price" : 200,
+         "title" : "The Lord of the Ring"
+       }
+     ]
+  }
+}
+
+ http://localhost:3000/store
+
+https://jsonpathfinder.com :: .body("book[3].title",equalTo("The Lord of the Ring"));
+
+
+package Day4;
+
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.json.JSONObject;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+
+public class ParsingJSONResponseData {
+	
+	
+	@Test(priority = 1)
+	void TestJsonResponse()
+	{
+		// Approach1
+		
+	/*	given()
+		   .contentType("Content-Type.json")
+		.when()
+		    .get("http://localhost:3000/store")
+		.then()
+		  .statusCode(200)
+		  .header("Content-Type","application/json; charset=utf-8")
+		  .body("book[3].title",equalTo("The Lord of the Ring"));
+		*/
+		
+		//Approach2
+		 
+	Response res	= given()
+		   .contentType(ContentType.JSON)
+		.when()
+		    .get("http://localhost:3000/store");
+		
+		Assert.assertEquals(res.getStatusCode(),200);
+		Assert.assertEquals(res.header("Content-Type"),"application/json; charset=utf-8");
+		  
+	   String book_name= res.jsonPath().get("book[3].title").toString();
+	   Assert.assertEquals(book_name,"The Lord of the Ring");
+	}
+	
+	@Test(priority = 2)
+	void TestJsonResponseBodyData()
+	{
+		Response res	= given()
+				   .contentType(ContentType.JSON)
+				.when()
+				    .get("http://localhost:3000/store");
+		
+		//JSON Object class
+	 JSONObject jo = new JSONObject(res.asString());//converting Response to JSON Object	
+		
+	  //print all titles of books  
+	 
+ /* for(int i=0;i<jo.getJSONArray("book").length();i++)
+	 {
+		 
+      String book_title = jo.getJSONArray("book").getJSONObject(i).get("title").toString();
+		   
+      System.out.println(book_title);
+	 }*/
+	 
+	 // search for the title of the book is in JSON  -validation1
+	 
+	 boolean status = false;
+	 for(int i=0;i<jo.getJSONArray("book").length();i++)
+	 {
+		 
+      String book_title = jo.getJSONArray("book").getJSONObject(3).get("title").toString();
+		   
+        if(book_title.equals("The Lord of the Ring"))
+        {
+        	status = true;
+        	break;
+        }
+	 }
+	 
+	Assert.assertEquals(status,true); 
+	
+	
+	// validating toatl price of books -validation2
+	
+	 double TotalPrice=0;
+	 for(int i=0;i<jo.getJSONArray("book").length();i++)
+	 {
+		 
+      String price = jo.getJSONArray("book").getJSONObject(i).get("price").toString();
+		   
+      TotalPrice = TotalPrice+Double.parseDouble(price);
+      
+      
+	 }
+	 System.out.println("Total price of books is :: "+TotalPrice);
+	 
+	 Assert.assertEquals(TotalPrice,525.5);
+  } 
+	 
+}
+
+-------------------------------------------------------------------------------------------------
+
+
+Day-5:
+------
+
+Parsing XML Response
+--------------------
+
+  What is parse mean in programming? Parsing, syntax analysis, or syntactic analysis is the process of analyzing a string of symbols, 
+  either in natural language, computer languages or data structures, conforming to the rules of a formal grammar.
+
+ http://restapi.adequateshop.com/api/Traveler?page=1
+ 
+ http://restapi.adequateshop.com/api/Traveler?page=2
+
+ Note: Go to any browser and search with the url::http://restapi.adequateshop.com/api/Traveler?page=1 Then we can Observe here the Nodes with Travelers information.
+
+ 
+ ----------------------------------------------------------------
+
+package Day5;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import java.util.List;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.path.xml.XmlPath;
+import io.restassured.response.Response;
+
+
+public class ParsingXMLResponse {
+     
+	// @Test
+	 void TestXMLResponse()
+	 {
+		 //Approach1
+		 
+		/*  given()
+		  
+		  .when()
+		     .get("http://restapi.adequateshop.com/api/Traveler?page=1")
+		     
+		  .then()
+		     .statusCode(200)
+		     .header("Content-Type","application/xml; charset=utf-8")
+		     .body("TravelerinformationResponse.page",equalTo("1"))
+		     .body("TravelerinformationResponse.travelers.Travelerinformation[0].name",equalTo("Developer"));
+		     
+		     */
+		 
+		 //Approach2
+	Response res = 
+		 given()
+		  
+		  .when()
+		     .get("http://restapi.adequateshop.com/api/Traveler?page=1");
+		     
+		    Assert.assertEquals(res.getStatusCode(),200);
+		    Assert.assertEquals(res.header("Content-Type"),"application/xml; charset=utf-8");
+		    
+		    String pageNo = res.xmlPath().get("TravelerinformationResponse.page").toString();
+		    Assert.assertEquals(pageNo,"1");
+		    
+		    String TravelerName = res.xmlPath().get("TravelerinformationResponse.travelers.Travelerinformation[0].name");
+		    Assert.assertEquals(TravelerName,"Developer");
+	 }
+	 
+	 @Test
+	 void TestXMLResponseBody()
+	 {
+		 Response res = 
+				 given()
+				  
+				  .when()
+				     .get("http://restapi.adequateshop.com/api/Traveler?page=1");
+		          
+		          XmlPath xmlObj = new XmlPath(res.asString());
+		          
+		          //verify Total number of Travelers
+  List<String> Travelers = 
+		  xmlObj.getList("TravelerinformationResponse.travelers.Travelerinformation");
+  
+        Assert.assertEquals(Travelers.size(),10);
+		          
+		//verify traveler name present in Response
+        
+        List<String> Traveler_names = 
+      		  xmlObj.getList("TravelerinformationResponse.travelers.Travelerinformation[0].name");  
+        
+        boolean status = false;
+        for(String travelerName : Traveler_names)
+        {
+        	//System.out.println(travelerName);
+        	
+        	if(travelerName.equals("Developer"))
+        	{
+        		status=true;
+        		break;
+        	}
+        	
+        }
+        
+        Assert.assertEquals(status,true);
+	 }
+}
+
+-------------------------------------------------------------------------------------
+
+Go to the jar-file location and type cmd then type to Run bellow command
+
+java -jar file-upload-RestAPI.jar  (In the Downloaded jar-file location)
+
+
+FileUpload/Download API
+-----------------------
+
+package Day5;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import java.io.File;
+
+import org.testng.annotations.Test;
+
+public class FileUploadAndDownload {
+
+	 // @Test
+	  void SingleFileUpload()
+	  {
+		  File myfile = new File("C:\\Users\\adith\\Documents\\Testfiles\\Test1.txt"); 
+		  
+		  given()
+		      .multiPart("file", myfile)
+		      .contentType("multipart/form-data")
+		  .when()
+		     .post("http://localhost:8080/uploadFile")
+		  
+		  .then()
+		     .statusCode(200)
+		     .body("fileName",equalTo("Test1.txt"))
+		     .log().all();
+	  }
+	  
+	  @Test(priority = 1)
+	  void MultipleFilesUpload()
+	  {
+		  File myfile1 = new File("C:\\Users\\adith\\Documents\\Testfiles\\Test1.txt");
+		  File myfile2 = new File("C:\\Users\\adith\\Documents\\Testfiles\\Test2.txt");
+		  
+		
+		  
+		  given()
+	        .multiPart("files", myfile1)
+	        .multiPart("files", myfile2)
+	      
+	     
+	      
+	      .contentType("multipart/form-data")
+	  .when()
+	     .post("http://localhost:8080/uploadMultipleFiles")
+	  
+	  .then()
+	     .statusCode(200)
+	     .body("[0].fileName",equalTo("Test1.txt"))
+	     .body("[1].fileName",equalTo("Test2.txt"))
+	     
+	     .log().all();
+	  }
+	  
+	  @Test(priority = 2)
+	  void FileDownload()
+	  {
+		  given()
+		  
+		  .when()
+		     .get("http://localhost:8080/downloadFile/Test1.txt")
+		     
+		   .then()
+		      .statusCode(200)
+		      .log().body();
+	  }
+}
+
+--------------------------------------------------------------------------------------
+
+JSON/XML Schema validations
+---------------------------
+
+Response validations -- Data
+Schema validation -- type of Data
+
+JSON Response(.json) ---> JSON Schema(.json)
+XML Response(.xml) ---> xml schema(.xsd)
+
+ C:\Users\adith\Documents\jsontestdoc>json-server store.json
+
+ http://localhost:3000/store
+
+
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>json-schema-validator</artifactId>
+    <version>5.0.0</version>
+    <scope>test</scope>
+</dependency>
+
+
+Run into postman of req http://localhost:3000/store
+
+Response
+--------
+
+{
+    "book": [
+        {
+            "author": "Nigel Reese",
+            "category": "reference",
+            "price": 150.5,
+            "title": "Sayings of the century"
+        },
+        {
+            "author": "Evelyn waugh",
+            "category": "fiction",
+            "price": 100,
+            "title": "Sword of honour"
+        },
+        {
+            "author": "Herman Melville",
+            "category": "fiction",
+            "isbn": "0-553-21311-3",
+            "price": 75.5,
+            "title": "Moby"
+        },
+        {
+            "author": "J.R.R Tolkein",
+            "category": "fiction",
+            "isbn": "0-395-21311-8",
+            "price": 200,
+            "title": "The Lord of the Ring"
+        }
+    ]
+}
+
+---------------------------------
+
+convert data to schema by using online json to jsonschema converter tool.
+
+Create a file with the name StoreAPISchemafile.json and copy it to java memory in place of src/test/resources.
+
+----------------------------------------------------
+
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "book": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "author": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "price": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "author",
+            "category",
+            "price",
+            "title"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "author": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "price": {
+              "type": "integer"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "author",
+            "category",
+            "price",
+            "title"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "author": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "isbn": {
+              "type": "string"
+            },
+            "price": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "author",
+            "category",
+            "isbn",
+            "price",
+            "title"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "author": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "isbn": {
+              "type": "string"
+            },
+            "price": {
+              "type": "integer"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "author",
+            "category",
+            "isbn",
+            "price",
+            "title"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "book"
+  ]
+}
+-----------------------------------
+
+package Day6_1;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+import io.restassured.module.jsv.JsonSchemaValidator;
+
+public class JSONSchemavalidation {
+
+	   @Test
+	   void jsonschemavalidation()
+	   {
+		   given()
+		   
+		   .when()
+		     .get("http://localhost:3000/store")
+		   .then()
+		      .assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("storeAPISchemafile.json"));
+	   }
+}
+
+------------------------------------------------------------------
+
+XML Response(.xml) ---> xml schema(.xsd)
+
+
+by postman tool for with the Respone of url ::http://restapi.adequateshop.com/api/Traveler
+
+
+Response
+--------
+
+<TravelerinformationResponse xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <page>1</page>
+    <per_page>10</per_page>
+    <totalrecord>46176</totalrecord>
+    <total_pages>4618</total_pages>
+    <travelers>
+        <Travelerinformation>
+            <id>11133</id>
+            <name>Developer</name>
+            <email>Developer12@gmail.com</email>
+            <adderes>USA</adderes>
+            <createdat>0001-01-01T00:00:00</createdat>
+        </Travelerinformation>
+        <Travelerinformation>
+            <id>11134</id>
+            <name>AS</name>
+            <email>qweqw@mail.ru</email>
+            <adderes>USA</adderes>
+            <createdat>0001-01-01T00:00:00</createdat>
+        </Travelerinformation>
+        <Travelerinformation>
+            <id>11135</id>
+            <name>vano</name>
+            <email>van.19v@mail.ru</email>
+            <adderes>USA</adderes>
+            <createdat>0001-01-01T00:00:00</createdat>
+        </Travelerinformation>
+        <Travelerinformation>
+            <id>11136</id>
+            <name>Developer123</name>
+            <email>Developer523@gmail.com</email>
+            <adderes>USA</adderes>
+            <createdat>0001-01-01T00:00:00</createdat>
+        </Travelerinformation>
+        <Travelerinformation>
+            <id>11137</id>
+            <name>Ashor</name>
+            <email>ashot.vardanyan.2000@gmail.com</email>
+            <adderes>USA</adderes>
+            <createdat>0001-01-01T00:00:00</createdat>
+        </Travelerinformation>
+        <Travelerinformation>
+            <id>11138</id>
+            <name>1234</name>
+            <email>ghag@mail.ru</email>
+            <adderes>USA</adderes>
+            <createdat>0001-01-01T00:00:00</createdat>
+        </Travelerinformation>
+        <Travelerinformation>
+            <id>11139</id>
+            <name>asdasd</name>
+            <email>asdasd@dasda.asd</email>
+            <adderes>USA</adderes>
+            <createdat>0001-01-01T00:00:00</createdat>
+        </Travelerinformation>
+        <Travelerinformation>
+            <id>11140</id>
+            <name>da</name>
+            <email>auriu@gmail.com</email>
+            <adderes>USA</adderes>
+            <createdat>0001-01-01T00:00:00</createdat>
+        </Travelerinformation>
+        <Travelerinformation>
+            <id>11142</id>
+            <name>asdasd</name>
+            <email>qwwerrwerweeqw@mail.ru</email>
+            <adderes>USA</adderes>
+            <createdat>0001-01-01T00:00:00</createdat>
+        </Travelerinformation>
+        <Travelerinformation>
+            <id>11143</id>
+            <name>karen</name>
+            <email>karen@mail.ru</email>
+            <adderes>USA</adderes>
+            <createdat>0001-01-01T00:00:00</createdat>
+        </Travelerinformation>
+    </travelers>
+</TravelerinformationResponse> 
+
+-----------------------------------------------------------------------------
+
+use the onlinetool is xml to xsd converter online.
+
+Create a file with the name Traveler.xsd and copy it to java memory in place of src/test/resources.
+
+
+Response
+--------
+
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xsd:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:element name="TravelerinformationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="page" type="xs:unsignedByte" />
+        <xs:element name="per_page" type="xs:unsignedByte" />
+        <xs:element name="totalrecord" type="xs:unsignedShort" />
+        <xs:element name="total_pages" type="xs:unsignedShort" />
+        <xs:element name="travelers">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="Travelerinformation">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="id" type="xs:unsignedShort" />
+                    <xs:element name="name" type="xs:string" />
+                    <xs:element name="email" type="xs:string" />
+                    <xs:element name="adderes" type="xs:string" />
+                    <xs:element name="createdat" type="xs:dateTime" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xsd:schema>
+
+-----------------------------------------------------------------
+
+package Day6_1;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import java.util.Map;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.matcher.RestAssuredMatchers;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseOptions;
+import io.restassured.response.ValidatableResponse;
+
+public class XMLSchemavalidation {
+     @Test
+	 void xmlSchemavalidation()
+	 {
+	
+			given()
+		 
+		 .when()
+		    .get("http://restapi.adequateshop.com/api/Traveler")
+		
+		  .then()
+		     .assertThat().body(RestAssuredMatchers.matchesXsdInClasspath("Traveler.xsd"));
+		   
+	
+		
+	 }
+}
+
+-------------------------------------------------------------------
+
+=>Serialization     pojo---json
+=>De-serialization  json---pojo
+
+=>Body(json)--------> Request --------->Response(json)
+
+--------------------------
+
+
+package Day6_1;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+//POJO -- serialization -- JSON object
+//JSON object -- Deserialization -- POJO
+public class SerializationDeserialization {
+
+	@Test
+	void convertPojotoJSON() throws JsonProcessingException
+	{
+		//created java object using POJO class
+		
+		student stupojo = new student();
+		
+		stupojo.setName("Akhil");
+		stupojo.setLocation("India");
+		stupojo.setPhone("9666180119");
+		
+		String coursesArr[] = {"Selenium","RestAssured","MySQL"};
+		stupojo.setCourses(coursesArr);
+		
+		//convert java object ---> JSON Object (serialization)
+		ObjectMapper objmapper = new ObjectMapper();
+		
+       String jsonData= objmapper.writerWithDefaultPrettyPrinter().writeValueAsString(stupojo);
+		
+		System.out.println(jsonData);
+	}
+}
+
+-----------------------------------------------------------
+
+package Day6_1;
+
+public class student {
+
+	private String name;
+    private String Location;
+	private String phone;
+	private String courses[];
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLocation() {
+		return Location;
+	}
+
+	public void setLocation(String location) {
+		Location = location;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String[] getCourses() {
+		return courses;
+	}
+
+	public void setCourses(String[] courses) {
+		this.courses = courses;
+	}
+
+}
+
+--------------------------------------------------------
+
+package Day6_1;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+//POJO -- serialization -- JSON object
+//JSON object -- Deserialization -- POJO
+public class SerializationDeserialization {
+
+	//POJO -----> JSON
+	
+	//@Test
+	void convertPojotoJSON() throws JsonProcessingException
+	{
+		//created java object using POJO class
+		
+		student stupojo = new student();
+		
+		stupojo.setName("Akhil");
+		stupojo.setLocation("India");
+		stupojo.setPhone("9666180119");
+		
+		String coursesArr[] = {"Selenium","RestAssured","MySQL"};
+		stupojo.setCourses(coursesArr);
+		
+		//convert java object ---> JSON Object (serialization)
+		ObjectMapper objmapper = new ObjectMapper();
+		
+       String jsonData= objmapper.writerWithDefaultPrettyPrinter().writeValueAsString(stupojo);
+		
+		System.out.println(jsonData);
+	}
+	
+     // JSON to POJO
+	@Test
+	void convertJSONtoPojo() throws JsonMappingException, JsonProcessingException
+	{
+		String jsonData = "{\r\n"
+				+ "  \"name\" : \"Akhil\",\r\n"
+				+ "  \"phone\" : \"9666180119\",\r\n"
+				+ "  \"courses\" : [ \"Selenium\", \"RestAssured\", \"MySQL\" ],\r\n"
+				+ "  \"location\" : \"India\"\r\n"
+				+ "}";
+		
+		//convert JSON Data ---> POJO Object
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+      student stuPojo= objectMapper.readValue(jsonData,student.class);//convert JSON to POJO
+		
+      System.out.println("studentName :"+stuPojo.getName());
+      System.out.println("studentLocation :"+ stuPojo.getLocation());
+      System.out.println("studentPhone :"+stuPojo.getPhone());
+      System.out.println("Course 1:"+stuPojo.getCourses()[0]);
+      System.out.println("Course 2:"+stuPojo.getCourses()[1]);
+      
+	}
+}
+
+-----------------------------------------------------------------
+
+Authorizations
+--------------
+
+Authentication -- valid or not
+Autorization -- access
+
+Basic
+Digest
+Preemtive
+Bearer token
+Auth1.0,2.0
+API Key
+------------------------------------
+package Day7;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+public class Authentications {
+
+	 //@Test(priority = 1)
+	 void TestBasicAuthentication()
+	 {
+		 given()
+		   .auth().basic("postman","password")
+		   
+		 .when()
+		    .get("https://postman-echo.com/basic-auth")
+		    
+		  .then()
+		     .statusCode(200)
+		     .body("authenticated",equalTo(true))
+		     .log().all();
+	 }
+	 //@Test(priority = 2)
+	 void TestDigestAuthentication()
+	 {
+		 given()
+		   .auth().digest("postman","password")
+		   
+		   .when()
+		    .get("https://postman-echo.com/basic-auth")
+		    
+		  .then()
+		     .statusCode(200)
+		     .body("authenticated",equalTo(true))
+		     .log().all();
+	 }
+	 
+	 //@Test(priority = 3)
+	 void TestPreemptiveAuthentication()
+	 {
+		 //All 3 Authentications similar but internally Algorithm is different.
+		 given()
+		   .auth().preemptive().basic("postman","password")
+		   
+		   .when()
+		    .get("https://postman-echo.com/basic-auth")
+		    
+		  .then()
+		     .statusCode(200)
+		     .body("authenticated",equalTo(true))
+		     .log().all();
+	 }
+	 
+	 //@Test(priority = 4)
+	 void TestBearerTokenAuthentication()
+	 {
+		String bearertoken = "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"; 
+		
+		given()
+		   .headers("Authorization","Bearer"+bearertoken)
+		   
+		.when()
+		    .get("https://api.github.com/user/repos")
+		    
+		.then()
+		    //.statusCode(200)
+		    .log().all();
+	 }
+	 //@Test(priority = 5)
+	 void TestOAuth2Authentication()
+	 {
+		 given()
+		   .auth().oauth2("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")
+		   
+		   .when()
+		      .get("https://api.github.com/user/repos")
+		      
+		      .then()
+			    .statusCode(200)
+			    .log().all();
+	 }
+	 @Test(priority = 6)
+	 void TestAPIKeyAuthentication()
+	 {
+		 //Method1
+		/* given()
+		    .queryParam("appid","fe9c5cddb7e01d747b4611c3fc9eaf2c")
+		    
+		  .with()
+		     .get("https://api.openweathermap.org/data/2.5/forecast/daily?q=Delhi&units=metric&cnt=7")
+		     
+		     .then()
+			    .statusCode(200)
+			    .log().all(); */ 
+		 
+	//Method2
+		 given()
+			.queryParam("appid","fe9c5cddb7e01d747b4611c3fc9eaf2c")
+			
+			.pathParam("mypath","data/2.5/forecast/daily")
+			
+			.queryParam("q","Delhi")
+			
+			.queryParam("units","metric")
+			
+			.queryParam("cnt","7")
+			
+			.with()
+		     .get("https://api.openweathermap.org/{mypath}")
+			
+		     .then()
+			    .statusCode(200)
+			    .log().all();
+	 }
+}
+
+---------------------------------------------------------------
+Fake Library
+-------------
+https://github.com/DiUS/java-faker
+
+<dependency>
+    <groupId>com.github.javafaker</groupId>
+    <artifactId>javafaker</artifactId>
+    <version>1.0.2</version>
+</dependency>
+
+----------------------------------------
+
+package Day7;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.Test;
+
+import com.github.javafaker.Faker;
+
+public class FakeDataGenrator {
+
+	  @Test
+	  void TestGenrateDummyData()
+	  {
+		  Faker faker = new Faker();
+		  
+        String fullname= faker.name().firstName();
+        String firstname = faker.name().firstName();
+        String lastname = faker.name().lastName();
+        
+        String username= faker.name().username();
+        String password = faker.internet().password();
+        
+        String phoneno= faker.phoneNumber().cellPhone();
+        
+        String email = faker.internet().safeEmailAddress();
+        
+        
+        System.out.println("Full Name :"+fullname);
+        System.out.println("First Name :"+firstname);
+        System.out.println("Last Name :"+lastname);
+        System.out.println("User Name :"+username);
+        System.out.println("Password :"+password);
+        System.out.println("phone :"+phoneno);
+        System.out.println("Email :"+email);
+		  
+	  }
+}
+-------------------------------------------------------------
+
+ http://localhost:3000/store
+
+
+{
+    "book": [
+        {
+            "author": "Nigel Reese",
+            "category": "reference",
+            "price": 150.5,
+            "title": "Sayings of the century"
+        },
+        {
+            "author": "Evelyn waugh",
+            "category": "fiction",
+            "price": 100,
+            "title": "Sword of honour"
+        },
+        {
+            "author": "Herman Melville",
+            "category": "fiction",
+            "isbn": "0-553-21311-3",
+            "price": 75.5,
+            "title": "Moby"
+        },
+        {
+            "author": "J.R.R Tolkein",
+            "category": "fiction",
+            "isbn": "0-395-21311-8",
+            "price": 200,
+            "title": "The Lord of the Ring"
+        }
+    ]
+}
+
+JSON Object --- JSONArray ---> JSON Objects
+
+JSONObject jo = new JSONObject(res.asString());
+
+jo.getJSONArray("book").getJSONObject(i).get("title")
+jo.getJSONArray("book").getJSONObject(3).get("author")
+
+--------------------------------
+
+http://localhost:3000/students
+
+
+[
+    {
+        "id": 2,
+        "name": "kim",
+        "location": "US",
+        "phone": "9666108111"
+    },
+    {
+        "id": 3,
+        "name": "smith",
+        "location": "canada",
+        "phone": "9666122111"
+    },
+    {
+        "id": 4,
+        "name": "Rock",
+        "location": "US",
+        "phone": "9666108111"
+    }
+]
+
+JSONArray ---> JSON Objects
+
+JSONArray jarr = new JSONArray(res.asString());
+jarr.getJSONObject(2).get("name")
+--------------------------------------
+http://localhost:3000/students
+
+[
+    {
+        "id": 2,
+        "name": "kim",
+        "location": "US",
+        "phone": "9666108111",
+        "courses": [
+            "python",
+            "Appium"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "smith",
+        "location": "canada",
+        "phone": "9666122111",
+        "courses": [
+            "java",
+            "RestAssured"
+        ]
+    },
+    {
+        "name": "Rock",
+        "location": "US",
+        "phone": "9666108111",
+        "courses": [
+            "API_Manual",
+            "Postman"
+        ],
+        "id": 4
+    }
+]
+
+JSONArray ---> JSONObjects ---> JSON Array
+
+JSONArray jrr = new JSONArray(res.asString());
+
+jrr.getJSONObject(0).getJSONArray("courses").get(1); // Appium
+
+---------------------------------------------------------------
+
+package Day7;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.testng.annotations.Test;
+
+import io.restassured.response.Response;
+
+public class SyntaxingArraysObjects {
+
+	//@Test
+	void TestJO_JA_JOS()
+	{
+		Response  res= given()
+				 
+				  .when()
+				     .get("http://localhost:3000/store");
+		
+		JSONObject jo = new JSONObject(res.asString());
+		
+        String book_title= (String) jo.getJSONArray("book").getJSONObject(0).get("title");
+	
+        System.out.println("book title is : "+book_title);
+     
+        String AuthorName = (String) jo.getJSONArray("book").getJSONObject(3).get("author");
+    
+        System.out.println("Name of the Author is : "+AuthorName);
+	}
+	
+	//@Test
+	void TestJA_JO()
+	{
+		Response  res= given()
+				 
+		 .when()
+		   .get("http://localhost:3000/students");
+				     
+	  JSONArray jrr = new JSONArray(res.asString());
+	  
+String stu_name= (String) jrr.getJSONObject(2).get("name");
+	  
+	  System.out.println("student name of 2 Array is :: "+stu_name);
+	}
+	@Test
+	void TestJA_JOS_JA()
+	{
+		Response  res= given()
+				 
+		  .when()
+			 .get("http://localhost:3000/students");
+		
+		JSONArray jrr = new JSONArray(res.asString());
+		
+	String courseName= (String) jrr.getJSONObject(0).getJSONArray("courses").get(1);//Appium
+	
+	System.out.println("Name of the course present in Object 0 is :: "+courseName);
+	
+	
+	}
+}
+
+-------------------------------------------------------------------
+
+POM.XML
+-------
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>RestAssured</groupId>
+  <artifactId>RestAssured</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+     
+     <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>rest-assured</artifactId>
+    <version>5.1.1</version>
+    <scope>test</scope>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>json-path</artifactId>
+    <version>5.1.1</version>
+    <scope>test</scope>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/org.json/json -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20220320</version>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+<dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>7.3.0</version>
+    <scope>test</scope>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+ <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.13.4</version>
+</dependency>
+
+ <!-- https://mvnrepository.com/artifact/net.krotscheck.dfr/data-file-reader-base -->
+<dependency>
+    <groupId>net.krotscheck.dfr</groupId>
+    <artifactId>data-file-reader-base</artifactId>
+    <version>1.0.8</version>
+</dependency>
+
+ <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
+        <version>3.13</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>3.13</version>
+    </dependency>
+
+   <!-- https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
+<dependency>
+    <groupId>io.rest-assured</groupId>
+    <artifactId>json-schema-validator</artifactId>
+    <version>5.0.0</version>
+    <scope>test</scope>
+</dependency>
+
+   <dependency>
+    <groupId>com.github.javafaker</groupId>
+    <artifactId>javafaker</artifactId>
+    <version>1.0.2</version>
+</dependency>
+
+  </dependencies>
+ 
+</project>
+
+----------------------------------------------------------------
+
+API-Chaining
+
+gorest https://gorest.co.in/
+
+
+AccessToken:8a14138b33eb98815611ccfcb5713093ae3cf810d65564ce81dca85a618e8a40
+
+
+================================================================================================================================================
+===============================================================///////==========================================================================
+
+Response
+---------
+StatusCode
+StatusLine
+ResponseTime
+
+Headers
+
+ResponseBody
+Json
+
+Authentication API'S
+
+1)Define BaseURI
+2)Request Object
+3)Response
+4)ResponseBody
+
+validations
+-----------
+-> Status Code
+-> Status line
+-> Response Time
+-> Headers (Content-types,Content-Length,Content-Encoding etc....)
+
+
+
+DataDriven Testing @ TestNG.xml suite
+
+DataDriven Testing
+------------------
+
+1) Prepare Test data in excel
+
+2) Add Apache poi dependency in pom.xml(mvn Repository)
+   (or)
+   Download Apache poi & attach jars to your project build path.
+
+3) XL Utility file(java class file) which will Read data from excel.
+
+4) write TestNG Test with DataProvider method.
+
+----------------------------------------------
+
+package Day6;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.json.JSONObject;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+
+public class DatadrivenFramework {
+     
+	 @Test
+	 void PostNewEmployee()
+	 {
+		 RestAssured.baseURI = "http://dummy.restapiexample.com/api/v1";
+		 
+		 RequestSpecification httpreq = RestAssured.given();
+		 
+		 //Here we can create data which we can send along with the postReq
+		 
+		 JSONObject reqParams = new JSONObject();
+		 
+		 reqParams.put("name","Akhil");
+		 reqParams.put("salary",25000);
+		 reqParams.put("age",28);
+		 
+		 //Adding a Header Stating the Request Body is a JSON
+		 httpreq.header("Content-Type","application/json");
+		 
+		 //Add the JSON to the Body of the request
+		 httpreq.body(reqParams.toString());
+		 
+		 //Post Request
+		 Response response = httpreq.request(Method.POST,"/create");
+		 
+		 //Capture respone body to perform validations
+		 
+		 String responseBody = response.getBody().asString();
+		 
+		 //System.out.println("Response Body is : "+responseBody);
+		 
+		 Assert.assertEquals(responseBody.contains("Akhil"),true);
+		 Assert.assertEquals(responseBody.contains("25000"),true);
+		 Assert.assertEquals(responseBody.contains("28"),true);
+		 
+		 int sttusCode = response.getStatusCode();
+		 Assert.assertEquals(sttusCode,200);
+		 
+		 System.out.println("Status Code of This Req is : "+sttusCode);
+	 }
+}
+
+--------------------------------------------------------------------------------
+
+package Day6;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import org.json.JSONObject;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+
+public class DatadrivenFramework {
+     
+	 @Test(dataProvider = "empDataProvider")
+	 void PostNewEmployee(String ename,String salary,String age)
+
+	 {
+		 RestAssured.baseURI = "http://dummy.restapiexample.com/api/v1";
+		 
+		 RequestSpecification httpreq = RestAssured.given();
+		 
+		 //Here we can create data which we can send along with the postReq
+		 
+		 JSONObject reqParams = new JSONObject();
+		 
+		 reqParams.put("name",ename);
+		 reqParams.put("salary",salary);
+		 reqParams.put("age",age);
+		 
+		 //Adding a Header Stating the Request Body is a JSON
+		 httpreq.header("Content-Type","application/json");
+		 
+		 //Add the JSON to the Body of the request
+		 httpreq.body(reqParams.toString());
+		 
+		 //Post Request
+		 Response response = httpreq.request(Method.POST,"/create");
+		 
+		 //Capture respone body to perform validations
+		 
+		 String responseBody = response.getBody().asString();
+		 
+		 System.out.println("Response Body is : "+responseBody);
+		 
+		 Assert.assertEquals(responseBody.contains(ename),true);
+		 Assert.assertEquals(responseBody.contains(salary),true);
+		 Assert.assertEquals(responseBody.contains(age),true);
+		 
+		 int sttusCode = response.getStatusCode();
+		 Assert.assertEquals(sttusCode,200);
+		 
+		 System.out.println("Status Code of This Req is : "+sttusCode);
+	 }
+
+     //Here we have to take the Method with ReturnType
+	 
+	 @DataProvider(name="empDataProvider")
+   String[][] GetEmpData()
+	 {
+	   String empdata[][]= {{"ABC123","25000","25"}}; // Array 1*3
+		return empdata;
+		 
+	 }
+}
+
+-----------------------------------------------------------------------------
+
+ Error :: java.lang.AssertionError: expected [true] but found [false]
+
+ Note:- This Error we get at the Time of Deviation from Expected and Actual input Data.
+ --------------------------------------------------------------------
+
+ Step:1) Prepare Test data in excel
+ ----------------------------------
+
+ EMPNAME	EMPSALARY	     EMPAGE
+ ABC123	 20000	       20
+ XYZ123	 21000	       21
+ PQR123	 25000	       28
+ ADITHYA	 20000          28
+ RAVITEJA	 30000	       30 
+
+-----------------------------------
+
+Step:2) Add Apache poi dependency in pom.xml(mvn Repository)
+------------------------------------------------------------
+<dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
+        <version>3.13</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>3.13</version>
+    </dependency>
+
+-----------------------------------
+
+Step:3) XL Utility file(java class file) which will Read data from excel.
+-------------------------------------------------------------------------
+
+package Day6;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class XLUtils {
+		
+	  public static FileInputStream fi;
+	  public static FileOutputStream fo;
+	  public static XSSFWorkbook wb;
+	  public static XSSFSheet ws;
+	  public static XSSFRow row;
+	  public static XSSFCell cell;
+	  
+	  
+	  public static int getRowcount(String xlfile,String xlsheet) throws IOException
+	  {
+		  fi=new FileInputStream(xlfile);
+		  wb=new XSSFWorkbook(fi);
+		  ws=wb.getSheet(xlsheet);
+		  
+         int row_count		  =  ws.getLastRowNum();
+  
+            wb.close();
+            fi.close();
+            return row_count;
+		  
+	  }
+	  
+	  public static int getCellcount(String xlfile,String xlsheet,int rownum) throws IOException
+	  {
+		  fi=new FileInputStream(xlfile);
+		  wb=new XSSFWorkbook(fi);
+		  ws=wb.getSheet(xlsheet);
+		  row = ws.getRow(rownum);
+		  
+		  int cellcount=  row.getLastCellNum();
+		  
+		  wb.close();
+         fi.close();
+         return cellcount;
+	  }
+	  
+	 public static String  getCellData(String xlfile,String xlsheet,int rownum,int colnum) throws IOException
+	 {
+		 fi=new FileInputStream(xlfile);
+		  wb=new XSSFWorkbook(fi);
+		  ws=wb.getSheet(xlsheet);
+		  row = ws.getRow(rownum);
+		  cell=row.getCell(colnum);
+		  
+		  String data;
+		  try {
+			   DataFormatter formatter = new DataFormatter();
+			   String cellData  = formatter.formatCellValue(cell);
+			   return cellData;
+		} catch (Exception e) {
+			
+			data="";
+		}
+		  wb.close();
+		  fi.close();
+		return data;
+	 }
+}
+
+------------------------------------------------------------------------------------------
+
+step:4) write TestNG Test with DataProvider method.
+---------------------------------------------------
+
+package Day6;
+
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import java.io.IOException;
+
+import org.json.JSONObject;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+
+public class DatadrivenFramework {
+
+	 @Test(dataProvider = "empDataProvider")
+	 void PostNewEmployee(String ename,String salary,String age)
+
+	 {
+		 RestAssured.baseURI = "http://dummy.restapiexample.com/api/v1";
+		 
+		 RequestSpecification httpreq = RestAssured.given();
+		 
+		 //Here we can create data which we can send along with the postReq
+		 
+		 JSONObject reqParams = new JSONObject();
+		 
+		 reqParams.put("name",ename);
+		 reqParams.put("salary",salary);
+		 reqParams.put("age",age);
+		 
+		 //Adding a Header Stating the Request Body is a JSON
+		 httpreq.header("Content-Type","application/json");
+		 
+		 //Add the JSON to the Body of the request
+		 httpreq.body(reqParams.toString());
+		 
+		 //Post Request
+		 Response response = httpreq.request(Method.POST,"/create");
+		 
+		 //Capture respone body to perform validations
+		 
+		 String responseBody = response.getBody().asString();
+		 
+		 System.out.println("Response Body is : "+responseBody);
+		 
+		 //Assert.assertEquals(responseBody.contains(ename),true);
+		 //Assert.assertEquals(responseBody.contains(salary),true);
+		 //Assert.assertEquals(responseBody.contains(age),true);
+		 
+		 //int sttusCode = response.getStatusCode();
+		// Assert.assertEquals(sttusCode,200);
+		 
+		// System.out.println("Status Code of This Req is : "+sttusCode);
+	 }
+
+    //Here we have to take the Method with ReturnType
+	 
+	 @DataProvider(name="empDataProvider")
+  String[][] GetEmpData() throws IOException
+	 {
+String path="C:\\Users\\adith\\eclipse-workspace\\RestAssured\\RestAssuredDDTExcelsheetuserDetails.xlsx";
+		 
+	  // String empdata[][]= {{"ABC123","25000","25"}}; // Array 1*3
+		 
+		int rownum= XLUtils.getRowcount(path,"sheet1"); 
+		int colcount = XLUtils.getCellcount(path,"sheet1",1);
+		 
+		String empdata[][]=new String[rownum][colcount];
+		
+		for(int i=1;i<=rownum;i++)
+		{
+			for(int j=0;j<colcount;j++)
+			{
+			 empdata[i-1][j]=XLUtils.getCellData(path,"sheet1",i, j);
+			}
+		}
+		
+		return empdata;
+	}
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+================================================================================================================================================
+

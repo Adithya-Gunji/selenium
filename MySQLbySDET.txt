@@ -1,0 +1,1991 @@
+Git-hub:Adithya-Gunji
+        Adithya9666108118
+---------------------------
+
+=>DBMS & RDBMS
+
+=>what is Database
+
+=>what is SQL
+
+=>Database components - Client&Server
+
+----------------------------------------------------------------------------
+
+DBMS==>Database Management system
+
+databases : Dbase,Foxpro MS-aceess etc...
+
+RDBMS==>Relational Database Management system(faster)
+
+        Oracle,MS-SQL Server,DB2,MYSQL,MS-Access etc.....
+
+ 
+Database===>Data storage area.
+
+
+
+GUI =======>WEB/APP======>Database
+ ||           ||             ||
+ ||           ||             ||
+ ||           ||             ||
+ htmletc    C,C++,Java etc  Oracle,SQL etc
+
+
+SQL(Structured query language)--->used to communicate to the database to perform different kind of operations.
+
+
+Data is actually stored in the database server(Remote mechines)
+we can send SQL commands using client software.
+
+2 types of client
+             -->Graphical mode(GUI)
+             -->CLI(Command Line Interface)
+  
+
+Oracle Database ------> SQLDevloper (GUI)
+                           SQLPlus  (CLI)
+                           Toad
+                           Squirell etc...
+
+
+MYSQL  --------------> MYSQLWorkbench (GUI)
+                       MYSQL CommandLinetool (CLI) 
+                         Toad
+                           Squirell etc...
+
+
+------------------------------------------------------------------------
+
+
+* DDL (Data Definition Language):
+      
+  -CREATE,ALTER,DROP,TRUNCATE,RENAME
+
+* DML (Data Manipulation Language):
+
+  -INSERT,UPDATE,DELETE
+
+* DRL/DQL (Data Retrieval/Data Query Language):
+
+  -SELECT
+
+* TCL(Transaction Control Language)
+
+  -COMMIT,ROLLBACK,SAVE POINT
+
+* DCL(Data Control Language)
+
+  -GRANT,REVOKE.
+
+----------------------------------------------------------------------------
+1) Create database
+2) Create Tables
+3) Insert data into tables
+4) Select/retrive data from tables
+5) where (Filtering records based on condition)
+6) DISTINCT (Displays unique records from the table)
+7) AND,OR,NOT
+8) between,not between
+9) pattern matching(wild card charecters)
+----------------------------------------------------------------------------
+
+create database selenium;
+
+show databases;
+use selenium;
+
+show tables;
+
+create table company(
+id int not null primary key auto_increment,
+location varchar(20) not null,
+services varchar(20) not null,
+date_of_establishing date null default null
+
+);
+
+desc company;
+
+insert into company(location,services,date_of_establishing) values("hyderabad","IT","2020-01-30");
+insert into company(location,services,date_of_establishing) values("bangolore","IT","2020-01-30");
+
+select * from company;
+
+create table branches(
+   branch_id int not null ,
+   employee_id char(4),
+   emp_name varchar(20),
+   job_type char(15),
+   salary double,
+   id int ,
+       foreign key(id)
+          references company(id)
+);
+
+desc branches;
+
+insert into branches values(101,"T001","adithya","Tester",25000,001);
+
+insert into branches values(101,"T002","Akhil","Tester",25000,001);
+
+
+insert into branches values(101,"D003","Sam","Developer",25000,002); 
+insert into branches values(101,"D004","David","Developer",55000,002);
+
+delete from branches where emp_name="David" and salary=55000;
+
+SET SQL_SAFE_UPDATES=0;
+select * from branches;
+
+select emp_name,salary from branches where employee_id="T002"; 
+
+select emp_name,salary from branches where employee_id="D004"; 
+
+
+select emp_name,id,salary+5000 as new_salary from branches where employee_id="D004"; 
+
+select * from branches where salary>25000;
+
+select * from branches where salary>=25000;
+
+select * from branches where salary<=25000;
+----------------------------------------------------------------------
+
+SQL Data types
+--------------
+
+* Numeric
+* Text
+* Date/time
+
+1.Numeric Data Types
+---------------------
+
+* TINYINT
+* SMALLINT
+* MEDIUMINT
+* INT
+* BIGINT
+* FLOAT  ---> a small approximate number with a floating decimal point.
+* DOUBLE ---> a large number with a floating decimal point.
+* DECIMAL
+
+2.Text Data Types
+-----------------
+
+* CHAR()        ----> A fixed section from 0 to 255 charectors long.
+* VARCHAR()     ----> A variable section from 0 to 255 charectors long.
+* BLOB          ----> A string with a max length of 65535 charecters.
+* MEDIUMTEXT    
+* MEDIUMBLOB
+* LONGTEXT
+* LONGBLOB
+
+3.Date & Time
+-------------
+
+*DATE       ----->  YYYY-MM-DD
+*DATETIME   ----->  YYYY-MM-DD HH:MM:SS
+*TIMESTAMP  ----->  YYYYMMDDHHMMSS
+*TIME       ----->  HH:MM:SS
+
+-------------------------------------------------------------------------------
+
+select * from branches where emp_name="David";
+
+select distinct salary from branches;
+
+select distinct * from branches;
+
+select * from branches where salary>25000 and branch_id=101;
+select * from branches where salary>25000 or id=2;
+select * from branches where not emp_name="David";
+
+select * from branches where salary not between 20000 and 30000;
+select * from branches where salary in(25000,55000);
+select * from branches where salary not in(20000,25000);
+
+select emp_name from branches;
+
+select emp_name from branches  where emp_name like 'A%';
+select emp_name from branches  where emp_name like 'A%A';
+select emp_name from branches  where emp_name like '%A%';
+select emp_name from branches  where emp_name like '%A';
+
+select emp_name from branches  where emp_name not like '_d%';
+select emp_name from branches  where emp_name like '%i_';
+select emp_name from branches  where emp_name like 'A%';
+select emp_name from branches  where emp_name like '___';
+
+-----------------------------------------------------------------------------------
+
+1.Data Definition Language(DDL)
+-------------------------------
+1)CREATE
+2)ALTER
+    --->Add new column
+    --->Drop a column
+    --->Modify Existing column
+    --->Rename the column
+3)DROP
+4)TRUNCATE
+5)RENAME
+
+
+---------------------------------------------------------------------------
+
+show databases;
+
+use selenium;
+
+show tables;
+
+create table student(
+          SID int(4),
+          SNAME varchar(10)
+          );
+          
+          desc student;
+		
+insert into student values(101,"David");
+insert into student values(102,"SMITH");
+insert into student values(103,"Scott");
+-------------------------------------------------------------------------------------------------------
+select * from student;
+alter table student add(GRADE varchar(2));
+
+alter table student drop column GRADE;
+
+alter table student modify column SNAME varchar(15);
+
+alter table student rename column SNAME to STUNAME;
+--------------------------------------------------------------------------------------------------
+set autocommit=0;
+
+select * from student;
+
+SET SQL_SAFE_UPDATES=0;
+delete from student;
+
+rollback;
+
+-----------------------------------------------------------------------------------------------
+
+set autocommit=0;
+
+select * from student;
+
+SET SQL_SAFE_UPDATES=0;
+delete from student;
+commit;
+
+rollback;
+------------------------------------------------------------------------------------------------
+
+insert into student values(101,"David");
+insert into student values(102,"SMITH");
+insert into student values(103,"Scott");
+
+commit;
+
+select * from student;
+
+truncate table student;  --Truncate will permanatly remove the data we cant roll back but still structure is present
+
+rollback;
+
+drop table student; --It completely Removing the table from database
+
+rename table student to employees;
+
+rename table employees to student;
+--------------------------------------------------------------------------------------------------
+
+MYSQL Functions
+-----------------
+
+1) String Functions - operate on string data types
+2) Numeric Functions - operate on numeric data types
+3) Date Functions    - operate on date data types
+4) Aggregate Functions - operate on all of the data types and produce summarized result sets.
+
+1.String Functions
+------------------
+
+* Upper() : convert into upper case letters.
+-> SELECT UPPER(SNAME) from student;
+
+*Lower()  : convert into lower case letters.
+-> SELECT LOWER(SNAME) from student;
+
+*Length() : Return the length of the string.
+->select length('DAVID');
+->select * from student where length(SNAME)=5;
+
+*TRIM()   : Removes the specified charecters from both sides.
+->select trim('     welcome     ');
+->select trim('j' from 'jseleniumjj');
+
+*INSTR()   : Returns the position of the charecters with in a string.
+->select instr('david','i');
+
+*SUBSTR()/SUBSTRING() : Returns the substring of the string.
+->select substr('david',2,3); 
+->select substr('david',3,3); 
+->select substr('david',4,2); 
+
+->select substring('david',2,3);
+->select substring('david',3,3);
+->select substring('david',4,2);
+
+->select substring(sname,1,3) from student;
+
+*CONCAT()  : To join two strings.
+->SELECT CONCAT('Selenium','withjava');
+->SELECT CONCAT(SID,SNAME) FULLNAME FROM STUDENT;
+
+---------------------------------------------------------------------------
+
+2.Numeric Functions
+-------------------
+
+SELECT ABS(-50);
+SELECT ABS(50);
+
+SELECT SQRT(25);
+SELECT MOD(10,3);
+SELECT POWER(2,5);
+
+*TRUNCATE() function truncates a number to the specified number of decimal places.
+
+SELECT TRUNCATE(40.1234,3);
+SELECT TRUNCATE(40.1234,2);
+
+SELECT TRUNCATE(6876,-1);
+SELECT TRUNCATE(6876,-2);
+SELECT TRUNCATE(68763456,-5);
+
+*GREATEST() & LEAST() : Returns greatest,least values in the provided values.
+
+->SELECT GREATEST(100,200,300,400,500);
+->SELECT LEAST(100,200,300);
+
+----------------------------------------------------------------------------------
+         
+3.Date Functions
+----------------
+
+*CURDATE()/CURRENT_DATE() function returns the current date.
+-> SELECT CURDATE();
+-> SELECT CURRENT_DATE();
+
+*CURTIME()/CURRENT_TIME() function returns the current time.
+->SELECT CURTIME();
+->SELECT CURRENT_TIME();
+
+*NOW() function returns the current date and time.
+->SELECT NOW();
+
+*SYSDATE() function returns the current date and time.
+->SELECT SYSDATE();
+
+*MONTH() function returns the month part for a given date(a number from 1 to 12).
+->SELECT MONTH("2023-01-16");
+
+*YEAR() function returns the year part for a given date(a number from 1000 to 9999).
+->SELECT YEAR("2023-01-16");
+
+*DAY() function returns the day of the month for a given date(a number from 1 to 31).
+->SELECT DAY("2023-01-16");
+
+----------------------------------------------------------------------------------------
+
+-----------------------------------------------
+create table employee(
+    emp_id int not null auto_increment primary key,
+    first_name varchar(10),
+    last_name varchar(10),
+    email_id varchar(20),
+    salary double,
+    department char(5)
+    );
+    
+    alter table employee modify column email_id varchar(50); 
+    desc employee;
+    
+    insert into employee values(100,'Adithya','gunji','adithya.gunji@gmail.com',25000,'QA');
+    
+    insert into employee(first_name,last_name,email_id,salary,department) values('bittu','gunji','bittu123@gmail.com',30000,'Dev');
+    
+    insert into employee(first_name,last_name,email_id,salary,department) values('Akhil','gunji','Akhil123@gmail.com',30000,'Dev');
+    insert into employee(first_name,last_name,email_id,salary,department) values('David','gunji','David123@gmail.com',50000,'Dev');
+    insert into employee(first_name,last_name,email_id,salary,department) values('Sam','gunji','Sam123@gmail.com',40000,'QA');
+
+    insert into employee(first_name,last_name,email_id,salary,department) values('john','gunji','john123@gmail.com',70000,'DA');
+    insert into employee(first_name,last_name,email_id,salary,department) values('Rock','gunji','Rock123@gmail.com',80000,'FDA');
+    insert into employee(first_name,last_name,email_id,salary,department) values('goldberg','gunji','goldberg123@gmail.com',90000,'DA');
+
+    select * from employee;
+    
+    create table professional_details(
+                     emp_id int,
+                     hike_amount double,
+                     hike_date datetime,
+                     date_of_joining date,
+                     
+                     foreign key(emp_id)
+                         references employee(emp_id)
+				);
+                
+   desc  professional_details;
+
+   insert into professional_details values(100,5000,'2023-01-16','2022-06-15');
+   
+   insert into professional_details values(101,5000,'2023-01-16','2022-06-16');
+   insert into professional_details values(102,5000,'2023-01-16','2022-06-17');
+   insert into professional_details values(103,5000,'2023-01-16','2022-06-18');
+   
+   select * from professional_details;
+   
+   SELECT *FROM professional_details WHERE YEAR(date_of_joining)='2022';
+   
+   SELECT *FROM professional_details WHERE MONTH(date_of_joining)='6';
+   SELECT *FROM professional_details WHERE MONTHNAME(date_of_joining)='JUNE';
+-----------------------------------------------------------------------------
+
+Queries on Date Functions
+-------------------------
+*Disply employee_details who are joined in 2022.
+->SELECT *FROM professional_details WHERE YEAR(date_of_joining)='2022';
+
+*Disply employee_details who are joined in JUNE.
+->SELECT *FROM professional_details WHERE MONTH(date_of_joining)='6';
+->SELECT *FROM professional_details WHERE MONTHNAME(date_of_joining)='JUNE';
+
+---------------------------------------------------------------------------------------------------
+
+4.Aggregate Functions
+---------------------
+
+* Aggregate Functions are all about performing calculations on multiple rows of a single column of a table and Returning a single value.
+
+-> SELECT AVG(SALARY) FROM EMPLOYEE;
+-> SELECT SUM(SALARY) FROM EMPLOYEE;
+-> SELECT MIN(SALARY) FROM EMPLOYEE;
+-> SELECT MAX(SALARY) FROM EMPLOYEE;
+-> SELECT COUNT(*) FROM EMPLOYEE;
+
+----------------------------------------------------------------------------------------------------
+
+
+
+Group By clause
+---------------
+
+* The Group By clause groups records into summary rows.
+* Group By Returns one record for each Row.
+* Group By typically also involves aggregates : COUNT,MAX,SUM,AVG etc..
+* Group By can group by one or more columns.
+
+
+Having & Order by Clause
+------------------------
+
+* Having clause is used to filter the out put from the group by clause.
+
+* Order by clause is used to arrange the rows in a table(ass or dese order).
+
+
+ where------->Group By--------->Having
+
+ where------->Group By--------->Having--------->Order By
+
+ Order of execution 
+ ------------------
+
+ where------->Group By--------->Having--------->Order By
+
+ SELECT column-names
+   FROM table-name
+     WHERE condition
+        GROUP BY column-names
+          HAVING condition
+            ORDER BY column-names
+
+--------------------------------------------------------------------
+
+select department ,sum(salary) from employee group by department;
+
+select department ,avg(salary) from employee group by department;
+select * from employee;
+
+select department ,max(salary),min(salary) from employee group by department;
+
+select department, count(*) from employee group by department;
+
+select department,sum(salary), count(*) from employee group by department;
+
+select department,salary, count(*) from employee group by department,salary;
+
+select department,count(*) from employee group by department;
+
+select department,count(*) from employee group by department having count(*)>2;
+
+select department ,sum(salary) from employee group by department having sum(salary)>100000;
+
+select department ,sum(salary) from employee where department<>'Dev' group by department;
+
+select department ,sum(salary) from employee where department<>'Dev' group by department  having sum(salary)>50000;
+
+select * from employee order by salary;
+
+select * from employee order by salary desc;
+
+select department ,sum(salary) from employee group by department having sum(salary)>50000 order by sum(salary);
+
+select department ,sum(salary),count(*) from employee group by department having sum(salary)>50000 order by sum(salary);
+
+select department ,sum(salary) from employee where department<>'Dev' group by department  having sum(salary)>50000 order by sum(salary) desc;
+
+use selenium;
+
+----------------------------------------------------------------------------------------------------
+
+
+SET OPERATORS
+-------------
+1.UNION
+2.UNION ALL
+3.INTERSECT
+4.MINUS
+
+Note:SQL,MYSQL will not support INTERSECT,MINUS operators.
+
+
+UNION & UNION ALL
+-----------------
+
+* The UNION operator is used to combine the result-set of two or more SELECT statements.
+* Each SELECT statement within UNION must have the same number of columns.
+* The columns must also have same data types.
+* The columns in each SELECT statement must also be in the same order.
+
+
+--------------------------------------------------
+
+* CREATE TABLE A(SNAME VARCHAR(10),NUM INT(2));
+* CREATE TABLE B(NUM INT(2),GRADE VARCHAR(3));
+
+* INSERT INTO A VALUES('ABC',10);
+* INSERT INTO A VALUES('XYZ',11);
+* INSERT INTO A VALUES('PQR',12);
+* INSERT INTO A VALUES('MNO',14);
+
+* COMMIT;
+
+* INSERT INTO B VALUES(11,'A');
+* INSERT INTO B VALUES(12,'B');
+* INSERT INTO B VALUES(13,'C');
+* INSERT INTO B VALUES(15,'B');
+
+* COMMIT;
+
+=> Display all the records from multiple tables without duplicates.
+
+* SELECT NUM FROM A UNION SELECT NUM FROM B;
+
+=> Display all the records from multiple tables including duplicates.
+
+* SELECT NUM FROM A UNION ALL SELECT NUM FROM B;
+
+---------------------------------------------------------------------------------------------------------
+
+
+ SQL Joins
+ ----------
+
+* joins helps retriving data from two or more tables.
+
+* The tables are mutually related using primary_key and foreign_key's.
+
+* Types of joins
+   
+  1.Equi join/inner join/simple join.
+  2.Right join.
+  3.Left join.
+  4.Full join.
+  5.Self join.
+
+
+ CREATE TABLE TAB1(NUMID INT(3));
+ CREATE TABLE TAB2(NUMID INT(3));
+
+ INSERT INTO TAB1 VALUES(10);
+ INSERT INTO TAB1 VALUES(11);
+ INSERT INTO TAB1 VALUES(12);
+ INSERT INTO TAB1 VALUES(14);
+
+ INSERT INTO TAB2 VALUES(11);
+ INSERT INTO TAB2 VALUES(12);
+ INSERT INTO TAB2 VALUES(13);
+ INSERT INTO TAB2 VALUES(15);
+
+ SELECT * FROM TAB1;
+ SELECT * FROM TAB2;
+
+ 1.INNER JOIN/Equi join (Returns only matched records from TAB1 & TAB2)
+   
+   SELECT * FROM TAB1 INNER JOIN TAB2 ON TAB1.NUMID=TAB2.NUMID;
+ 
+ 2.Right outer join (Returns matched records+un-matched from right table TAB1)
+  
+   SELECT * FROM TAB1 RIGHT JOIN TAB2 ON TAB1.NUMID=TAB2.NUMID;
+ 
+ 3.Left outer join (Returns matched records+un-matched from left table TAB2)
+
+   SELECT * FROM TAB1 LEFT JOIN TAB2 ON TAB1.NUMID=TAB2.NUMID;
+
+ 4.Full outer join (Returns matched records+un-matched from both tables)
+
+   SELECT * FROM TAB1 t1 FULL JOIN TAB2 t2 ON t1.NUMID=t2.NUMID;// not supported by MYSQL
+
+ 5.Self-join(joining same table with the table) 
+----------------------------------------------------------------------------------------------------------------------------------
+
+   
+
+employees
+---------
+
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME  | LAST_NAME   | EMAIL    | PHONE_NUMBER       | HIRE_DATE  | JOB_ID     | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+|         100 | Steven      | King        | SKING    | 515.123.4567       | 1987-06-17 | AD_PRES    | 24000.00 |           0.00 |          0 |   		 90 |
+|         101 | Neena       | Kochhar     | NKOCHHAR | 515.123.4568       | 1987-06-18 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         102 | Lex         | De Haan     | LDEHAAN  | 515.123.4569       | 1987-06-19 | AD_VP      | 17000.00 |           0.00 |        100 |            90 |
+|         103 | Alexander   | Hunold      | AHUNOLD  | 590.423.4567       | 1987-06-20 | IT_PROG    |  9000.00 |           0.00 |        102 |            60 |
+|         104 | Bruce       | Ernst       | BERNST   | 590.423.4568       | 1987-06-21 | IT_PROG    |  6000.00 |           0.00 |        103 |            60 |
+|         105 | David       | Austin      | DAUSTIN  | 590.423.4569       | 1987-06-22 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         106 | Valli       | Pataballa   | VPATABAL | 590.423.4560       | 1987-06-23 | IT_PROG    |  4800.00 |           0.00 |        103 |            60 |
+|         107 | Diana       | Lorentz     | DLORENTZ | 590.423.5567       | 1987-06-24 | IT_PROG    |  4200.00 |           0.00 |        103 |            60 |
+|         108 | Nancy       | Greenberg   | NGREENBE | 515.124.4569       | 1987-06-25 | FI_MGR     | 12000.00 |           0.00 |        101 |           100 |
+|         109 | Daniel      | Faviet      | DFAVIET  | 515.124.4169       | 1987-06-26 | FI_ACCOUNT |  9000.00 |           0.00 |        108 |           100 |
+|         110 | John        | Chen        | JCHEN    | 515.124.4269       | 1987-06-27 | FI_ACCOUNT |  8200.00 |           0.00 |        108 |           100 |
+|         111 | Ismael      | Sciarra     | ISCIARRA | 515.124.4369       | 1987-06-28 | FI_ACCOUNT |  7700.00 |           0.00 |        108 |           100 |
+|         112 | Jose Manuel | Urman       | JMURMAN  | 515.124.4469       | 1987-06-29 | FI_ACCOUNT |  7800.00 |           0.00 |        108 |           100 |
+|         113 | Luis        | Popp        | LPOPP    | 515.124.4567       | 1987-06-30 | FI_ACCOUNT |  6900.00 |           0.00 |        108 |           100 |
+|         114 | Den         | Raphaely    | DRAPHEAL | 515.127.4561       | 1987-07-01 | PU_MAN     | 11000.00 |           0.00 |        100 |            30 |
+|         115 | Alexander   | Khoo        | AKHOO    | 515.127.4562       | 1987-07-02 | PU_CLERK   |  3100.00 |           0.00 |        114 |            30 |
+|         116 | Shelli      | Baida       | SBAIDA   | 515.127.4563       | 1987-07-03 | PU_CLERK   |  2900.00 |           0.00 |        114 |            30 |
+|         117 | Sigal       | Tobias      | STOBIAS  | 515.127.4564       | 1987-07-04 | PU_CLERK   |  2800.00 |           0.00 |        114 |            30 |
+|         118 | Guy         | Himuro      | GHIMURO  | 515.127.4565       | 1987-07-05 | PU_CLERK   |  2600.00 |           0.00 |        114 |            30 |
+|         119 | Karen       | Colmenares  | KCOLMENA | 515.127.4566       | 1987-07-06 | PU_CLERK   |  2500.00 |           0.00 |        114 |            30 |
+|         120 | Matthew     | Weiss       | MWEISS   | 650.123.1234       | 1987-07-07 | ST_MAN     |  8000.00 |           0.00 |        100 |            50 |
+|         121 | Adam        | Fripp       | AFRIPP   | 650.123.2234       | 1987-07-08 | ST_MAN     |  8200.00 |           0.00 |        100 |            50 |
+|         122 | Payam       | Kaufling    | PKAUFLIN | 650.123.3234       | 1987-07-09 | ST_MAN     |  7900.00 |           0.00 |        100 |            50 |
+|         123 | Shanta      | Vollman     | SVOLLMAN | 650.123.4234       | 1987-07-10 | ST_MAN     |  6500.00 |           0.00 |        100 |            50 |
+|         124 | Kevin       | Mourgos     | KMOURGOS | 650.123.5234       | 1987-07-11 | ST_MAN     |  5800.00 |           0.00 |        100 |            50 |
+|         125 | Julia       | Nayer       | JNAYER   | 650.124.1214       | 1987-07-12 | ST_CLERK   |  3200.00 |           0.00 |        120 |            50 |
+|         126 | Irene       | Mikkilineni | IMIKKILI | 650.124.1224       | 1987-07-13 | ST_CLERK   |  2700.00 |           0.00 |        120 |            50 |
+|         127 | James       | Landry      | JLANDRY  | 650.124.1334       | 1987-07-14 | ST_CLERK   |  2400.00 |           0.00 |        120 |            50 |
+|         128 | Steven      | Markle      | SMARKLE  | 650.124.1434       | 1987-07-15 | ST_CLERK   |  2200.00 |           0.00 |        120 |            50 |
+|         129 | Laura       | Bissot      | LBISSOT  | 650.124.5234       | 1987-07-16 | ST_CLERK   |  3300.00 |           0.00 |        121 |            50 |
+|         130 | Mozhe       | Atkinson    | MATKINSO | 650.124.6234       | 1987-07-17 | ST_CLERK   |  2800.00 |           0.00 |        121 |            50 |
+|         131 | James       | Marlow      | JAMRLOW  | 650.124.7234       | 1987-07-18 | ST_CLERK   |  2500.00 |           0.00 |        121 |            50 |
+|         132 | TJ          | Olson       | TJOLSON  | 650.124.8234       | 1987-07-19 | ST_CLERK   |  2100.00 |           0.00 |        121 |            50 |
+|         133 | Jason       | Mallin      | JMALLIN  | 650.127.1934       | 1987-07-20 | ST_CLERK   |  3300.00 |           0.00 |        122 |            50 |
+|         134 | Michael     | Rogers      | MROGERS  | 650.127.1834       | 1987-07-21 | ST_CLERK   |  2900.00 |           0.00 |        122 |            50 |
+|         135 | Ki          | Gee         | KGEE     | 650.127.1734       | 1987-07-22 | ST_CLERK   |  2400.00 |           0.00 |        122 |            50 |
+|         136 | Hazel       | Philtanker  | HPHILTAN | 650.127.1634       | 1987-07-23 | ST_CLERK   |  2200.00 |           0.00 |        122 |            50 |
+|         137 | Renske      | Ladwig      | RLADWIG  | 650.121.1234       | 1987-07-24 | ST_CLERK   |  3600.00 |           0.00 |        123 |            50 |
+|         138 | Stephen     | Stiles      | SSTILES  | 650.121.2034       | 1987-07-25 | ST_CLERK   |  3200.00 |           0.00 |        123 |            50 |
+|         139 | John        | Seo         | JSEO     | 650.121.2019       | 1987-07-26 | ST_CLERK   |  2700.00 |           0.00 |        123 |            50 |
+|         140 | Joshua      | Patel       | JPATEL   | 650.121.1834       | 1987-07-27 | ST_CLERK   |  2500.00 |           0.00 |        123 |            50 |
+|         141 | Trenna      | Rajs        | TRAJS    | 650.121.8009       | 1987-07-28 | ST_CLERK   |  3500.00 |           0.00 |        124 |            50 |
+|         142 | Curtis      | Davies      | CDAVIES  | 650.121.2994       | 1987-07-29 | ST_CLERK   |  3100.00 |           0.00 |        124 |            50 |
+|         143 | Randall     | Matos       | RMATOS   | 650.121.2874       | 1987-07-30 | ST_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         144 | Peter       | Vargas      | PVARGAS  | 650.121.2004       | 1987-07-31 | ST_CLERK   |  2500.00 |           0.00 |        124 |            50 |
+|         145 | John        | Russell     | JRUSSEL  | 011.44.1344.429268 | 1987-08-01 | SA_MAN     | 14000.00 |           0.40 |        100 |            80 |
+|         146 | Karen       | Partners    | KPARTNER | 011.44.1344.467268 | 1987-08-02 | SA_MAN     | 13500.00 |           0.30 |        100 |            80 |
+|         147 | Alberto     | Errazuriz   | AERRAZUR | 011.44.1344.429278 | 1987-08-03 | SA_MAN     | 12000.00 |           0.30 |        100 |            80 |
+|         148 | Gerald      | Cambrault   | GCAMBRAU | 011.44.1344.619268 | 1987-08-04 | SA_MAN     | 11000.00 |           0.30 |        100 |            80 |
+|         149 | Eleni       | Zlotkey     | EZLOTKEY | 011.44.1344.429018 | 1987-08-05 | SA_MAN     | 10500.00 |           0.20 |        100 |            80 |
+|         150 | Peter       | Tucker      | PTUCKER  | 011.44.1344.129268 | 1987-08-06 | SA_REP     | 10000.00 |           0.30 |        145 |            80 |
+|         151 | David       | Bernstein   | DBERNSTE | 011.44.1344.345268 | 1987-08-07 | SA_REP     |  9500.00 |           0.25 |        145 |            80 |
+|         152 | Peter       | Hall        | PHALL    | 011.44.1344.478968 | 1987-08-08 | SA_REP     |  9000.00 |           0.25 |        145 |            80 |
+|         153 | Christopher | Olsen       | COLSEN   | 011.44.1344.498718 | 1987-08-09 | SA_REP     |  8000.00 |           0.20 |        145 |            80 |
+|         154 | Nanette     | Cambrault   | NCAMBRAU | 011.44.1344.987668 | 1987-08-10 | SA_REP     |  7500.00 |           0.20 |        145 |            80 |
+|         155 | Oliver      | Tuvault     | OTUVAULT | 011.44.1344.486508 | 1987-08-11 | SA_REP     |  7000.00 |           0.15 |        145 |            80 |
+|         156 | Janette     | King        | JKING    | 011.44.1345.429268 | 1987-08-12 | SA_REP     | 10000.00 |           0.35 |        146 |            80 |
+|         157 | Patrick     | Sully       | PSULLY   | 011.44.1345.929268 | 1987-08-13 | SA_REP     |  9500.00 |           0.35 |        146 |            80 |
+|         158 | Allan       | McEwen      | AMCEWEN  | 011.44.1345.829268 | 1987-08-14 | SA_REP     |  9000.00 |           0.35 |        146 |            80 |
+|         159 | Lindsey     | Smith       | LSMITH   | 011.44.1345.729268 | 1987-08-15 | SA_REP     |  8000.00 |           0.30 |        146 |            80 |
+|         160 | Louise      | Doran       | LDORAN   | 011.44.1345.629268 | 1987-08-16 | SA_REP     |  7500.00 |           0.30 |        146 |            80 |
+|         161 | Sarath      | Sewall      | SSEWALL  | 011.44.1345.529268 | 1987-08-17 | SA_REP     |  7000.00 |           0.25 |        146 |            80 |
+|         162 | Clara       | Vishney     | CVISHNEY | 011.44.1346.129268 | 1987-08-18 | SA_REP     | 10500.00 |           0.25 |        147 |            80 |
+|         163 | Danielle    | Greene      | DGREENE  | 011.44.1346.229268 | 1987-08-19 | SA_REP     |  9500.00 |           0.15 |        147 |            80 |
+|         164 | Mattea      | Marvins     | MMARVINS | 011.44.1346.329268 | 1987-08-20 | SA_REP     |  7200.00 |           0.10 |        147 |            80 |
+|         165 | David       | Lee         | DLEE     | 011.44.1346.529268 | 1987-08-21 | SA_REP     |  6800.00 |           0.10 |        147 |            80 |
+|         166 | Sundar      | Ande        | SANDE    | 011.44.1346.629268 | 1987-08-22 | SA_REP     |  6400.00 |           0.10 |        147 |            80 |
+|         167 | Amit        | Banda       | ABANDA   | 011.44.1346.729268 | 1987-08-23 | SA_REP     |  6200.00 |           0.10 |        147 |            80 |
+|         168 | Lisa        | Ozer        | LOZER    | 011.44.1343.929268 | 1987-08-24 | SA_REP     | 11500.00 |           0.25 |        148 |            80 |
+|         169 | Harrison    | Bloom       | HBLOOM   | 011.44.1343.829268 | 1987-08-25 | SA_REP     | 10000.00 |           0.20 |        148 |            80 |
+|         170 | Tayler      | Fox         | TFOX     | 011.44.1343.729268 | 1987-08-26 | SA_REP     |  9600.00 |           0.20 |        148 |            80 |
+|         171 | William     | Smith       | WSMITH   | 011.44.1343.629268 | 1987-08-27 | SA_REP     |  7400.00 |           0.15 |        148 |            80 |
+|         172 | Elizabeth   | Bates       | EBATES   | 011.44.1343.529268 | 1987-08-28 | SA_REP     |  7300.00 |           0.15 |        148 |            80 |
+|         173 | Sundita     | Kumar       | SKUMAR   | 011.44.1343.329268 | 1987-08-29 | SA_REP     |  6100.00 |           0.10 |        148 |            80 |
+|         174 | Ellen       | Abel        | EABEL    | 011.44.1644.429267 | 1987-08-30 | SA_REP     | 11000.00 |           0.30 |        149 |            80 |
+|         175 | Alyssa      | Hutton      | AHUTTON  | 011.44.1644.429266 | 1987-08-31 | SA_REP     |  8800.00 |           0.25 |        149 |            80 |
+|         176 | Jonathon    | Taylor      | JTAYLOR  | 011.44.1644.429265 | 1987-09-01 | SA_REP     |  8600.00 |           0.20 |        149 |            80 |
+|         177 | Jack        | Livingston  | JLIVINGS | 011.44.1644.429264 | 1987-09-02 | SA_REP     |  8400.00 |           0.20 |        149 |            80 |
+|         178 | Kimberely   | Grant       | KGRANT   | 011.44.1644.429263 | 1987-09-03 | SA_REP     |  7000.00 |           0.15 |        149 |             0 |
+|         179 | Charles     | Johnson     | CJOHNSON | 011.44.1644.429262 | 1987-09-04 | SA_REP     |  6200.00 |           0.10 |        149 |            80 |
+|         180 | Winston     | Taylor      | WTAYLOR  | 650.507.9876       | 1987-09-05 | SH_CLERK   |  3200.00 |           0.00 |        120 |            50 |
+|         181 | Jean        | Fleaur      | JFLEAUR  | 650.507.9877       | 1987-09-06 | SH_CLERK   |  3100.00 |           0.00 |        120 |            50 |
+|         182 | Martha      | Sullivan    | MSULLIVA | 650.507.9878       | 1987-09-07 | SH_CLERK   |  2500.00 |           0.00 |        120 |            50 |
+|         183 | Girard      | Geoni       | GGEONI   | 650.507.9879       | 1987-09-08 | SH_CLERK   |  2800.00 |           0.00 |        120 |            50 |
+|         184 | Nandita     | Sarchand    | NSARCHAN | 650.509.1876       | 1987-09-09 | SH_CLERK   |  4200.00 |           0.00 |        121 |            50 |
+|         185 | Alexis      | Bull        | ABULL    | 650.509.2876       | 1987-09-10 | SH_CLERK   |  4100.00 |           0.00 |        121 |            50 |
+|         186 | Julia       | Dellinger   | JDELLING | 650.509.3876       | 1987-09-11 | SH_CLERK   |  3400.00 |           0.00 |        121 |            50 |
+|         187 | Anthony     | Cabrio      | ACABRIO  | 650.509.4876       | 1987-09-12 | SH_CLERK   |  3000.00 |           0.00 |        121 |            50 |
+|         188 | Kelly       | Chung       | KCHUNG   | 650.505.1876       | 1987-09-13 | SH_CLERK   |  3800.00 |           0.00 |        122 |            50 |
+|         189 | Jennifer    | Dilly       | JDILLY   | 650.505.2876       | 1987-09-14 | SH_CLERK   |  3600.00 |           0.00 |        122 |            50 |
+|         190 | Timothy     | Gates       | TGATES   | 650.505.3876       | 1987-09-15 | SH_CLERK   |  2900.00 |           0.00 |        122 |            50 |
+|         191 | Randall     | Perkins     | RPERKINS | 650.505.4876       | 1987-09-16 | SH_CLERK   |  2500.00 |           0.00 |        122 |            50 |
+|         192 | Sarah       | Bell        | SBELL    | 650.501.1876       | 1987-09-17 | SH_CLERK   |  4000.00 |           0.00 |        123 |            50 |
+|         193 | Britney     | Everett     | BEVERETT | 650.501.2876       | 1987-09-18 | SH_CLERK   |  3900.00 |           0.00 |        123 |            50 |
+|         194 | Samuel      | McCain      | SMCCAIN  | 650.501.3876       | 1987-09-19 | SH_CLERK   |  3200.00 |           0.00 |        123 |            50 |
+|         195 | Vance       | Jones       | VJONES   | 650.501.4876       | 1987-09-20 | SH_CLERK   |  2800.00 |           0.00 |        123 |            50 |
+|         196 | Alana       | Walsh       | AWALSH   | 650.507.9811       | 1987-09-21 | SH_CLERK   |  3100.00 |           0.00 |        124 |            50 |
+|         197 | Kevin       | Feeney      | KFEENEY  | 650.507.9822       | 1987-09-22 | SH_CLERK   |  3000.00 |           0.00 |        124 |            50 |
+|         198 | Donald      | OConnell    | DOCONNEL | 650.507.9833       | 1987-09-23 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         199 | Douglas     | Grant       | DGRANT   | 650.507.9844       | 1987-09-24 | SH_CLERK   |  2600.00 |           0.00 |        124 |            50 |
+|         200 | Jennifer    | Whalen      | JWHALEN  | 515.123.4444       | 1987-09-25 | AD_ASST    |  4400.00 |           0.00 |        101 |            10 |
+|         201 | Michael     | Hartstein   | MHARTSTE | 515.123.5555       | 1987-09-26 | MK_MAN     | 13000.00 |           0.00 |        100 |            20 |
+|         202 | Pat         | Fay         | PFAY     | 603.123.6666       | 1987-09-27 | MK_REP     |  6000.00 |           0.00 |        201 |            20 |
+|         203 | Susan       | Mavris      | SMAVRIS  | 515.123.7777       | 1987-09-28 | HR_REP     |  6500.00 |           0.00 |        101 |            40 |
+|         204 | Hermann     | Baer        | HBAER    | 515.123.8888       | 1987-09-29 | PR_REP     | 10000.00 |           0.00 |        101 |            70 |
+|         205 | Shelley     | Higgins     | SHIGGINS | 515.123.8080       | 1987-09-30 | AC_MGR     | 12000.00 |           0.00 |        101 |           110 |
+|         206 | William     | Gietz       | WGIETZ   | 515.123.8181       | 1987-10-01 | AC_ACCOUNT |  8300.00 |           0.00 |        205 |           110 |
++-------------+-------------+-------------+----------+--------------------+------------+------------+----------+----------------+------------+---------------+
+
+
+departments
+-----------
+
++---------------+----------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
++---------------+----------------------+------------+-------------+
+|            10 | Administration       |        200 |        1700 |
+|            20 | Marketing            |        201 |        1800 |
+|            30 | Purchasing           |        114 |        1700 |
+|            40 | Human Resources      |        203 |        2400 |
+|            50 | Shipping             |        121 |        1500 |
+|            60 | IT                   |        103 |        1400 |
+|            70 | Public Relations     |        204 |        2700 |
+|            80 | Sales                |        145 |        2500 |
+|            90 | Executive            |        100 |        1700 |
+|           100 | Finance              |        108 |        1700 |
+|           110 | Accounting           |        205 |        1700 |
+|           120 | Treasury             |          0 |        1700 |
+|           130 | Corporate Tax        |          0 |        1700 |
+|           140 | Control And Credit   |          0 |        1700 |
+|           150 | Shareholder Services |          0 |        1700 |
+|           160 | Benefits             |          0 |        1700 |
+|           170 | Manufacturing        |          0 |        1700 |
+|           180 | Construction         |          0 |        1700 |
+|           190 | Contracting          |          0 |        1700 |
+|           200 | Operations           |          0 |        1700 |
+|           210 | IT Support           |          0 |        1700 |
+|           220 | NOC                  |          0 |        1700 |
+|           230 | IT Helpdesk          |          0 |        1700 |
+|           240 | Government Sales     |          0 |        1700 |
+|           250 | Retail Sales         |          0 |        1700 |
+|           260 | Recruiting           |          0 |        1700 |
+|           270 | Payroll              |          0 |        1700 |
++---------------+----------------------+------------+-------------+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ Error Code: 1822. Missing index for constraint 'departments_ibfk_1' in the referenced table 'employees'	.
+
+
+create table departments(
+               DEPARTMENT_ID int(5),
+               DEPARTMENT_NAME varchar(100),
+               MANAGER_ID int(5),
+               LOCATION_ID int(5),
+               
+   foreign key(DEPARTMENT_ID) 
+                  references employees (DEPARTMENT_ID) 
+);
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------------
+
+show databases;
+
+use api;
+
+show tables;
+
+drop table department;
+
+create table department(
+       DEPARTMENT_ID int not null primary key,
+       DEPARTMENT_NAME varchar(100),
+       MANAGER_ID int(5),
+       LOCATION_ID int(6)
+);
+
+desc department;
+
+insert into department values(10 ,"Administration" ,200 ,1700 );
+insert into department values( 20 ,"Marketing" ,201,1800 );
+insert into department values( 30 ,"Purchasing" ,114 ,1700  );
+insert into department values(40 ,"Human Resources" ,203,2400);
+insert into department values( 50 ,"Shipping",     121 ,1500 );
+insert into department values( 60, "IT ",      103 ,  1400 );
+insert into department values(70 ,"Public Relations" ,204 ,2700 );
+insert into department values(80 , "Sales" , 145 ,2500 );
+insert into department values( 90 ,"Executive "   ,100 ,1700 );
+insert into department values(100 ,"Finance" ,108 ,1700 );
+insert into department values(110 ," Accounting"  ,205,1700 );
+insert into department values(120 ,"Treasury"  ,    0 ,1700 );
+insert into department values(130 ,"Corporate Tax" ,0 ,1700 );
+insert into department values(140 ," Control And Credit" ,0 ,1700 );
+insert into department values(150 ,"Shareholder Services" ,0 ,1700 );
+insert into department values(160 ,"Benefits" , 0 ,1700 );
+insert into department values(170 ,"Manufacturing" , 0 ,1700 );
+insert into department values(180 , "Construction"  , 0,1700 );
+insert into department values( 190 ,"Contracting"  ,0 ,1700 );
+insert into department values( 200 ,"Operations",  0 ,1700 );
+insert into department values(210 ,"IT Support" ,0 ,1700 );
+insert into department values(220 ,"NOC" ,0 ,1700 );
+insert into department values(   230 ,"IT Helpdesk"  ,0,   1700 );
+insert into department values(240 ,"Government Sales" ,0 ,1700 );
+insert into department values(250 ,"Retail Sales" ,0 ,1700 );
+insert into department values( 260 ,"Recruiting ", 0 ,1700 );
+insert into department values(270 ,"Payroll",  0 ,1700 );
+
+select * from department;
+
+create table employees(
+		   EMPLOYEE_ID int not null primary key auto_increment,
+           FIRST_NAME varchar(50),
+           LAST_NAME varchar(50),
+           EMAIL varchar(50),
+           PHONE_NUMBER varchar(50),
+           HIRE_DATE date,
+           JOB_ID  varchar(50),
+           SALARY  double,
+           COMMISSION_PCT double,
+           MANAGER_ID int(5),
+           DEPARTMENT_ID  int(5),
+           
+           foreign key(DEPARTMENT_ID)
+                references department (DEPARTMENT_ID)
+           
+);
+desc employees;
+select * from employees;
+
+insert into employees values(  100 ,"Ste,ven" , "King" ,"Akhil@gmail.com"," 5151234567", "1987-06-17 ","AD_PRES",24000.00 , 0.00, 0 , 90 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID) 
+values("Neena "  ,  "Kochhar" , "Neena@gmail.com" ,"5151234568" , "1987-06-18" ,"AD_VP" ,17000.00,0.00 ,100 ,90 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID) 
+values("Lex","De Haan","Lex@gmail.com" ,"5151234569", "1987-06-19" ,"AD_VP" ,17000.00 ,  0.00 , 100 ,90 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID) 
+values("Alexander ","Hunold" ,"Alexander@gmail.com" ,"5904234567" ,"1987-06-20" ,"IT_PROG",9000.00,0.00 ,102,60 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID) 
+values("Bruce" ,"Ernst" ,"Bruce@gmail.com" ,"5904234568" ,"1987-06-21" ,"IT_PROG" ,6000.00 , 0.00,103, 60 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID) 
+values("David ","Austin","DAUSTIN","5904234569" , "1987-06-22" ,"IT_PROG" ,4800.00,0.00,103,60 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID) 
+values("Valli" ,"Pataballa","Valli@gmail.com" , "5904234560" ,"1987-06-23" ,"IT_PROG", 4800.00,0.00,103, 60 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID) 
+values("Diana","Lorentz" ,"Diana@gmail.com", "5904235567" ,"1987-06-24" ,"IT_PROG" ,4200.00 ,0.00 ,103 ,  60 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "Nancy","Greenberg","NGREENBE",5151244569 ,"1987-06-25" ,"FI_MGR" ,12000.00 ,0.00 ,  101 , 100  );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "Daniel","Faviet","DFAVIET" ,5151244169,"1987-06-26","FI_ACCOUNT",9000.00 , 0.00 ,108 ,100 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "John","Chen","JCHEN" ,5151244269 ,"1987-06-27","FI_ACCOUNT",8200.00 ,  0.00,108 ,100 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "Ismael ","Sciarra","ISCIARRA ",5151244369 ,"1987-06-28 ","FI_ACCOUNT", 7700.00 , 0.00 , 108 ,100 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values("Jose Manuel","Urman"," JMURMAN" ,5151244469,"1987-06-29","FI_ACCOUNT" ,7800.00, 0.00, 108 ,100 );
+insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( " Luis"," Popp","LPOPP" ,5151244567 ,"1987-06-30","FI_ACCOUNT" ,6900.00,0.00 ,108 ,100 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values(  " Den","Raphaely","DRAPHEAL" ,5151274561 ,"1987-07-01","PU_MAN" ,11000.00 ,  0.00 ,100 ,30 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values(  "Alexander","Khoo","AKHOO",5151274562 ,"1987-07-02","PU_CLERK" , 3100.00 ,0.00,114 ,30 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "Shelli","Baida","SBAIDA",5151274563,"1987-07-03","PU_CLERK" ,2900.00,0.00 ,114 , 30 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "Matthew"," Weiss","MWEISS", 6501231234 ,"1987-07-07","ST_MAN",8000.00 ,0.00, 100 ,50 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values("Adam","Fripp"," AFRIPP",6501232234 ,"1987-07-08 ","ST_MAN",8200.00 ,0.00 ,100 , 50 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "Julia" ,"Nayer","JNAYER ",6501241214 ,"1987-07-12","ST_CLERK" ,3200.00,0.00 ,     120 ,50 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values("Irene","Mikkilineni","IMIKKILI",6501241224 ,"1987-07-13","ST_CLERK" ,2700.00 ,0.00 ,  120 , 50 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values("John ","Russell","JRUSSEL",441344429268 ,"1987-08-01","SA_MAN" ,14000.00, 0.40 ,100 ,80 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values("Karen","Partners","KPARTNER" ,441344467268 ,"1987-08-02","SA_MAN" ,13500.00 , 0.30, 100 ,80 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "Peter","Tucker ","PTUCKER" ,441344129268 ,"1987-08-06 ","SA_REP ",10000.00 , 0.30 ,145 ,80 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "David ","Bernstein "," DBERNSTE","441344345268","1987-08-07 ","SA_REP ",9500.00 ,0.25, 145 ,80 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "Winston","Taylor","WTAYLOR",6505079876 ,"1987-09-05","SH_CLERK" ,3200.00 ,0.00, 120 ,50 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "Jean","Fleaur","JFLEAUR",6505079877  ,"1987-09-06 ","SH_CLERK" ,3100.00 ,0.00 ,120 ,50 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values( "Martha ","Sullivan ","MSULLIVA ",6505079878  ,"1987-09-07 ","SH_CLERK" , 2500.00 ,0.00,120 ,50 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values(  "Jennifer"," Whalen "," JWHALEN ",5151234444 ,"1987-09-25","AD_ASST" ,4400.00 ,0.00 , 101 , 10 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values("Michael"," Hartstein","MHARTSTE" ,5151235555  ,"1987-09-26" ,"MK_MAN" ,13000.00 ,0.00 ,100 ,20 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values("Pat ","Fay ","PFAY" ,6031236666, "1987-09-27 ","MK_REP " ,6000.00 ,0.00 ,201 ,20 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values("Susan"," Mavris","SMAVRIS ",5151237777,"1987-09-28","HR_REP ",6500.00 , 0.00 , 101 ,   40 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values(" Hermann"," Baer","HBAER" ,5151238888 ,"1987-09-29 ","PR_REP"  ,10000.00 , 0.00 ,101 ,70 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values("Shelley","Higgins","SHIGGINS" ,5151238080 ,"1987-09-30","AC_MGR ",12000.00 ,0.00 ,101 , 110 );
+ insert into employees(FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+ values("William"," Gietz"," WGIETZ", 5151238181 ,"1987-10-01 ","AC_ACCOUNT" ,8300.00 , 0.00,  205,   110 );
+ 
+ SELECT department_name AS 'Department Name', 
+COUNT(*) AS 'No of Employees' 
+FROM department 
+INNER JOIN employees 
+ON employees.department_id = department.department_id 
+GROUP BY department.department_id, department_name 
+ORDER BY department_name;
+
+----------------------------------------------------------------------
+
+
+select first_name,salary,department_id from employees inner join department
+on
+employees.department_id=department.department_id;
+
+Error Code: 1052. Column 'department_id' in field list is ambiguous	
+
+--------------------------------------------------------------------
+
+select first_name,salary,department.department_id from employees inner join department
+on
+employees.department_id=department.department_id;
+
+
+It Returns matching Records from the both the tables
+
+--------------------------------------------------------------------
+
+select first_name,salary,department.department_id from employees left join department
+on
+(employees.department_id=department.department_id);
+
+---------------------------------------------------------------------
+select first_name,salary,department.department_id from employees right join department
+on
+(employees.department_id=department.department_id);
+
+---------------------------------------------------------------------
+
+select first_name,salary,department.department_id from employees inner join department
+on
+(employees.department_id=department.department_id);
+
+select employee_id, first_name,job_id,department.department_id,department_name,location_id from employees left join department
+on
+(employees.department_id=department.department_id);
+
+
+select employee_id, first_name,job_id,department.department_id,department_name,location_id from employees left join department
+on
+(employees.department_id=department.department_id);
+
+--------------------------------------------------------------------
+
+self-JOIN (join table with same table)
+--------------------------------------
+here we are splitting the single table as multiple and Retring the data from  multiple tables
+
+=>Query::print Employees details who is Manager of other employees.
+
+SELECT E.EMPLOYEE_ID,M.MANAGER_ID,E.FIRST_NAME FROM EMPLOYEES E,EMPLOYEES M
+WHERE E.EMPLOYEE_ID=M.MANAGER_ID;
+
+The above Query will Returns the data from both the tables of who the employees are managers of other employees.dual roll employee and as well as manager of others(emp's).
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+Sub Queries
+-----------
+
+* Sub Query is a Query within a Query.
+
+* Sub Query contains two parts.
+  
+  1.outer Query
+  2.Inner Query.
+
+* The output of inner Query is become input of outer Query.
+
+* 2 Types of sub Queries:
+  
+  1.Single row sub Query , <=,>=,!=
+  2.Multi row sub Query.IN,ANY,ALL.
+
+----------------------------------------------
+
+show databases;
+
+use api;
+
+select * from employees;
+
+-- Display employees whose salary is less than the David's salary
+
+select salary,first_name from employees where employee_id=105; -- 4800
+
+select salary from employees where employee_id=105;  -- 4800
+
+select salary from employees where salary<(4800);
+
+select salary from employees where salary<(select salary from employees where employee_id=105);
+
+-- seccond max salary from employees
+
+select max(salary) from employees;
+
+select max(salary) from employees where salary<(select max(salary) from employees);
+
+-- 3 rd max salary from employees
+
+select max(salary) from employees where salary<
+(select max(salary) from employees where salary< (select max(salary) from employees));
+
+----------------------------------------------------------------
+
+
+select * from employees;
+select * from department;
+-- Find the salary of the employees whose salary is greater than the salary of employee whose having EMPLOYEE_ID 123.
+
+   select salary from employees where employee_id=101;
+   
+   select salary from employees where employee_id=123;
+   
+   select salary from employees where salary>(select salary from employees where employee_id=123);
+   
+-- Display the employees who all are earning the highest salary
+
+  SELECT * FROM EMPLOYEES WHERE SALARY =(SELECT MAX(SALARY) FROM EMPLOYEES);
+  
+-- Display employees whose salary is equal to the salary of the at least one employee in department id 30.
+
+   SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID=30;
+   
+   SELECT * FROM EMPLOYEES WHERE SALARY IN(SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID=30);
+   
+   -- THE Above Query Returns the All columns from the employees table where the employee having equal salary of at least one salary from department numb 30.
+   
+    SELECT * FROM EMPLOYEES WHERE SALARY <ANY(SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID=30);
+    
+    SELECT * FROM EMPLOYEES WHERE SALARY <ALL(SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID=30);
+    
+-- Query to get Department name from employees table
+    
+  SELECT DEPARTMENT_NAME FROM DEPARTMENT WHERE EMPLOYEES.DEPARTMENT_ID = DEPARTMENT.DEPARTMENT_ID; -- ERROR EMP TABLE COLUMN NOT IN SELECT STATEMENT
+
+  SELECT FIRST_NAME,EMPLOYEE_ID,DEPARTMENT_ID,(SELECT DEPARTMENT_NAME FROM DEPARTMENT WHERE EMPLOYEES.DEPARTMENT_ID = DEPARTMENT.DEPARTMENT_ID) DNAME 
+  FROM EMPLOYEES;
+
+-- List out the employees who are having the salary less than the maximum salary 
+-- and also having hire data greater than the hire date of an employee who is having maximum salary
+
+   SELECT EMPLOYEE_ID,FIRST_NAME,SALARY,HIRE_DATE FROM EMPLOYEES WHERE SALARY<
+  (SELECT MAX(SALARY) FROM EMPLOYEES) AND HIRE_DATE>
+  (SELECT HIRE_DATE FROM EMPLOYEES WHERE SALARY=
+  (SELECT MAX(SALARY) FROM EMPLOYEES)); 
+
+  SELECT MAX(SALARY) FROM EMPLOYEES;
+
+----------------------------------------------------------------------------------------------
+
+SQL INTEGRITY CONSTRAINTS
+-------------------------
+
+* SQL Constraints are used to specify rules for data in a table.
+
+* Constraints can be specified when the table is created with the CREATE TABLE statement, or after the table is created with the ALTER TABLE statement.
+
+  SQL_CONSTRAINTS
+ -----------------
+* NOT NULL- Ensures that a column can't have a NULL value.
+
+* UNIQUE -  Ensures that all values in a column are different.
+
+* PRIMARY KEY - A combination of a NOT NULL and UNIQUE.Uniquely identifies each row in a table.
+
+* FOREIGN KEY - Uniquely identifies a row/record in another table.
+
+* CHECK       - Ensures that all values in a column satifies a specific condition.
+
+* DEFAULT     - Sets a default value for a column when when no value is specified.
+
+---------------------------------------------------------------------------------
+
+ 1.NOT NULL: This is a constraint will not accept NULL values into the column.
+ -----------
+
+  *   we can apply NOT NULL on any number of columns.
+
+      CREATE TABLE STUDENT(
+                       SNO INT(3) NOT NULL,
+                       SNAME VARCHAR(10),
+                       MARKS INT(3));
+      INSERT INTO STUDENT VALUES(100,'Akhil',60); //correct
+
+      INSERT INTO STUDENT VALUES(NULL,'Adithya',70); //Error
+
+
+ 2.UNIQUE CONSTRAINT : This constraints will not accept duplicate values.
+ ---------------------
+
+  *   This constraint can apply on both column and table level.
+
+  => Column-level
+     ------------
+      * CREATE TABLE STUDENT(
+                       SNO INT(3) UNIQUE,
+                       SNAME VARCHAR(10),
+                       MARKS INT(3));
+  => Table-level
+     ------------
+      * CREATE TABLE STUDENT(
+                       SNO INT(3),
+                       SNAME VARCHAR(10),
+                       MARKS INT(3),
+                       UNIQUE(SNO));
+
+     INSERT INTO STUDENT VALUES(100,'Adithya',70); 
+     INSERT INTO STUDENT VALUES(100,'Akhil',60); // Error
+
+         INSERT INTO STUDENT VALUES(null,'Rock',60); 
+         INSERT INTO STUDENT VALUES(null,'Akhil',60); // more nulls accepted but same numbs are not accepted.
+
+
+ 3.PRIMARY KEY - A combination of a NOT NULL and UNIQUE :
+ --------------------------------------------------------
+ 
+ * primary key column will not allow duplicate values and also null values.
+
+ * primary key constraint can create both column level and table-level.
+
+   CREATE TABLE STUDENT(
+                        SNO INT(3) PRIMARY KEY,
+                        SNAME VARCHAR(10),
+                        MARKS INT(3));
+
+ insert into student values(101,'Ravi',60); -- valid 
+ insert into student values(101,'Ravi',60); -- invalid
+ insert into student values(null,'Ravi',60); -- invalid
+
+ 4.FOREIGN KEY CONSTRAINT : 
+ --------------------------
+
+ * A FOREIGN KEY IS a key used to link two tables together.
+
+ * A FOREIGN KEY IS a field (or collection of fields) in one table that references to the PRIMARY KEY in another table.
+
+ * The table containing the foreign key is called the child table,and the table containing the candidate key is called the referenced or parent table.
+
+   //Parent Table
+
+   create table school(
+             SNO INT(3),
+             SNAME VARCHAR(15),
+             MARKS INT(3),
+             PRIMARY KEY(SNO));
+
+    INSERT INTO SCHOOL VALUES(101,'AKHIL',50);
+    INSERT INTO SCHOOL VALUES(102,'ADITHYA',60);
+    INSERT INTO SCHOOL VALUES(103,'David',90);
+    
+     select * from school;
+
+    //child table
+
+    create table library(
+               SNO INT(3),
+               foreign key(sno) references school(sno),
+               book_name varchar(20));  
+
+     INSERT INTO library VALUES(102,'java');
+     INSERT INTO library VALUES(108,'selenium');//not valid
+     INSERT INTO library VALUES(null,'c++');
+     INSERT INTO library VALUES(null,'c');
+
+     select * from library;
+
+    
+ Note:
+     1) when you insert a record into child table,the column will be refered in parent table.
+     2) If you try remove parent table record directly without deleting records from child table not allowed.
+     3) First, delete dependant record from child table,then delete record from parent table. 
+     4) on delete cascade: 
+           if we are deleting the row from the parent table then it will be going to remove the corresponding record from the child table.
+   
+         delete from school where sno=102;
+         delete from library where sno=102; 
+ 
+-------------------------------------------
+
+ ON DELETE CASCADE:
+------------------
+
+=> Normally we can't delete rows from parent table unless we delete corresponding row from child table.
+
+=> we can delete the rows from the parent table & corresponding child table row as well(at same time) by using ONDELETECASCADE Option.
+
+
+create table school(
+             SNO INT(3),
+             SNAME VARCHAR(15),
+             MARKS INT(3),
+             PRIMARY KEY(SNO));
+
+    INSERT INTO SCHOOL VALUES(101,'AKHIL',50);
+    INSERT INTO SCHOOL VALUES(102,'ADITHYA',60);
+    INSERT INTO SCHOOL VALUES(103,'David',90);
+    
+     select * from school;
+
+ 
+
+    create table library(
+               SNO INT(3),
+               foreign key(sno) references school(sno) on delete cascade,
+               book_name varchar(20));  
+
+     INSERT INTO library VALUES(102,'java');
+     INSERT INTO library VALUES(108,'selenium');
+     INSERT INTO library VALUES(null,'c++');
+     INSERT INTO library VALUES(null,'c');
+
+     select * from library;
+     
+ delete from school where sno=102;
+
+5) CHECK CONSTRAINT:
+ -------------------
+ Check constraint is used to for allowing user to enter specific values into column.
+
+ create table student(
+              sno int(5),
+              sname varchar(15),
+              marks int(5) check(marks between 50 and 100));
+    
+select * from student;
+
+insert into student values(101,'Akhil',60);
+insert into student values(101,'Akhil',45); -- INVALID -- Error Code: 3819. Check constraint 'student_chk_1' is violated
+insert into student values(101,'Akhil',105); -- INVALID
+    
+create table location(
+          city varchar(15) check(city in ('HYDERABAD','CHENNAI','DELHI')),
+          country varchar(15),
+          PIN_CODE int(8));
+          
+select * from location;
+
+insert into location values('HYDERABAD','INDIA',12345);
+insert into location values('CHENNAI','INDIA',231323);
+insert into location values('DELHI','INDIA',6436436);
+
+insert into location values('MUMBAI','INDIA',6436436); -- INVALID  -- Error Code: 3819. Check constraint 'student_chk_1' is violated
+
+6) DEFAULT CONSTRAINT:
+----------------------
+
+=> The DEFAULT CONSTRAINT is used to provide a default value for a column.
+=> The Default value will be added to all new records IF no other value is specified.
+
+   create table Orders(
+        ID int(5),
+        OrderNumber int(5),
+        OrderDate datetime default now());
+
+
+   insert into Orders(ID,OrderNumber) values(101,2456);
+   insert into Orders(ID,OrderNumber) values(102,2457);
+
+   select * from Orders;
+---------------------------------------------------------------------------------------
+
+AUTO_INCREMENT
+--------------
+=> Auto_increment is a function that operates on Numeric Data_Types. It automatically genrates sequencial Numeric values every time that a
+   Record is Inserted into a table for a field defined as auto increment.
+
+         create table student(
+         sno int(5) primary key auto_increment,
+         sname varchar(15),
+         marks int(5));
+         
+         select * from student;
+         
+         insert into student(sname,marks) values('X',60);
+         insert into student(sname,marks) values('Y',45);
+         insert into student(sname,marks) values('Z',100);
+         
+         delete from student where sno=2;
+         
+         insert into student(sname,marks) values('Y',45);
+         
+         select * from student;
+         
+         delete from student where sno=3;
+         
+         insert into student(sname,marks) values('Z',100);
+         
+         select * from student;
+         
+         ------------------------------------------------------------
+         
+         delete from student;
+         
+         SET SQL_SAFE_UPDATES = 0;
+         
+         select * from student;
+         
+         alter table STUDENT auto_increment =100;
+         
+		insert into student(sname,marks) values('X',60);
+         insert into student(sname,marks) values('Y',45);
+         insert into student(sname,marks) values('Z',100);
+     
+         --------------------------------------------------------------
+
+   LIMIT
+   -----
+  * LIMIT is used to Display limited Rows from a table.
+
+  * SELECT * FROM EMPLOYEES LIMIT 10;
+  * SELECT * FROM EMPLOYEES LIMIT 5,10;
+
+  ------------------------------------------------------
+
+ VIEWS & INDEXES
+ ---------------
+ * A view is a virtual table based on the result-set of an SQL statement.
+
+ * A view contains Rows and columns just like a Real table.The fields in a view are fields from one or more Real tables in the database.
+
+ * you can Add SQL functions, WHERE,and JOIN statements to a view and present the Data as if the Data were coming from one single table.
+
+  SELECT * FROM EMPLOYEES;
+
+  Creating a view
+
+       CREATE VIEW EMPLOYEES_V1 AS SELECT EMPLOYEE_ID,FIRST_NAME,SALARY FROM EMPLOYEES;
+
+  SELECT * FROM EMPLOYEES_V1;
+
+  Dropping a view
+
+       Drop view EMPLOYEES_V1;
+
+Note: If we Do any change in the Original table then it will be effected in the view,
+               but the changes in the view wont effect on the Original table.
+----------------------------------
+
+ INDEX
+ ------
+ * Indexes are used to retrive the Data from the Database very fast.
+
+ * The users cant see indexes , they are just used to speed up searches/queries.
+
+ CREATING INDEX
+ --------------
+       CREATE INDEX idx_employees ON Employees(First_Name);
+ DROPING INDEX
+ -------------
+       DROP INDEX idx_employees on employees;
+
+--------------------------------------------------------------
+
+TCL-Commit & Rollback
+---------------------
+Only commited Rows we will get Back After deleting/with out commit we will not get back once deleting.
+
+set autocommit=0;
+		
+create table student(sid int(3),sname varchar(15));
+ 
+ insert into student values(101,'abc');
+ insert into student values(102,'xyz');
+ insert into student values(103,'pqr');
+ 
+ select * from student;
+ 
+ SET SQL_SAFE_UPDATES = 0;
+ delete from student where sid=103;
+ commit; 
+ rollback;
+
+--------------------------------------------------------------
+
+JDBC / Java Database Connectivity with MySQL
+--------------------------------------------
+      Pre-requisites
+      --------------
+      =>Java(JDK)
+      =>Eclipse
+      =>Mysql JDBC Driver.
+
+step:1) Download JDBCDriver and configure buildpath it to ecclipse java project.
+
+step:2) * Create a connection.
+        * Create Statement/Query.
+        * Execute statement/Query.
+        * close connection.
+ 
+   Insert,Delete and update DML Commands
+---------------------------
+
+  select * from student;
+
+  insert into student values(101,'abc');
+  insert into student values(102,'xyz');
+  insert into student values(103,'pqr');
+
+  -------------------
+
+ package JDBCDriver;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import com.mysql.cj.xdevapi.Statement;
+
+public class MysqlDriver {
+
+	public static void main(String[] args) throws SQLException {
+		
+		   //1)Create a connection
+	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/selenium","root","root");
+		
+		//2)Create Statement Query
+	java.sql.Statement stmt =con.createStatement();
+	// String s ="insert into student values(104,'Akhil')";  
+	//String s = "update student set sname='Adithya' where sid=101";
+	String s ="delete from student where sid=102";
+	 //3) Execute statement/Query
+	 stmt.execute(s);
+	 //4) close connection
+	 con.close();
+	 
+	 System.out.println("Query executed....!");
+	}
+
+}
+---------------------------------------------------
+
+        Select -- Data Retrival/Data Query language.
+
+        * Create a connection.
+        * Create Statement/Query.
+        * Execute statement/Query.
+        * Store the results in result set.
+        * close connection.
+
+---------------------------
+
+package JDBCDriver;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.mysql.cj.protocol.Resultset;
+import com.mysql.cj.xdevapi.Statement;
+
+public class MysqlDriverDataRetrival {
+
+	public static void main(String[] args) throws SQLException {
+		
+		   //1)Create a connection
+	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/selenium","root","root");
+		
+		//2)Create Statement Query
+	java.sql.Statement stmt =con.createStatement();
+     
+	String s ="select emp_id,first_name,last_name from employee";
+	 //3,4) Execute statement/Query&Store Data in result set.
+       ResultSet rs    = stmt.executeQuery(s);
+  
+    while(rs.next())
+    {
+     int eid = rs.getInt("emp_id");
+    String fname  = rs.getString("first_name");
+    String lname  = rs.getString("last_name");
+    
+    System.out.println(eid+"    "+fname+"   "+lname);
+    }
+
+
+	 //5) close connection
+	 con.close();
+	 
+	 System.out.println("Query executed....!");
+	}
+
+}
+--------------------------------------------------------------------
+
+working with MYSQL in CLI mode
+------------------------------
+
+steps to connect mysql DB using windows cmd :
+---------------------------------------------
+
+C:\Users\adith>cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 37
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
+
+--------------------------------------------
+================================================================================================================================================
+
+MYSql Interview Q & A
+----------------------
+
+show databases;
+
+create database sqlfaqs;
+use sqlfaqs;
+show tables;
+
+create table employee(
+   empid int not null,
+   emp_name varchar(100),
+   manager_id varchar(5),
+   DOJ date,
+   city varchar(20)
+);
+
+insert into employee values(121,'john',321,'2012-01-30','hyderabad');
+
+insert into employee values(321,'David',986,'2018-01-30','chennai');
+insert into employee values(421,'scott',876,'2020-11-27','Mumbai');
+
+select * from employee;
+
+-- 1) write an SQL query to fetch the emp_id and Name of all employees working under Manager with id is 986
+
+select empid,emp_name from employee where manager_id=986;
+
+create table salary(
+           empid int(5),
+           project varchar(2),
+           salary double,
+           variable double
+);
+
+select * from salary;
+
+insert into salary  values(121,'p1',20000,0);
+insert into salary  values(321,'p2',35000,1000);
+insert into salary  values(421,'p3',50000,3000);
+
+-- 2) write an SQL query to fetch the different projects available from the salary table
+
+select distinct(project) from salary;
+
+-- 3)write an SQL query to fetch the count of employees working in project p1
+
+select count(*) from salary where project='p1';
+
+-- 4) write an SQL query to find max,min and avg salaries of employees
+
+select max(salary),min(salary),avg(salary) from salary;
+
+-- 5) write an SQL query to find the empid whose salary lies in the Range of 30000 and 40000
+
+select empid,salary from salary where salary between 30000 and 40000;
+
+-- 6) write an SQL query to fetch those employees who live in chennai and work under manager id is 986
+
+select empid,city,manager_id from employee where city='chennai' and manager_id=986;
+
+-- 7) write an SQL query to fetch all the employees who either live in chennai or work under managerid is321
+
+select empid,city,manager_id from employee where city='chennai' or manager_id=321;
+
+-- 8) write an SQL query to fetch all those employees who work on project otherthan p1. 
+
+select * from salary where not project='p1';
+
+select * from salary where  project<>'p1';
+
+-- 9) write an SQL query to Display the total salary of each employee adding the salary with variable value. 
+
+select empid,salary+variable as TotalSalary from salary;
+
+-- 10) write an SQL query to fetch the employees whose names begins with any two charecters,followed by a text 'vi'
+ --     and ending with any sequence of charecters
+ 
+ select emp_name from employee where emp_name like '__vi%';
+
+-----------------------------------------------------------
+
+
+create database webDriver;
+use webDriver;
+show tables;
+
+create table employee(
+              employee_id int primary key not null,
+              last_name varchar(50),
+              first_name varchar(50),
+              middle_name varchar(50),
+              job_id int,
+              manager_id int,
+              hire_date date,
+              salary double,
+              commission varchar(10)  default null,
+              department_id int
+              );
+            
+	select * from employee;
+    
+    insert into employee values(7369,'smith','john','Q',667,7902,'1984-12-17',800,null,20);
+    insert into employee values(7499,'allen','kevin','J',670,7698,'1985-02-20',1600,300,30);
+    insert into employee values(7505,'doyle','jean','K',671,7839,'1985-04-04',2850,null,30);
+    insert into employee values(7506,'dennis','lynn','S',667,7902,'1985-05-15',2750,null,30);
+    insert into employee values(7507,'baker','leslie','D',671,7839,'1985-06-10',2200,null,40);
+    insert into employee values(7521,'wark','cynthia','D',670,7698,'1985-02-22',1250,null,40);
+    
+    
+       create table Department(
+                   department_id int,
+                   dept_name varchar(20),
+                   location_id int
+   );
+   desc department;
+   select * from department;
+   
+   insert into department values(10,'Accounting',122);
+   insert into department values(20,'Research',124);
+   insert into department values(30,'sales',123);
+   insert into department values(40,'operations',167);
+   
+   create table location(
+           location_id int,
+           Regional_group varchar(20)
+   );
+   
+   insert into location values(122,'New york');
+   insert into location values(123,'Dallas');
+   insert into location values(124,'Chicago');
+   insert into location values(167,'Boston');
+   
+   select * from location;
+   
+   create table JOB(
+             job_id int(5),
+             function_job varchar(50)
+             
+   );
+   
+   insert into job values(667,'clerk');
+   insert into job values(668,'staff');
+   insert into job values(669,'analyst');
+   insert into job values(670,'salesperson');
+   insert into job values(671,'manager');
+   insert into job values(672,'president');
+   
+   select * from job;
+   
+    -- 11)List out the employees who are not reciving commission
+    
+    select * from employee where  commission is null;
+    
+   -- 12)List out the employees who are working in department 30 and Draw the salaries more than 2500
+   
+   select * from employee where department_id=30 and salary>2500;
+   
+   -- 13)List out the employee id,name in descending order based on salary column
+   
+   select employee_id,last_name,salary from employee order by salary desc;
+   
+   -- 14)How many employees who are working in different departments wise in the organization
+   
+   select department_id,count(*) from employee group by department_id;
+   
+   -- 15)List out the department id having atleast 3 employees
+   
+   select department_id,count(*) from employee group by department_id having count(*)>=3;
+   
+   -- 16) Display the employees who got the maximum salary.
+   
+   select max(salary) from employee;
+   
+   select * from employee where salary=(select max(salary) from employee);
+   
+   -- 17) Display the employees who are working in sales department
+   
+   select * from employee where department_id in(select department_id from department where dept_name='sales');
+   
+   -- 18) Display the employees who are working in "NEW YORK".
+   
+   select * from employee where department_id =(select department_id from department where location_id=(select location_id from location where regional_group='NEW YORK'));
+   
+   -- 19) update the employees salaries, who are working as the manager on the basis 10%
+   SET SQL_SAFE_UPDATES = 0;
+  update employee set salary=salary+salary*10/100 where job_id = (select job_id from job where function_job='Manager');
+  
+  -- 20)Delete the employees who are working in accounting department
+  
+  delete from employee where department_id=(select department_id from department where dept_name='Research');
+  
+    ----------------------------------------------------------------
+
+
+create database webDriver;
+use webDriver;
+show tables;
+
+create table employees(
+               emp_id int primary key not null,
+               emp_name varchar(50),
+               salary double
+);
+
+desc employees;
+
+select * from employees;
+
+insert into employees values(101,'Amit',20000);
+insert into employees values(102,'David',30000);
+insert into employees values(103,'Bhaskar',25000);
+insert into employees values(104,'smith',28000);
+insert into employees values(105,'john',15000);
+
+-- 21) Display the highest salary from employees table
+
+-- 22) Display the 2nd highest salary from employees table
+
+-- 23) Display the nth highest salary from employees table
+
+-- 3 ways (Max,Limit,top(Mysql_workbench not support top))
+
+ select max(salary) from employees; -- max()
+ 
+ select salary from employees order by salary desc limit 1;
+ 
+ -- 2nd highest salary
+ 
+ select max(salary) from employees where salary<(select max(salary) from employees);
+ 
+ -- select salary from employees order by salary desc limit 2;
+ 
+ select salary from(select salary from employees order by salary desc limit 2) emp order by salary desc limit 1;
+ 
+ -- nth highest salary 3 
+ 
+ select max(salary) from employees where salary<
+ (select max(salary) from employees where salary<(select max(salary) from employees));
+ 
+select salary from (select salary from employees order by salary desc limit 3) emp order by salary desc limit 1;
+
+---------------------------------------------------------------
+
+create table employees(
+               emp_id int primary key not null,
+               emp_name varchar(50),
+               salary double
+);
+
+desc employees;
+
+select * from employees;
+
+insert into employees values(101,'Amit',20000);
+insert into employees values(102,'David',30000);
+insert into employees values(103,'Bhaskar',25000);
+insert into employees values(104,'smith',28000);
+insert into employees values(105,'john',15000);
+
+
+-- 24)Find Nth highest salary from employees table without using max(),limit and top.
+
+-- select salary from employees e1 where N-1 =(select count(distinct salary) from employees e2 where e2.salary >e1.salary);
+
+-- Highest salary
+select salary from employees e1 where 1-1 =(select count(distinct salary) from employees e2 where e2.salary >e1.salary);
+-- 2nd Highest salary
+select salary from employees e1 where 2-1 =(select count(distinct salary) from employees e2 where e2.salary >e1.salary);
+-- Nth Highest salary
+select salary from employees e1 where 3-1 =(select count(distinct salary) from employees e2 where e2.salary >e1.salary);
+
+----------------------------------------------------------------
+
+
+create database java;
+use java;
+show tables;
+
+create table employees(
+               emp_id int  not null,
+               emp_name varchar(50),
+               salary double
+);
+
+desc employees;
+
+select * from employees;
+
+insert into employees values(101,'Amit',20000);
+insert into employees values(102,'David',30000);
+insert into employees values(103,'Bhaskar',25000);
+insert into employees values(103,'Bhaskar',25000);
+insert into employees values(104,'smith',28000);
+insert into employees values(104,'smith',28000);
+insert into employees values(105,'john',15000);
+insert into employees values(105,'john',15000);
+
+-- 25) How to delete duplicates from the table
+
+-- By using distinct
+-- By adding identity column
+
+select distinct * from employees;
+
+-- step1
+create table employees_dup as select distinct * from employees;
+
+-- step2
+SET SQL_SAFE_UPDATES = 0;
+delete from employees;
+
+select * from employees_dup;
+
+-- step3
+insert into employees select * from employees_dup;
+
+-- step4
+delete from employees_dup;
+
+select * from employees;
+
+----------------------------------------------------------------------
+
+create database java;
+show databases;
+use java;
+show tables;
+
+create table employees(
+               emp_id int  not null,
+               emp_name varchar(50),
+               salary double
+);
+
+desc employees;
+
+select * from employees;
+
+-- 26) create a table from existing table(only structure without Data)
+
+
+create table employees_new as select * from employees where 1=0;
+
+select * from employees_new;
+
+-- 27) write an SQL query to display country names from country table that do not start with vowels
+--     and do not end with vowels.Results should not contains Duplicates
+
+create table CountryTable (CountryID int not null primary key auto_increment, CountryName varchar(100));
+
+select * from CountryTable;
+
+insert into CountryTable(CountryName) values('USA');
+insert into CountryTable(CountryName) values('France');
+insert into CountryTable(CountryName) values('Russia');
+insert into CountryTable(CountryName) values('India');
+insert into CountryTable(CountryName) values('balgaria');
+insert into CountryTable(CountryName) values('japan');
+insert into CountryTable(CountryName) values('chaina');
+insert into CountryTable(CountryName) values('canada');
+insert into CountryTable(CountryName) values('mexico');
+insert into CountryTable(CountryName) values('scottland');
+insert into CountryTable(CountryName) values('jermani');
+insert into CountryTable(CountryName) values('sauidiAreabia');
+insert into CountryTable(CountryName) values('Dubai');
+insert into CountryTable(CountryName) values('brazil');
+insert into CountryTable(CountryName) values('Denmark');
+insert into CountryTable(CountryName) values('kuwait');
+insert into CountryTable(CountryName) values('belgium');
+
+
+select distinct CountryName from CountryTable where substr(CountryName,1,-1) not in ('a','e','i','o','u','A','E','I','O','U')
+and
+substr(CountryName,-1,1) not in ('a','e','i','o','u','A','E','I','O','U');
+
+-- 28) write an SQL query to find the current date.
+select now();  -- Display current Date&Time
+select curdate(); -- Displays only CurrentDate
+
+use webDriver;
+show tables;
+select * from employee;
+select * from department;
+
+-- 29) write an SQL query to fetch all the department id's which are present in either of the tables-employee and department.
+
+select department_id from employee
+union 
+select department_id from department;
+
+-- Display all departments with duplicates
+select department_id from employee
+union all
+select department_id from department;
+
+-- 30) write an SQL query to fetch common records between two tables . 
+select distinct department_id from employee
+where 
+department_id in(select department_id from department);
+
+----------------------------------------------------------------------------------------------------------------------------------------------
