@@ -1,0 +1,11 @@
+SkillSet
+========
+
+1.Manual Testing.
+2.Selenium with java(Selenium webDriver).
+3.MySQL
+4.DataBaseTesting with MySQL Manual.
+5.DataBaseTesting with MySQLand java combination for Automation.
+6.RestAPI Testing Manual by using PostmanTool.
+7.RestAPI Automation by using RestAssured.
+8.CoreJava.
