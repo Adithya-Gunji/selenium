@@ -1,0 +1,424 @@
+Q: What is REST Assured?
+
+Ans:
+ REST Assured is a Java library RESTful APIs testing.
+ It is extensively used to test web applications that are based on JSON and XML. 
+ Also, all methods are completely supported, including GET, PUT, POST, PATCH, and DELETE.
+
+Q: Why is REST-assured being used instead of Postman to automate RESTful services?
+
+Ans:
+Below are few of the advantages of using REST Assured over Postman:
+
+For the REST-assured, we can customise the reports. Postman, on the other hand, does not allow us to customise the reports.
+Code can be reused in REST assured, as it is a Java client, whereas code reusability is not possible in Postman.
+For each collection, we can only submit one data file to the Postman automation runner. However, there is no such restriction for REST-assured.
+
+Q: What is Request Specification in Rest Assured?
+
+Ans:
+RequestSpecification in Rest Assured can be used to group together common request specs and turn them into a single object. 
+This interface has methods for defining the base URL, base path, headers, and other parameters. 
+To obtain a reference for RequestSpecification, we must use the given() function of the RestAssured class. 
+We can't make an object out of RequestSpecification because it's an interface. Its implemented class is RequestSpecificationImpl.
+
+Q: How to use Request Specification in Rest Assured?
+
+Ans:
+RequestSpecification reqSpec = RestAssured.given();
+reqSpec.baseUri("http://localhost:8080")
+reqSpec.basePath("/employees");
+Alternatively, rather than repeatedly invoking RequestSpecification Reference, we may utilise the builder pattern as seen below:-
+RequestSpecification reqSpec =
+         RestAssured.given()
+		.baseUri("http://localhost:8080")
+        .basePath("/employees");
+
+Q: Why do we use static import in Rest Assured?
+
+Ans:
+Static import is a Java programming language feature that allows members (fields and methods) 
+that have been scoped as public static within their container class to be used in Java code without mentioning the class in which the field 
+has been defined.
+
+package com.techgeeknext.controller;
+
+import org.testng.annotations.Test;
+
+/**
+ * this is static import to avoid writing
+ * into front of every method call of RestAssured
+ */
+import static io.restassured.RestAssured.*;
+
+public class EmpControllerTest {
+	@Test
+	public void testGetEmployees() {
+
+		// with static import
+		given();
+
+
+		// without static import
+		/**
+		 *  import io.restassured.RestAssured;
+		 *  RestAssured.given();
+		 */
+
+	}
+}
+
+Q: What is rest assured method chaining?
+
+Ans:
+In object-oriented programming languages, method chaining is a typical syntax for invoking numerous method calls. 
+Each method returns an object, allowing multiple calls to be chained together in a single line without the need for variables to hold interim results.
+
+For example in rest assured all methods chained together with dots.
+
+          given()
+		 .baseUri(baseUri)
+		 .queryParam(parameterName, parameterValues)
+		 .accept(contentType).
+		 .when()
+		 .then();
+Refer Spring Boot Rest Assured Example to understand how static imports are used.
+
+
+
+Q: What is client server architecture?
+
+Ans:
+The client-server model defines how a server gives resources and services to one or more clients. 
+Web servers, mail servers, and file servers are examples of servers. So, the Client requests something, and the Server fulfils the request.
+
+Q: What is REST?
+
+Ans:
+REpresentational State Transfer is the acronym for REpresentational State Transfer. It means that when a RESTful API is invoked, 
+the server will send a representation of the status of 
+the requested resource to the client. 
+The operation you want the server to perform on that resource, expressed as an HTTP method.
+
+Q: What is JSON?
+
+Ans:
+JSON (JavaScript Object Notation) is a text-based standard for describing structured data that is based on JavaScript object syntax.
+ It's often used in web applications to send data to server and client.
+
+Key-Value pairs are used to represent data in JSON Object as below:
+
+{
+ "id"        : 1,
+ "username"  : "TechGeekNextUser",
+ "role"      : "Admin"
+}
+
+
+Q: How to configure Rest-Assured with Eclipse or any other IDE?
+
+Ans:
+Below are the steps to configure Rest-Assured in IDE.
+
+Download and setup Java.
+Setup TestNG in Eclipse OR TestNG in IntelliJ
+Download Rest-Assured jar files -> Under Current direct downloads -> Download rest-assured-*-dist.zip
+In Eclipse, IntelliJ, create new Java Project and add External Jars ( Rest-Assured downloaded jar)
+
+Q: Write a code to test REST API using Rest Assured?
+Ans:
+import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class EmployeesTest {
+
+	@Test
+	public void GetAllEmoloyees()
+	{
+		// base URL to call
+		RestAssured.baseURI = "http://localhost:8080/employees/get";
+
+		//Provide HTTP method type - GET, and URL to get all employees
+		//This will give respose
+		Response employeesResponse = RestAssured.given().request(Method.GET, "/all");
+
+		// Print the response in string format
+		System.out.println(employeesResponse.getBody().asString());
+
+	}
+}
+Refer Spring Boot Rest Assured Example to understand it's implementation.
+
+
+
+Q: What are the ways and how to validate the response of REST API in Rest Assured?
+
+Ans:
+Response is an interface available io.restassured.response package.This interface contains many methods, majority of which can be used to extract parts from the received response. 
+Below are some method of response which we can use to validate the received response:
+
+Status Code: getStatusCode() method can be used to validate the response. It is an integer values, if it valid response will return 200.
+Response employeesResponse = RestAssured.given().request(Method.GET, "/all");
+
+//validate the resonse using Assert
+Assert.assertEquals(200, employeesResponse.getStatusCode());
+Status Line: getStatusLine() method can be used to validate the response. It contains 3 part i.e. Http Protocol version, Status Code (Integer) and Status Code (String) like HTTP/1.1 200 OK
+Response employeesResponse = RestAssured.given().request(Method.GET, "/all");
+
+//validate response using Assert and checking with response StatusLine
+Assert.assertEquals("HTTP/1.1 200 OK",employeesResponse.getStatusLine());
+Refer Spring Boot Rest Assured Example to understand how to extract and validate the response.
+
+Q: What is the best way to keep sensitive data out of the log in rest assured?
+
+It is now available to blacklist headers using blacklistHeader method in REST Assured 4.2.0 ensuring that they are not displayed in the request or response log. 
+One or more headers can be blacklisted.
+ A blacklist is used to prevent sensitive data from being included in the log.
+
+Set<String> headers = new HashSet<String>();
+headers.add("X-REGION");
+headers.add("content-type");
+
+given().
+baseUri("http://localhost:8080").
+header("X-REGION", "NAM").
+// blacklist headers
+config(
+config.logConfig(LogConfig.logConfig().blacklistHeaders(headers)))
+// blacklist multiple headers
+//config(config().logConfig(LogConfig.logConfig().blacklistHeader("Accept","set-cookie"))).
+log().all().
+when().
+get("/employees").
+then().
+assertThat().
+statusCode(200);
+
+Q: What is jsonPath in Rest Assured?
+Ans:
+JsonPath (io.restassured.path.json.JsonPath) is a simple way to get values from an Object document without having to use XPath. When retrieving an object from the document, it follows the Groovy GPath syntax. It can be thought of as a JSON-specific version of XPath. As an example, consider the following Object document.
+
+ { "company": {
+   "employee": [
+    { "id": 1,
+      "name": "TechGeekNextUser1",
+      "role": "Admin"
+    },
+    { "id": 2,
+      "name": "TechGeekNextUser2",
+      "role": "User"
+    },
+    { "id": 3,
+      "name": "TechGeekNextUser3",
+      "role": "User"
+    }
+  ]
+  }
+ }
+
+
+Response employeesResponse = RestAssured.given().request(Method.GET, "/all");
+JsonPath jsonPathObj = employeesResponse.jsonPath();
+
+//get a list of all employees id:
+List<String> employeeIds = jsonPathObj.get("company.employee.id");
+
+//get the first employee name:
+String empName = jsonPathObj.get("company.employee[0].name");
+ 
+Refer Spring Boot Rest Assured Example to understand how to use JsonPath to extract the specific object from the response.
+
+Q: How to log the request and response in case of validation failed in Rest Assured?
+Ans:
+If a test validation fails, log().ifValidationFails() logs everything in the request and response.
+
+    /**
+     * Log the request and response details if validation fails.
+     */
+    @Test
+    public void testIfValidationFails() {
+        given().
+        baseUri("http://localhost:8080").
+        header("X-REGION", "NAM").
+        log().ifValidationFails().
+        when().
+        get("/employees").
+        then().
+        log().ifValidationFails().
+        assertThat().
+        statusCode(200);
+    }
+
+Q: How to use Path Variable with GET rest endpoint in Rest Assured?
+Ans:
+Considering id as path variable in GET Rest end point url - http://localhost:8080/employee/{id}.
+
+Example : http://localhost:8080/employee/33
+Output:
+
+{
+    "id": 33,
+    "name": "User-1",
+    "role": "Admin"
+}
+Pass 33 value to path variable id in the given program.
+
+@Test
+public void testGetEmployeeWithPathParam() {
+Response empResponse = given().
+          baseUri("http://localhost:8080").
+          contentType(ContentType.JSON).
+          pathParam("id", "33").
+          when().
+          get("/employee/{id}").
+          then().
+          log().all().
+          assertThat().
+          statusCode(200).
+          extract().
+          response();
+
+   JsonPath jsonPathObj = empResponse.jsonPath();
+   Assertions.assertEquals(jsonPathObj.getLong("id"), 33);
+   Assertions.assertEquals(jsonPathObj.getString("name"), "User-1");
+   Assertions.assertEquals(jsonPathObj.getString("role"), "Admin");
+}
+Refer Spring Boot Rest Assured Example to understand how to use path variable with Get Rest Endpoint.
+
+
+
+Q: How to find all employees ids from 15 to 300 using Rest Assured jsonPath?
+Ans:
+Response employeesResponse = RestAssured.given().request(Method.GET, "/all");
+JsonPath jsonPathObj = employeesResponse.jsonPath();
+
+//get all employees id between 15 and 300
+List<Map> employees = jsonPathObj.get("company.employee
+                .findAll { employee -> employee.id >= 15 && employee.id <= 300 }");
+
+Q: How to send a POST Request in Rest Assured?
+Ans:
+ @Test
+    public void testPostEmployee() throws JSONException {
+        JSONObject empParams = new JSONObject();
+        empParams.put("name", "TechGeekNextUser44");
+        empParams.put("role", "Supervisor");
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(empParams.toString())
+                .log().all()
+
+                .when()
+                .post("http://localhost:8080/employee")
+
+                .then()
+                .assertThat().statusCode(200)
+                .body("name", equalTo("TechGeekNextUser44"))
+                .body("role", equalTo("Supervisor"))
+                .log().all();
+
+    }
+Refer Spring Boot Rest Assured Example to understand how to implement and test POST Rest Endpoint using Rest Assured.
+
+
+
+Q: What is Serialization and Deserialization in Java?
+Ans:
+ Serialization is the process of converting an object's state into a byte stream.
+ Deserialization is the process of recreating the actual Java object in memory using the byte stream. 
+ The object is kept alive through this approach.
+
+Serialization and Deserialization
+
+Q: How to deserialize a response JSON as List of POJO in Rest assured?
+Ans:
+In below ways we can deserialize a response JSON as List of POJO in Rest assured:
+
+List<Employee> returnedEmployees = Arrays.asList(response.getBody().as(Employee[].class));
+In version 3.0.2 (io.restassured):
+JsonPath jsonPath = RestAssured.given()
+     .when()
+     .get("/employee/get/all")
+     .then()
+     .assertThat()
+     .statusCode(Response.Status.OK.getStatusCode())
+     .assertThat()
+     .extract().body().jsonPath();
+
+List<Employee> Employees = jsonPath.getList("", Employee.class);
+Google's Gson library
+Gson gson = new Gson();
+List<Employee> returnedEmployees = gson.fromJson(jsonStr, new TypeToken<List<Employee>>(){}.getType());
+
+
+Q: What is the Array slice operator in JsonPath in Rest Assured?
+Ans:
+The array slice operator is a brilliant way to extract certain objects from Json. What if, in the case of employees, we wanted to get every alternate employee in the Json? We'll need the Array, Slice operator for this. [StartIndex: EndIndex: Steps] is the syntax of the Array Slice operator.
+
+$..employee[1,4,2]
+$..['employee'][1,4,2]
+
+
+Q: How can we get size of JSON array in Rest assured?
+Ans:
+JSON Response:
+------------------
+{
+    "Status": 200,
+    "ORG": {
+        "EMPLOYEES": [
+            {
+                "id": 1,
+                "name": XYZ,
+                "role": "ADMIN"
+            },
+            {
+                "id": 2,
+                "name": ABC,
+                "role": "USER"
+            },
+            {
+                "id": 3,
+                "name": AAA,
+                "role": "USER"
+            }
+        ]
+    }
+}
+// base URL to call
+RestAssured.baseURI = "http://localhost:8080/employees/get";
+
+//Provide HTTP method type - GET, and URL to get all employees
+//This will give respose
+Response employeesResponse = RestAssured.given().request(Method.GET, "/all");
+
+//use JsonPath from Rest-Assured to get list of employee id
+List<String> employees = employeesResponse.jsonPath().getList("ORG.EMPLOYEES.id");
+System.out.println(employees.size());
+
+
+Q: How to log in case of error in response in Rest assured?
+Ans:
+In Rest Assured, there is way to logs everything with log().ifError() if there is an error in the response.
+
+    /**
+     * Log if Error exist
+     */
+    @Test
+    public void testLogIfError() {
+        given().
+        baseUri("http://localhost:8080").
+        header("X-REGION", "NAM").
+        log().all().
+        when().
+        get("/employees").
+        then().
+        log().ifError().
+        assertThat().
+        statusCode(200);
+    }
+-------------------------------------------------------------------------------------------
