@@ -1,0 +1,1973 @@
+SkillSet
+========
+
+1.Manual Testing.
+2.Selenium with java(Selenium webDriver).
+3.MySQL RDBMS Database.
+4.DataBaseTesting with MySQL Manual.
+
+5.RestAPI Testing Manual by using PostmanTool.
+6.RestAPI Automation by using RestAssured.
+7.CoreJava.
+
+
+INTRODUCTION
+------------
+* what is Database testing.
+* Difference b/w User-Interface Testing and Databse Tesing.
+* types of Database testing.
+
+Databse - store area SQL
+
+Frontend - UI
+Backend Testing - API
+
+ 
+                    Databse Testing
+                           |
+                           |
+                           |
+                           V
+1.white Box Testing(structural)           
+         |
+         |
+         |
+         V
+   Schema Testing
+         |
+         |
+         |
+         V
+   * Table
+   * Table columns
+   * views
+   * Stored procedures
+   * Functions
+   * Triggers
+
+2.Black Box Testing(Architectural)
+                              |
+                              |
+                              |
+                ______________V______________
+               |                             |
+               |                             |
+               |                             |
+               V                             V
+         Functional Testing       Non-Functional Testing
+
+                |                            |
+                |                            |
+                |                            |
+                V                            V
+         * DML Operations w.r.t      * performance Testing
+           GUI Application              -> Load
+         * Data Mapping                 -> Stress
+         * Data Integrity & keys     * security testing.
+
+
+    
+
+Testcases
+---------
+
+* Check table present in database schema .
+* Check table name conventions.
+* Check number of columns in a table.
+* Check data types of columns in a table.
+* check size of the columns in a table.
+* check nulls fields in a table.
+* check column keys in a table.
+
+
+Stored procedure
+----------------
+* A stored procedure is block of SQL Statements.
+* we can save stored procedure and can be reuse multiple times.
+* we can also pass parameters to a stored procedure.
+
+Advantages:
+-----------
+=> Reduce network traffic
+
+  stored procedures help reduce the network traffic between applications and MySQL Server.because instead of sending multiple leanghthy sql 
+  statements, applications has to send only the name and parameters of stored procedure.
+
+=> Centralize business logic in the Database
+
+  we can use the stored procedures to implement business logic that is re-usable by multiple applications.The stored procedures helps reduce 
+  the efforts of duplicating the same logic in many applications and make your database more consistent.
+
+=> Make Database more secure 
+
+  The database Administrator can grant appropriate privileges to applications that only access specific stored procedures without giving any 
+  privileges on the underlying tables.
+
+  Stored Procedure Testing
+  ------------------------
+ 1) what is stored procedure & advantages of stored procedure .?
+ 2) How to create stored procedure?
+ 3) how to call stored procedure?
+ 4) how to test stored procedure?
+ 5) how to write test_case for stored procedures?
+
+  Common Test scenarios for stored procedures
+  -------------------------------------------
+ 1) check stored procedure exist in Database.
+ 2) check stored procedure with valid input Data.
+ 3) check stored procedure handle exceptions when you pass invalid input data.
+ 4) check stored procedure Display Results as expected.
+ 5) check stored procedure inserting data in proper table/s.
+ 6) check stored procedure updating data in proper table/s.
+ 7) check stored procedure deleting data from proper tables.
+ 8) check calling stored procedure from another stored procedure.
+
+ what is stored function in SQL ? stored procedure vs stored function.
+
+ * A stored function is a special kind stored program that returns a single value.
+
+ * stored procedure vs stored function
+
+   -> The stored function must return a value but in stored procedure may or may not return a value.
+
+   -> even a procedure can return zero or n values.
+
+   -> functions can have only input parameters for it where as procedures can have input or output parameters.
+
+   -> functions can be called from procedure whereas procedures cant be called from functions.
+
+   Stored Function Testing
+   ------------------------ 
+ 1) what is stored function in SQL?
+ 2) Stored procedure vs stored function.
+ 3) how to create stored function?
+ 4) how to call stored function?
+ 5) Automating stored functions.
+
+  Common Test scenarios for stored function
+  -------------------------------------------
+ 1) check stored function exist in Database.
+ 2) check stored function with valid Data.
+ 3) check stored function handle exceptions when you pass invalid input Data.
+ 4) check stored function returns results as expected.
+ 5) check stored function not used insert/update/delete operations.
+ 6) check stored function used only select statement.
+ 7) check calling stored function from stored procedure.
+
+ what is Trigger ?
+
+ * A trigger is a set of SQL Statements that reside in a system catalog.
+
+ * It is a special type of stored procedure that is invoked automatically in response to an event.
+
+ * Each trigger is associated with a table,which is activated on any DML statement such as INSERT,DELETE & UPDATE.
+
+ * A trigger is called a special procedure because it cant be called directly like like a stored procedure.
+
+ * The main difference b/w the trigger and procedure is that a trigger is called automatically when a Data modification event is made against a table. 
+
+ * A stored procedure must be called explicitly.
+
+  TYPES OF TRIGGERS
+  -----------------
+Types of Triggers in MySQL
+
+Before Insert: This is done before inserting data into the table.
+
+After Insert: This is after data has been entered into the table.
+
+Before update: This is activated prior to the updating of the data in the table.
+
+After update: This function is activated upon the updating of the table's data.
+
+Before delete: This is done before any data are removed from the table.
+
+After delete: This function is activated when the data has been deleted from the table.
+
+
+ACID Properties
+---------------
+
+A-> Atomic
+
+   All changes to the Data must be performed successfully or not at all.
+
+C-> Consistent
+
+   Data must be in a consistent state before and after the transaction.
+
+I-> Isolated
+
+   No other process can change the data while the transaction is running.
+
+D-> Durable
+
+   The changes made by a transaction must persist.
+
+ DURABILITY
+ -----------
+ Ensure that the Data is not lost in case of a system failure or restart and is present in the same state as it was before the system failure or restart.
+
+
+ Integrity Constraints
+ ---------------------
+
+ -> SQL constraints are used to specify rules for data in a table.
+
+ -> constraints can be specified when the table is created with the CREATE TABLE statement, or after the table is created with the ALTER TABLE Statement.
+
+ SQL CONSTRAINTS
+ ---------------
+
+ NOT NULL-Ensures that a column cant have a NULL value.
+
+ UNIQUE-Ensures that all values in a column are different.
+
+ PRIMARY KEY-A combination of a NOT NULL and UNIQUE.Uniquely identifies each row in a table.
+
+ FOREIGN KEY- uniquely identifies a row/record in another table.
+
+ CHECK-Ensures that all values in a column satisfies a specific condition.
+
+ DEFAULT-Sets a default value for a column when no value is specified.
+
+---------------------------------------------------------------------------------------------
+
+create database java;
+show databases;
+use api;
+show tables;
+
+
+create table coltest(
+     id int,
+     ename varchar(10),
+     sal double
+);
+select * from coltest;
+
+select count(*) numbofcols from information_schema.columns where table_name='coltest';
+
+create table coltest2(
+     id int,
+     ename varchar(10),
+     sal double,
+     job varchar(10)
+);
+select * from coltest2;
+
+select * from coltest;
+
+select count(*) numbofcols from information_schema.columns where table_name='coltest2';
+
+select column_name from information_schema.columns where table_name='coltest2';
+
+select column_name from information_schema.columns where table_name='coltest';
+
+select column_name,data_type from information_schema.columns where table_name='coltest2';
+
+select column_name,data_type from information_schema.columns where table_name='coltest2';
+
+select column_name,column_type from information_schema.columns where table_name='coltest2';
+
+select column_name,is_nullable from information_schema.columns where table_name='coltest2';
+
+select column_name,column_key from information_schema.columns where table_name='coltest2';
+
+select column_name,is_nullable from information_schema.columns where table_name='employees';
+
+---------------------------------------------------------------
+
+select * from employees;
+
+
+
+
+  ---------------------------------------------
+  
+  delimiter //
+create procedure selectAllemp() 
+begin 
+SELECT * FROM employees;
+end;//
+delimiter ;
+
+call selectAllemp() ;
+
+----------------------------------------------
+  delimiter //
+create procedure selectAllempbyjob_id(in native_job varchar(30)) 
+begin 
+SELECT * FROM employees where job_id =native_job ;
+end;//
+delimiter ;
+
+call selectAllempbyjob_id('IT_PROG') ;
+
+--------------------------------------------------
+
+  delimiter //
+create procedure selectAllempbyjob_idAndDept_id(in native_job varchar(30),in depart_id int(5)) 
+begin 
+SELECT * FROM employees where job_id =native_job and department_id=depart_id;
+end;//
+delimiter ;
+
+call selectAllempbyjob_idAndDept_id('IT_PROG','60') ;
+
+------------------------------------------------------
+
+create database databasetesting;
+show databases;
+use databasetesting;
+show tables;
+
+show procedure status where db='api';
+--------------------------------------------------------------------------------
+create database procedures;
+use procedures;
+
+CREATE TABLE  AGENTS
+   (	
+    AGENT_CODE CHAR(6) NOT NULL PRIMARY KEY, 
+	AGENT_NAME CHAR(40), 
+	WORKING_AREA CHAR(35), 
+	COMMISSION double, 
+	PHONE_NO CHAR(15), 
+	COUNTRY VARCHAR(25) 
+	 );
+     
+     desc AGENTS;
+     
+     select * from agents;
+     
+INSERT INTO AGENTS VALUES ('A007', 'Ramasundar', 'Bangalore', '0.15', '077-25814763', '');
+INSERT INTO AGENTS VALUES ('A003', 'Alex ', 'London', '0.13', '075-12458969', '');
+INSERT INTO AGENTS VALUES ('A008', 'Alford', 'New York', '0.12', '044-25874365', '');
+INSERT INTO AGENTS VALUES ('A011', 'Ravi Kumar', 'Bangalore', '0.15', '077-45625874', '');
+INSERT INTO AGENTS VALUES ('A010', 'Santakumar', 'Chennai', '0.14', '007-22388644', '');
+INSERT INTO AGENTS VALUES ('A012', 'Lucida', 'San Jose', '0.12', '044-52981425', '');
+INSERT INTO AGENTS VALUES ('A005', 'Anderson', 'Brisban', '0.13', '045-21447739', '');
+INSERT INTO AGENTS VALUES ('A001', 'Subbarao', 'Bangalore', '0.14', '077-12346674', '');
+INSERT INTO AGENTS VALUES ('A002', 'Mukesh', 'Mumbai', '0.11', '029-12358964', '');
+INSERT INTO AGENTS VALUES ('A006', 'McDen', 'London', '0.15', '078-22255588', '');
+INSERT INTO AGENTS VALUES ('A004', 'Ivan', 'Torento', '0.15', '008-22544166', '');
+INSERT INTO AGENTS VALUES ('A009', 'Benjamin', 'Hampshair', '0.11', '008-22536178', '');
+
+CREATE TABLE  CUSTOMER
+   (	CUST_CODE int NOT NULL PRIMARY KEY, 
+	CUST_NAME VARCHAR(40) NOT NULL, 
+	CUST_CITY CHAR(35), 
+	WORKING_AREA VARCHAR(35) NOT NULL, 
+	CUST_COUNTRY VARCHAR(20) NOT NULL, 
+	GRADE int, 
+	OPENING_AMT int NOT NULL, 
+	RECEIVE_AMT int NOT NULL,  
+	PAYMENT_AMT int NOT NULL,  
+	OUTSTANDING_AMT int NOT NULL, 
+	PHONE_NO VARCHAR(17) NOT NULL, 
+	AGENT_CODE CHAR(6) NOT NULL REFERENCES AGENTS
+); 
+
+INSERT INTO CUSTOMER VALUES (00001, 'Holmes', 'London', 'London', 'UK', '2', '6000.00', '5000.00', '7000.00', '4000.00', 'BBBBBBB', 'A003');
+INSERT INTO CUSTOMER VALUES (00002, 'Micheal', 'New York', 'New York', 'USA', '2', '3000.00', '5000.00', '2000.00', '6000.00', 'CCCCCCC', 'A008');
+INSERT INTO CUSTOMER VALUES (00003, 'Albert', 'New York', 'New York', 'USA', '3', '5000.00', '7000.00', '6000.00', '6000.00', 'BBBBSBB', 'A008');
+INSERT INTO CUSTOMER VALUES (00004, 'Ravindran', 'Bangalore', 'Bangalore', 'India', '2', '5000.00', '7000.00', '4000.00', '8000.00', 'AVAVAVA', 'A011');
+INSERT INTO CUSTOMER VALUES (00005, 'Cook', 'London', 'London', 'UK', '2', '4000.00', '9000.00', '7000.00', '6000.00', 'FSDDSDF', 'A006');
+INSERT INTO CUSTOMER VALUES (00006, 'Stuart', 'London', 'London', 'UK', '1', '6000.00', '8000.00', '3000.00', '11000.00', 'GFSGERS', 'A003');
+INSERT INTO CUSTOMER VALUES (00007, 'Bolt', 'New York', 'New York', 'USA', '3', '5000.00', '7000.00', '9000.00', '3000.00', 'DDNRDRH', 'A008');
+INSERT INTO CUSTOMER VALUES (00008, 'Fleming', 'Brisban', 'Brisban', 'Australia', '2', '7000.00', '7000.00', '9000.00', '5000.00', 'NHBGVFC', 'A005');
+INSERT INTO CUSTOMER VALUES (00009, 'Jacks', 'Brisban', 'Brisban', 'Australia', '1', '7000.00', '7000.00', '7000.00', '7000.00', 'WERTGDF', 'A005');
+INSERT INTO CUSTOMER VALUES (00010, 'Yearannaidu', 'Chennai', 'Chennai', 'India', '1', '8000.00', '7000.00', '7000.00', '8000.00', 'ZZZZBFV', 'A010');
+INSERT INTO CUSTOMER VALUES (00011, 'Sasikant', 'Mumbai', 'Mumbai', 'India', '1', '7000.00', '11000.00', '7000.00', '11000.00', '147-25896312', 'A002');
+INSERT INTO CUSTOMER VALUES (00012, 'Ramanathan', 'Chennai', 'Chennai', 'India', '1', '7000.00', '11000.00', '9000.00', '9000.00', 'GHRDWSD', 'A010');
+INSERT INTO CUSTOMER VALUES (00013, 'Avinash', 'Mumbai', 'Mumbai', 'India', '2', '7000.00', '11000.00', '9000.00', '9000.00', '113-12345678','A002');
+INSERT INTO CUSTOMER VALUES (00014, 'Winston', 'Brisban', 'Brisban', 'Australia', '1', '5000.00', '8000.00', '7000.00', '6000.00', 'AAAAAAA', 'A005');
+INSERT INTO CUSTOMER VALUES (00015, 'Karl', 'London', 'London', 'UK', '0', '4000.00', '6000.00', '7000.00', '3000.00', 'AAAABAA', 'A006');
+INSERT INTO CUSTOMER VALUES (00016, 'Shilton', 'Torento', 'Torento', 'Canada', '1', '10000.00', '7000.00', '6000.00', '11000.00', 'DDDDDDD', 'A004');
+INSERT INTO CUSTOMER VALUES ( 00017, 'Charles', 'Hampshair', 'Hampshair', 'UK', '3', '6000.00', '4000.00', '5000.00', '5000.00', 'MMMMMMM', 'A009');
+INSERT INTO CUSTOMER VALUES ( 00018, 'Srinivas', 'Bangalore', 'Bangalore', 'India', '2', '8000.00', '4000.00', '3000.00', '9000.00', 'AAAAAAB', 'A007');
+INSERT INTO CUSTOMER VALUES (00019, 'Steven', 'San Jose', 'San Jose', 'USA', '1', '5000.00', '7000.00', '9000.00', '3000.00', 'KRFYGJK', 'A012');
+INSERT INTO CUSTOMER VALUES (00020, 'Karolina', 'Torento', 'Torento', 'Canada', '1', '7000.00', '7000.00', '9000.00', '5000.00', 'HJKORED', 'A004');
+INSERT INTO CUSTOMER VALUES (00021, 'Martin', 'Torento', 'Torento', 'Canada', '2', '8000.00', '7000.00', '7000.00', '8000.00', 'MJYURFD', 'A004');
+INSERT INTO CUSTOMER VALUES (00022, 'Ramesh', 'Mumbai', 'Mumbai', 'India', '3', '8000.00', '7000.00', '3000.00', '12000.00', 'Phone No', 'A002');
+INSERT INTO CUSTOMER VALUES (00023, 'Rangarappa', 'Bangalore', 'Bangalore', 'India', '2', '8000.00', '11000.00', '7000.00', '12000.00', 'AAAATGF', 'A001');
+INSERT INTO CUSTOMER VALUES (00024, 'Venkatpati', 'Bangalore', 'Bangalore', 'India', '2', '8000.00', '11000.00', '7000.00', '12000.00', 'JRTVFDD', 'A007');
+INSERT INTO CUSTOMER VALUES (00025, 'Sundariya', 'Chennai', 'Chennai', 'India', '3', '7000.00', '11000.00', '7000.00', '11000.00', 'PPHGRTS', 'A010'); 
+
+   select * from customer; 
+   
+   CREATE TABLE  ORDERS 
+   (
+        ORD_NUM int NOT NULL PRIMARY KEY, 
+	ORD_AMOUNT int NOT NULL, 
+	ADVANCE_AMOUNT int NOT NULL, 
+	ORD_DATE DATE NOT NULL, 
+	CUST_CODE int NOT NULL REFERENCES CUSTOMER, 
+	AGENT_CODE CHAR(6) NOT NULL REFERENCES AGENTS, 
+	ORD_DESCRIPTION VARCHAR(60) NOT NULL,
+    status varchar(20)
+   );
+
+
+INSERT INTO ORDERS VALUES('200100', '1000.00', '600.00', '2008-01-30', 00013, 'A003', 'SOD','shipped'); -- Agent code repeated from multiple customers(1 agent for mul cust)
+INSERT INTO ORDERS VALUES('200110', '3000.00', '500.00', '2008-01-30', 00013, 'A010', 'SOD','canceled'); -- A010,A004,A005 etc
+INSERT INTO ORDERS VALUES('200107', '4500.00', '900.00', '2008-01-30', 00013, 'A010', 'SOD','Resolved'); -- cust_code 00013 & 00009 repeated(single customer from multiple orders)
+INSERT INTO ORDERS VALUES('200112', '2000.00', '400.00', '2008-01-30', 00009, 'A007', 'SOD','Disputed'); 
+INSERT INTO ORDERS VALUES('200113', '4000.00', '600.00', '2008-01-30', 00009, 'A002', 'SOD','shipped');
+INSERT INTO ORDERS VALUES('200102', '2000.00', '300.00', '2008-01-30', 00009, 'A012', 'SOD','shipped');
+INSERT INTO ORDERS VALUES('200114', '3500.00', '2000.00', '2008-01-30', 00002, 'A008', 'SOD','shipped');
+INSERT INTO ORDERS VALUES('200122', '2500.00', '400.00', '2008-01-30', 00003, 'A004', 'SOD','shipped');
+INSERT INTO ORDERS VALUES('200118', '500.00', '100.00', '2008-01-30', 00023, 'A006', 'SOD','canceled');
+INSERT INTO ORDERS VALUES('200119', '4000.00', '700.00', '2008-01-30', 00007, 'A010', 'SOD','canceled');
+INSERT INTO ORDERS VALUES('200121', '1500.00', '600.00','2008-01-30', 00008, 'A004', 'SOD','canceled');
+INSERT INTO ORDERS VALUES('200130', '2500.00', '400.00','2008-01-30', 00025, 'A011', 'SOD','canceled');
+INSERT INTO ORDERS VALUES('200134', '4200.00', '1800.00', '2008-01-30', 00004, 'A005', 'SOD','Resolved');
+INSERT INTO ORDERS VALUES('200108', '4000.00', '600.00', '2008-01-30', 00008, 'A004', 'SOD','Resolved');
+INSERT INTO ORDERS VALUES('200103', '1500.00', '700.00', '2008-01-30', 00021, 'A005', 'SOD','Resolved');
+INSERT INTO ORDERS VALUES('200105', '2500.00', '500.00', '2008-01-30', 00025, 'A011', 'SOD','Resolved');
+INSERT INTO ORDERS VALUES('200109', '3500.00', '800.00', '2008-01-30', 00011, 'A010', 'SOD','Disputed');
+INSERT INTO ORDERS VALUES('200101', '3000.00', '1000.00', '2008-01-30', 00001, 'A008', 'SOD','Disputed');
+INSERT INTO ORDERS VALUES('200111', '1000.00', '300.00', '2008-01-30', 00020, 'A008', 'SOD','Disputed');
+INSERT INTO ORDERS VALUES('200104', '1500.00', '500.00', '2008-01-30', 00006, 'A004', 'SOD','Disputed');
+INSERT INTO ORDERS VALUES('200106', '2500.00', '700.00', '2008-01-30', 00005, 'A002', 'SOD','shipped');
+INSERT INTO ORDERS VALUES('200125', '2000.00', '600.00', '2008-01-30', 00018, 'A005', 'SOD','shipped');
+INSERT INTO ORDERS VALUES('200117', '800.00', '200.00', '2008-01-30', 00014, 'A001', 'SOD','shipped');
+INSERT INTO ORDERS VALUES('200123', '500.00', '100.00', '2008-01-30', 00022, 'A002', 'SOD','shipped');
+INSERT INTO ORDERS VALUES('200120', '500.00', '100.00', '2008-01-30', 00009, 'A002', 'SOD','canceled');
+INSERT INTO ORDERS VALUES('200116', '500.00', '100.00', '2008-01-30', 00010, 'A009', 'SOD','canceled');
+INSERT INTO ORDERS VALUES('200124', '500.00', '100.00', '2008-01-30', 00017, 'A007', 'SOD','canceled'); 
+INSERT INTO ORDERS VALUES('200126', '500.00', '100.00', '2008-01-30', 00022, 'A002', 'SOD','canceled');
+INSERT INTO ORDERS VALUES('200129', '2500.00', '500.00', '2008-01-30', 00024, 'A006', 'SOD','canceled');
+INSERT INTO ORDERS VALUES('200127', '2500.00', '400.00', '2008-01-30', 00015, 'A003', 'SOD','canceled');
+INSERT INTO ORDERS VALUES('200128', '3500.00', '1500.00','2008-01-30', 00009, 'A002', 'SOD','Resolved'); -- 00009 repeated(single customer from multiple orders)
+INSERT INTO ORDERS VALUES('200135', '2000.00', '800.00', '2008-01-30', 00007, 'A010', 'SOD','Resolved');
+INSERT INTO ORDERS VALUES('200131', '900.00', '150.00', '2008-01-30', 00012, 'A012', 'SOD','Resolved');
+INSERT INTO ORDERS VALUES('200133', '1200.00', '400.00', '2008-01-30', 00009, 'A002', 'SOD','Resolved');
+
+select * from orders;
+
+drop table orders;
+------------------------------------------------------------------------------------------
+
+  delimiter //
+create procedure get_order_by_cust_code(
+in customer_code int,
+out shipped int,
+out cancelled int,
+out resolved int,
+out disputed int
+) 
+begin 
+ -- shipped
+SELECT count(*) into shipped FROM orders where CUST_CODE = customer_code and  status ='shipped';
+
+ -- cancelled
+SELECT count(*) into cancelled FROM orders where CUST_CODE = customer_code and status ='cancelled';
+
+ -- resolved
+SELECT count(*) into resolved FROM orders where CUST_CODE = customer_code and status ='resolved';
+
+ -- shipped
+SELECT count(*) into disputed FROM orders where CUST_CODE = customer_code and status ='disputed';
+end;//
+delimiter ;
+
+
+call get_order_by_cust_code(00009,@shipped,@cancelled,@resolved,@disputed);
+select @shipped,@cancelled,@resolved,@disputed;
+   
+   
+   -----------------------------------------------------
+   
+     delimiter //
+create procedure get_order_by_order_num(
+in order_num int,
+out shipped int,
+out cancelled int,
+out resolved int,
+out disputed int
+) 
+begin 
+ -- shipped
+SELECT count(*) into shipped FROM orders where ord_num = order_num and status ='shipped';
+
+ -- cancelled
+SELECT count(*) into cancelled FROM orders where ord_num = order_num and status ='cancelled';
+
+ -- resolved
+SELECT count(*) into resolved FROM orders where ord_num = order_num and status ='resolved';
+
+ -- shipped
+SELECT count(*) into disputed FROM orders where ord_num = order_num and status ='disputed';
+end;//
+delimiter ;
+
+
+call get_order_by_order_num(200133,@shipped,@cancelled,@resolved,@disputed);
+select @shipped,@cancelled,@resolved,@disputed;
+
+-------------------------------------------------------------
+
+     delimiter //
+create procedure Get_cust_shipping(
+in cust_number int,
+out shipping varchar(50)
+) 
+begin 
+  declare customerCountry varchar(100);
+  
+  select CUST_COUNTRY into customerCountry from CUSTOMER where CUST_CODE = cust_number;
+           case customerCountry 
+               when 'USA' then
+                  set shipping ='2-Day shipping';
+			   when 'UK' then
+                  set shipping ='3-Day shipping';
+			else
+			      set shipping ='5-Day shipping';
+
+		end case;
+end;//
+delimiter ;
+
+call Get_cust_shipping(00003,@shipping );
+select @shipping;
+
+------------------------------------------------------------
+
+
+     delimiter //
+create function customerLevel(credit decimal(10,2)) returns varchar(20)
+deterministic
+begin 
+  declare customerLevel varchar(20);
+  
+  if credit > 50000 then
+       set customerLevel = 'PLATINUM';
+  elseif ( credit >= 10000 AND
+           credit <= 50000) then
+		set customerLevel = 'GOLD';
+	elseif credit < 10000 then
+        set customerLevel = 'SILVER';
+    end if;
+    return customerLevel;
+end;//
+delimiter ;
+
+-- show function status where db ='procedures';
+
+select CUST_NAME from customer;
+
+select customerLevel(PAYMENT_AMT) from customer;
+
+---------------------------------------------------------------------------
+
+
+     delimiter //
+create function customerLevel(credit decimal(10,2)) returns varchar(20)
+deterministic
+begin 
+  declare customerLevel varchar(20);
+  
+  if credit > 7000 then
+       set customerLevel = 'PLATINUM';
+  elseif ( credit >= 5000 AND
+           credit <= 7000) then
+		set customerLevel = 'GOLD';
+	elseif credit < 5000 then
+        set customerLevel = 'SILVER';
+    end if;
+    return customerLevel;
+end;//
+delimiter ;
+
+
+-- show function status where db ='procedures';
+
+select CUST_NAME from customer;
+
+select customerLevel(PAYMENT_AMT) from customer;
+
+select CUST_NAME,customerLevel(PAYMENT_AMT) from customer;
+ ---------------------------------------------------------------------
+   delimiter //
+ create procedure GetCustomerLevel(
+   in customerNO int,
+   out customerLevel varchar(20)
+ )
+ begin
+    declare credit dec(10,2) default 0 ;
+    
+    -- get credit limit of acustomer
+    select PAYMENT_AMT 
+	into credit from customer
+    where
+       CUST_CODE = customerNO ;
+    
+    -- call the function
+    set customerLevel = customerLevel(credit) ;
+ 
+ end;//
+delimiter ;
+
+call GetCustomerLevel(00007,@customerLevel);
+select @customerLevel;
+
+-- drop procedure GetCustomerLevel;
+
+-- drop function customerLevel;
+----------------------------------------------------------------------
+create database triggers;
+use triggers;
+
+-- drop table if exists workCenters;
+
+create table workCenters(
+    id int not null primary key auto_increment,
+    name varchar(100) not null,
+    capacity int not null
+    );
+    desc workCenters;
+create table workCenterStats(
+     TotalCapacity int not null
+);
+desc workCenterStats;
+show tables;
+
+   delimiter //
+      create trigger before_workcenters_insert before insert on workCenters for each row
+      begin
+        declare rowcount int;
+        
+        select count(*) into rowcount from workCenterStats;
+        
+        if rowcount > 0 then
+            update workCenterStats set TotalCapacity = TotalCapacity+new.capacity;
+		else
+        insert into workCenterStats(TotalCapacity) values(new.capacity);
+        end if;
+    end;//
+   delimiter ;
+
+show triggers;
+
+insert into workCenters(name,capacity) values('Adithya',100);
+
+select * from workCenters;
+select * from workCenterStats;
+SET SQL_SAFE_UPDATES=0;
+insert into workCenters(name,capacity) values('Akhil',200);
+
+------------------------------------------------------
+
+create table members(
+     id int  auto_increment,
+     name varchar(100) not null,
+     email varchar(200),
+     birthDate date,
+     primary key(id)   -- id is declared as primary key under table level
+);
+desc members;
+
+create table reminders(
+         id int auto_increment,
+         member_id int,
+         message varchar(300) not null,
+         primary key(id,member_id)
+);
+desc reminders;
+
+DELIMITER //
+    CREATE TRIGGER after_members_insert AFTER INSERT ON members FOR EACH ROW
+     BEGIN
+       IF NEW.birthDate is null then insert into reminders(member_id,message)
+         values(new.id,concat('Hi'  , NEW.name   ,'please update your DateofBith'));
+  END IF;
+END;//
+
+DELIMITER ;
+
+insert into members(name,email,birthDate) values('Akhil','akhil@gmail.com',null);
+insert into members(name,email,birthDate) values('Adithya','Adithya@gmail.com','1995-03-01');
+insert into members(name,email,birthDate) values('scott','scott@gmail.com',null);
+
+select * from members;
+select * from reminders;
+
+----------------------------------------------------------
+
+create table sales(
+         id int auto_increment,
+         product varchar(100) not null,
+         quantity int not null default 0,
+         fiscalyear smallint not null,
+         fiscalMonth tinyint not null,
+         check(fiscalMonth >= 1 and fiscalMonth <=12),
+         check(fiscalyear between 2000 and 2050),
+         check(quantity >=0),
+         unique(product, fiscalyear,fiscalMonth),
+         primary key(id)
+);
+desc sales;
+
+insert into sales(product,quantity,fiscalyear,fiscalMonth) values
+('2003 pulsar150cc bike',120,2020,1),
+('2012 pulsar220cc bike',150,2020,1),
+('2023 pulsar  P150cc bike',200,2020,1);
+
+select * from sales;
+
+DELIMITER //
+
+create trigger before_sales_update before update on sales for each row
+begin
+    declare errorMessage varchar(255);
+    set errorMessage = CONCAT('The new quantity ',new.quantity, 'cannot be 3 times greaterthan the current quantity',
+    old.quantity);
+    
+    IF NEW.quantity > OLD.quantity * 3 THEN 
+        SIGNAL SQLSTATE '45000' SET message_text = errorMessage;
+    END IF;
+    end;//
+    DELIMITER ;
+
+show triggers;
+
+UPDATE sales SET quantity = 150 WHERE id = 1;
+
+UPDATE sales SET quantity = 500 WHERE id = 1;
+
+CREATE TABLE saleschanges(
+id int auto_increment primary key,
+sales_id int,
+beforeQuantity int,
+afterQuantity int,
+changedAt timestamp not null default current_timestamp
+);
+desc saleschanges;
+
+DELIMITER //
+
+CREATE TRIGGER after_sales_update after update on sales for each row
+begin
+   IF OLD.quantity <> NEW.quantity THEN
+       INSERT INTO saleschanges(sales_id,beforeQuantity,afterQuantity)
+       VALUES(OLD.id,OLD.quantity,NEW.quantity);
+  END IF;
+  END;//
+  DELIMITER ;
+  
+  UPDATE sales SET quantity = 150 WHERE id = 1;
+
+ UPDATE sales SET quantity = 350 WHERE id = 1;
+
+select * from sales;
+
+select * from saleschanges;
+
+UPDATE sales SET quantity = cast(quantity * 1.1 AS unsigned);
+SET SQL_SAFE_UPDATES=0;   
+-----------------------------------------------
+
+use triggers;
+
+create table salaries(
+   emp_number int primary key,
+   validForm date not null,
+   salary decimal(10,2) not null default 0
+);
+desc salaries;
+
+insert into salaries values(1002,'2000-01-01',50000);
+insert into salaries values(1056,'2000-01-01',60000);
+insert into salaries values(1076,'2000-01-01',70000);
+
+select * from salaries;
+
+create table SalaryArchives(
+   id int primary key auto_increment,
+   emp_number int,
+   validForm date not null,
+   salary dec(12,2) not null default 0,
+   deleteAt timestamp default now()
+);
+desc SalaryArchives;
+
+DELIMITER //
+create trigger before_salaries_delete before delete on salaries for each row
+begin
+  insert into SalaryArchives(emp_number,validForm,salary) 
+  values(OLD.emp_number,OLD.validForm,OLD.salary);
+  end ;//
+  DELIMITER ;
+  
+  select * from salaries;
+  select * from SalaryArchives;
+  
+  delete from salaries where emp_number = 1002;
+  delete from salaries;
+  
+  ----------------------------------------------------
+  insert into salaries values(1002,'2000-01-01',50000);
+  insert into salaries values(1056,'2000-01-01',60000);
+  insert into salaries values(1076,'2000-01-01',70000);
+  
+  select * from salaries;
+  
+  create table SalaryBudgets(total decimal(15,2) not null);
+  
+  insert into SalaryBudgets(total) select sum(salary) from salaries;
+  
+  select * from SalaryBudgets;
+  
+  create trigger after_salaries_delete after delete on salaries for each row
+  update SalaryBudgets set total = total - OLD.salary;
+  
+    delete from salaries where emp_number = 1002;
+    delete from salaries;
+    -------------------------------------------------------
+   create database Integrity_Constraints; 
+   use Integrity_Constraints; 
+   
+   create table courses(
+      course_id integer(3) primary key,
+      course_name varchar(20) unique,
+      duration int(2),
+      fee int(3) check(fee between 100 and 500)
+   );
+   desc courses;
+   select * from courses;
+   
+   insert into courses values(111,'java',3,500);
+   insert into courses values(111,'java',3,500); -- invalid for Duplicate entry
+   insert into courses values(null,'java',3,500); -- invalid for id cant be null
+   
+   insert into courses values(222,'python',2,200);
+   insert into courses values(444,'python',1,500);  -- invalid for Duplicate entry of key course
+   
+   
+   insert into courses values(333,'javascript',1,100);
+   insert into courses values(444,'typescript',2,200);  
+   
+   insert into courses values(555,'selenium',2,50); -- Error Code: 3819. Check constraint 'courses_chk_1' is violated. 
+   insert into courses values(222,'MySQL',1,600); -- Error Code: 3819. Check constraint 'courses_chk_1' is violated.
+   
+   create table students(
+            s_id int(5) primary key,
+            s_name varchar(20) not null,
+            age int(2) check(age between 15 and 30),
+            doj datetime default now(),
+            doc datetime,
+            course_id int(3),
+            foreign key(course_id) references courses(course_id) on delete cascade
+   );
+   desc students;
+   select * from students;
+   
+   insert into students(s_id,s_name,age,doc,course_id) values(101,'Akhil',20,null,111);
+   
+   insert into students(s_id,s_name,age,doc,course_id) values(101,'Adithya',20,null,111); -- invalid
+   insert into students(s_id,s_name,age,doc,course_id) values(102,null,20,null,111); -- invalid
+   
+   insert into students(s_id,s_name,age,doc,course_id) values(102,'smith',15,null,111);
+   insert into students(s_id,s_name,age,doc,course_id) values(103,'kim',30,null,111);
+   
+   insert into students(s_id,s_name,age,doc,course_id) values(104,'john',10,null,111); -- invalid
+   insert into students(s_id,s_name,age,doc,course_id) values(105,'ceena',35,null,111); -- invalid
+   
+   -- insertion testing
+   insert into students(s_id,s_name,age,doc,course_id) values(104,'scott',30,null,222); 
+   insert into students(s_id,s_name,age,doc,course_id) values(105,'david',20,null,555); -- invalid(courseid 555 not available)
+   
+   -- deletion testing
+   delete from courses where course_id =222;
+   select * from students;
+
+---------------------------------------------------------------------------------------------
+MYSQLDBT_INTERVIEW QUESTIONS
+============================
+    Below are the top 10 tools for Database Testing:
+    
+    1. DBUnit
+    2. PHPUnit
+    3. JUnit
+    4. Microsoft SQL Server Management Studio
+    5. Oracle SQL Developer
+    6. IBM Rational Functional Tester
+    7. HP Unified Functional Testing
+    8. HP Quality Center/ALM
+    9. Hadoop
+    10. Redis.
+
+Benefits of Database Testing::
+
+Ensuring accuracy and completeness of data: 
+
+Database testing can help to ensure that the data within the database is accurate and complete. 
+This is especially important for critical data, such as financial data.
+
+Testing performance: 
+
+Database testing can also be used to test the performance of the database. This includes tests such as load testing and stress testing.
+
+Verifying security:
+
+Database testing can also help to verify the security of the database. This includes tests such as authorization and authentication tests.
+
+Ensures performance: 
+
+Database testing ensures that the database performs well under different load conditions. 
+This helps to identify any performance bottlenecks so that they can be rectified before the application goes live.
+
+Saves time and money:
+ 
+By avoiding errors in the database, database testing can save a lot of time and money that would otherwise be spent on rectifying those errors
+
+Challenges of Database Testing::
+
+Data loss:
+
+If a database test is not conducted properly, it can result in the deletion or modification of critical data.
+This can be a major problem for businesses that rely on their databases to store important information.
+
+Time and effort to set up: 
+
+Database testing can be very complex, and it can take a considerable amount of time to ensure that all of the 
+necessary tests are conducted. This can be a significant cost for businesses that need to regularly test their databases.
+
+Disruptive to business operations: 
+
+Tests can require businesses to temporarily shut down their databases, which can impact productivity and 
+customer service. In some cases, businesses may need to schedule downtime in advance in order to accommodate database testing.
+
+1. Mention a few steps involved in Database Testing.
+Data Validity testing, Data Integrity testing, and testing of triggers and functions.
+  
+2. Explain Database Testing.
+It is a process of software testing that involves data validity and data integrity testing along with testing some other triggers and functions.
+
+3. Is DB Testing a back-end process?
+Yes, Database testing is a back-end process.
+
+4. How many types are there in DB Testing?
+There are three(3) different types of database testing.
+
+5. What are the types of Database Testing?
+Structural, Functional, and Non-Functional Testing.
+
+6. Expand DDL.
+DDL stands for Data Description Language. 
+
+7. Mention some DDL commands.
+ALTER, DROP, TRUNCATE, and so on are some of the DDL commands.
+
+8. Expand DML.
+DML stands for Data Manipulation Language.
+
+9. Mention some DML commands.
+INSERT, UPDATE, LOCK, and so on are some of the DML commands.
+
+10. Expand DCL.
+DCL stands for Data Control Language
+
+11. Mention some DCL commands.
+GRANT and REVOKE are some of the DDL commands.
+
+12. Mention some of the DB Testing tools.
+Database Rider, Database Benchmark, DbUnit, and so on are some of the Database testing tools.
+
+13. What are ACID properties?
+The terms ACID stand for Atomicity, Consistency, Isolation, and Durability.
+
+14. Define White box testing.
+It is a software testing approach where the tester possesses all the knowledge about the internal structure of the program.
+
+15. Explain Black box testing.
+It is a software testing technique in which the internal structure of the program is hidden from the testers.
+
+16. How is Database testing different from Front-end testing?
+DB testing involves testing back-end components such as Databases, whereas Front–end testing involves testing the functionalities of 
+response sheets, registration forms, and so on.
+
+17. What is a Cursor?
+A cursor is used to retrieve information and process the returned data one by one
+
+18. What are joins in the Database?
+Joins are used to combine two or more tables into a single table.
+
+19. Mention some of the DB security Testing tools.
+Vega, Web Scarab, Social Engineer Toolkit, and so on are some of the database security testing tools.
+
+20. What is key in the database?
+A key is an attribute or a collection of attributes that are used to identify or determine a row uniquely. 
+
+21. Mention the steps involved in database testing.
+
+1.Set up the environment
+2.Run a Test
+3.Observe the result
+4.Validate the difference between observed and expected results
+5.Report the significant observations.
+
+22. What are the different types of keys in a Database?
+Primary key, Super Key, Foreign Key, and so on are different types of keys in the database.
+
+23. What are CRUD operations?
+CRUD stands for Create, Read, Update, and Delete operations
+
+24. What is Load Testing?
+It is a testing technique that is used to determine the performance and behavior of the system during normal and high load situations.
+
+25. Explain SQL injection threat.
+SQLI is a common threat in databases, where malicious SQL queries are inserted into the database system to retrieve the most 
+valuable information.
+
+26. What is Stress Testing?
+It is a testing approach used to determine the reliability and stability of software applications under difficult situations.
+
+27. White box and Blackbox testing are under which category of DB Testing?
+Functional Testing
+
+28. What is Trigger in SQL?
+A trigger is a piece of SQL code that executes automatically in response to certain actions in tables of a database system.
+
+29. What is indexing in a Database?
+Indexing is a technique in a database system used to retrieve frequently accessed information.
+
+30. What are the different types of Indexes?
+B-Tree Index, Hash Index, and Clustered Index are different types of indexes used in database systems.
+
+31. What is a view in Database?
+A view is another method of representing the data present in one or more parent tables. A view of a table may contain a few columns 
+and rows of the major table.
+
+32. What is the use of an aggregate function?
+An aggregate function is used to perform mathematical calculations on a set of  values and returns a single numerical value.
+
+33. Expand RDBMS?
+RDBMS stands for Relational Database Management System
+
+34. What is the difference between UNION and JOIN?
+After applying UNION, the data appears in rows, whereas for JOIN, the data appears in columns.
+
+35. Define Structural Database Testing.
+Structural Database Testing deals with testing the schema, rows, and columns of tables, views, and so on.
+
+36. Explain Data Redundancy.
+Data Redundancy is also known as Duplication Of Data. In a database, the duplicated data causes wastage of memory. 
+
+37. What is Normalization in a database?
+Normalization is an approach used in DBMS to eliminate data redundancy which saves memory by splitting the tables into smaller ones to 
+maintain data integrity. 
+
+38. What are the different types of Normal forms?
+There are four types of Normal Forms. They are
+
+1.First Normal Form (1NF)
+2.Second Normal Form (2NF)
+3.Third Normal Form (3NF)
+4.Boyce Codd Normal Form (BCNF)
+
+39. What are the types of joins in SQL?
+Inner join, Outer join, Left join, and Right join are different types of join operations in SQL.
+
+40. What is SQL?
+SQL stands for Structured Query Language. It is a standard language for RDBMS.
+
+41. What are different constraints in SQL?
+1.NOT NULL Constraint
+2.CHECK Constraint
+3.PRIMARY Constraint
+4.FOREIGN Constraint
+5.DEFAULT Constraint 
+
+42. Mention some advantages of DBMS.
+Data security, Data independence, Data backup, and recovery facility, and so on.
+
+43. How many operators are there in SQL?
+There are different types of operators in SQL. They are
+
+1.Arithmetic Operators
+2.Set Operators
+3.Logical Operators
+4.Conditional Operators
+
+44. What is self-join in SQL?
+A self-join command is used to join a table to itself again.
+
+45. Mentions some NoSQL databases.
+Document databases, Graph databases, and so on are some of the widely used NoSQL databases.
+
+46. What is a Checkpoint in DBMS?
+Checkpoint is a technique in database systems where older log data is removed, taken off the system, and loaded into a permanent storage disk.
+
+47. What is meant by the schema in database systems?
+A schema is defined as the skeleton structure of all the tables present in the database. It gives a clear idea of how data is stored and 
+organized in the   tables.
+
+48. What is an ER model?
+ER model stands for Entity-Relationship model. It is a high-level representation of a database with the help of diagrams that 
+explains the relationship between several entities in a database.
+
+49. Mention some operations in Relational Algebra.
+Select, Union, Set Difference, and so on are some of the Relational Algebra operations.
+
+50. What is Denormalization in a database?
+Denormalisation is a technique in database systems used to improve the performance of the database by adding redundant data to 
+minimize the complex operations.
+
+51. How many types of locks are there in a Database system?
+There are two different types of locks in a database system. They are
+
+1.Shared Lock and 
+2.Exclusive Lock
+
+52. Is the Foreign key a Primary key for another table?
+True, A key is said to be a foreign key if it is the primary key for another table.
+
+53. How is a shared lock different from an exclusive lock?
+A shared lock allows the users to only read the data, whereas with an exclusive lock the data can be read and written as well.
+
+54. Mention some of the Load Testing tools.
+Web Performance, Mercury, and Rad View are some of the Load Testing tools.
+
+55. Which symbol is used to represent a relationship in an ER diagram?
+Diamond shape symbols are used to represent a relationship between different  entities in an ER diagram.
+
+56. How many types of relationships are there in the ER diagram?
+There are four different types of relationships in the ER diagram. They are
+
+1.One to One
+2.One to Many
+3.Many to One
+4.Many to Many
+
+57. What are the three main components of an ER model?
+Entities, Attributes, and Relationships are the three main components of an ER Model.
+
+58. Can a Primary Key can be NULL in a table?
+No, a Primary key cannot be NULL in a table. Because a primary key is used to determine a row in a table.
+
+1) What is Database Testing?
+Database Testing is also known as Backend Testing.
+Database Testing is segmented into four different categories.
+
+1.Testing of Data Integrity
+2.Testing of Data Validity
+3.Data base related performance
+4.Testing of functions, procedure and triggers
+
+
+2) In database testing, what do we need to check normally?
+Normally, the things that we check in DB Testing are:
+
+* Constraint Check
+* Validation of a Field size
+* Stored procedure
+* Matching application field size to database
+* Indexes for performance based issues.
+
+3) Explain what is data driven test?
+In a data-table, to test the multi numbers of data, data-driven test is used. 
+By using this it can easily replace the parameters at the same time from different locations.
+
+4) What are joins and mention different types of joins?
+Join is used to display two or more than two table and the types of joins are:
+
+Natural Join
+Inner Join
+Outer Join
+Cross Join
+The outer join is divided again in two:
+
+Left outer join
+Right outer join.
+
+5) What are indexes and mention different types of indexes?
+Indexes are database objects and they are created on columns. 
+To fetch data quickly they are frequently accessed.
+ 
+Different types of indexes are:
+
+B-Tree index
+Bitmap index
+Clustered index
+Covering index
+Non-unique index
+Unique index.
+
+6) While testing stored procedures what are the steps does a tester takes?
+
+The tester will check the standard format of the stored procedures and also it checks the fields are correct like updates, joins, 
+indexes, deletions as mentioned in the stored procedure.
+
+7) How would you know for database testing, whether trigger is fired or not?
+On querying the common audit log you would know, whether, a trigger is fired or not. It is in audit log where you can see the triggers fired.
+
+8) In data base testing, what are the steps to test data loading?
+
+Following steps need to follow to test data loading
+
+->Source data should be known
+->Target data should be known
+->Compatibility of source and target should be checked
+->In SQL Enterprise manager, run the DTS package after opening the corresponding DTS package
+->You have to compare the columns of target and data source
+->Number of rows of target and source should be checked
+->After updating data in the source, check whether the changes appears in the target or not.
+->Check NULLs and junk characters
+
+11) What is the way of writing testcases for database testing?
+
+Writing a testcases is like functional testing. First you have to know the functional requirement of the application. 
+Then you have to decide the parameters for writing testcases like
+
+  Objective: Write the objective that you would like to test
+  Input method: Write the method of action or input you want to execute
+  Expected: how it should appear in the database
+
+12) To manage and manipulate the test table what are the SQL statements that you have used in Database testing?
+
+The statements like SELECT, INSERT, UPDATE, DELETE are used to manipulate the table, while ALTER TABLE, CREATE TABLE and DELETE TABLE 
+are used to manage table.
+
+13) How to test database procedures and triggers?
+
+To test database procedures and triggers, input and output parameters must be known. 
+EXEC statement can be used to run the procedure and examine the behaviour of the tables.
+
+14) How you can write testcases from requirements and do the requirements represents exact functionality of AUT (Application Under Test)?
+
+To write a testcases from requirements, you need to analyse the requirements thoroughly in terms of functionality. 
+Thereafter you think about the appropriate testcases design techniques like Equivalence partitioning, Black box design, 
+Cause effect graphing etc. for writing the testcases.Yes, the requirements represent exact functionality of AUT.
+
+15) What is DBMS?
+
+DBMS stand for Database management system, there are different types of DBMS
+
+  Network Model
+  Hierarchical Model
+  Relational Model 
+
+16) What is DML?
+DML stands for Data Manipulation Language, It is used to manage data with schema objects. It is a subset of SQL.
+
+17) What are DCL commands? What are the two types of commands used by DCL?
+DCL stands for Data Control Language, it is used to control data.
+
+The two types of DCL Commands are:
+
+Grant: By using this command user can access privilege to database
+
+Revoke: By using this command user cannot access the database
+
+18) What is white box testing and black box testing?
+
+   Black box testing means testing the software for the outputs on giving particular inputs. 
+   This testing is usually performed to see if the software meets the user’s requirements. 
+   There is no specific functional output expected for running this test.
+
+   The white box testing is done to check the accuracy of code and logic of the program. 
+   This testing is done by the programmer who knows the logical flow of the system.
+
+21) What is load testing and give some examples of it?
+To measure the system response, load testing is done. If the load exceeds the users pattern it is known as stress testing. 
+Examples of load testing are downloading the set of large files, executing multiple applications on a single computer, 
+subjecting a server to large number of e-mails and allotting many tasks to a printer one after another.
+
+22) How to test database manually?
+Testing the database manually involves checking the data at the back end and to see whether the addition of data in front end is affecting 
+the back end or not, and same for delete, update, insert etc.
+
+23) What RDBMS stands for and what are the important RDMBS that SQL use?
+RDBMS stands for Relational Database Management Systems that use SQL, and the important RDBMS that SQL uses are Sybase, 
+Oracle, Access ,Ingres, Microsoft SQL server etc.
+
+24) What is performance testing and what are the bottlenecks of performance testing?
+
+  Performance testing determines the speed of the computer system performance.
+  It includes the quantitative tests like response time measurement. The problem in performance testing is that you always need a 
+  well-trained and experienced man power also the tools you use are expensive.
+
+25) What is DDL and what are their commands?
+
+To define database structure, a Developer uses DDL. DDL stands for Data Definition Language. 
+The various DDL commands include Create, Truncate, Drop, Alter, Comment and Rename.
+
+=============================================================================================
+
+MYSQL_INTERVIEW QUESTIONS
+=========================
+
+Q1. What is the difference between delete, drop and truncate?
+
+=> DELETE
+
+ * It removes Some or All rows from a table.
+ * A WHERE clause is used to remove particular rows according to the matched condition. 
+   All rows will be deleted when we did not use Where condition in Query.
+ * The DELETE command is Data Manipulation Language Command.
+ * The DELETE command is more sluggish as compared to the DROP, and the TRUNCATE commands as it removes the rows according to the condition.
+ * The Integrity Constraints remain same for the DELETE command.
+ * DELETE operation can be rolled back.
+
+ * DELETE FROM TableName WHERE condition;
+
+=> DROP
+
+ * It removes a table from the database.
+ * It does not require a WHERE clause.
+ * The DROP command is Data Definition Language Command.
+ * The DROP Command offers better performance than the DELETE Command but not as in comparison to the Truncate Command since the DROP command 
+   erases all tables from databases immediately after the rows have been deleted.
+ * The Integrity Constraints disappear with this DROP command.
+ * DROP operation cannot be rolled back.
+
+ * DROP TABLE table_name;
+
+=> TRUNCATE
+
+ * It removes all rows from a table.
+ * It does not require a WHERE clause.
+ * The TRUNCATE command is a Data Definition Language Command.
+ * The TRUNCATE command performs better that the DROP or DELETE because it removes all records from the table with no condition.
+ * The Integrity Constraints are not removed from the TRUNCATE command.
+ * TRUNCATE operation cannot be rolled back.
+
+ * TRUNCATE TABLE table_name;
+
+Q2.Write a query to get the first_name, middle_name and last_name in a single column as “name”. 
+   The first name, middle_name and the last name must be separated with space.
+
+ SELECT CONCAT(first_name, ' ', middle_name, '', last_name) as name FROM `customers`;
+
+Q3. What are the difference between and MyISAM and InnoDB?
+
+These are most commonly used storage engines in MySQL are MyISAM and InnoDB.
+
+Difference between MyISAM and InnoDB
+
+MyISAM no longer supports transactions, however, InnoDB supports transactions.
+MyISAM helps Table-level Locking, however, InnoDB supports Row-level Locking.
+MyISAM helps full-text search, however InnoDB does not.
+MyISAM is designed for the need for speed but InnoDB is designed for the most performance.
+MyISAM does now not aid overseas keys, but InnoDB helps foreign keys.
+We can use commit and rollback with InnoDB however not in MyISAM.
+MyISAM does no longer assist ACID (Atomicity, Consistency, Isolation, and Durability) however InnoDB supports the ACID property.
+In the InnoDB table, the AUTO_INCREMENT field is a section of the index but is now not in MyISAM.
+MyISAM stores its tables, data, and indexes in the disk area with the usage of a separate table name.FRM, desk name.MYD and table name.
+MYI however InnoDB stores its tables and indexes in a tablespace.
+
+Q4. What is the difference between the primary and unique key in Mysql?
+
+PRIMARY KEY	                            UNIQUE KEY
+A table can hold only one primary key	It can be more than one unique key in one table
+A Primary Key cannot be NULL.	         A Unique key can have NULL.
+
+Q5. Write a query to find the number of customers whose registered in between two dates?
+
+SELECT COUNT(*) FROM customers WHERE created_at BETWEEN '2022-03-24 17:32:05' AND '2022-03-25 17:32:05';
+
+Q6. What are the different ways to optimize a MySQL query?
+
+Don't use "sp_" while creating a stored procedure.
+Don't use "*" while you are using the SELECT command. Also avoid unnecessary columns in SELECT clause.
+You can use table aliases while writing queries.
+Avoid the usage of the wildcard (%) at the starting of a predicate.
+DISTINCT and UNION need to be used solely if it is necessary.
+
+Q7. Write a query to get all details of customers whose name starts with an alphabet ‘A’?
+
+SELECT * FROM customers WHERE name LIKE 'A%';
+
+Q8. Write a query to get minimum and maximum salaries from the Employee table?
+
+SELECT name, email, min(salary) as minSalary, max(salary) as maxSalary from employee;
+
+Q9. Write a query to find the Nth highest salary from the table without using limit keyword in MySQL?
+
+SELECT name, salary FROM Employee AS emp1 WHERE N-1 = (SELECT COUNT(DISTINCT salary) FROM Employee emp2 WHERE emp2.salary > emp1.salary);
+
+Q10. Write a query to find a list of invalid email address from a table in MySQL?
+
+SELECT * FROM `customers` WHERE `email` NOT REGEXP '^[^@]+@[^@]+\.[^@]{2,}$';
+
+
+Q11. How do you write IF ELSE statement in a MySQL query?
+
+SELECT id, name, email, salary, IF(salary > 20000, 'Good', 'Average') AS type FROM `customers`;
+
+Q12. What is indexing and how do you create an index in MySQL?
+
+A database index is the structure of a fact that improves the velocity of operations in a table. 
+It can be created the usage of one or greater columns, presenting the foundation for each fast random lookups and efficient ordering of getting admission to records. 
+Indexes are used to locate rows with specific column values quickly.
+
+Example
+CREATE INDEX [index name] ON [table name]([column name]);
+
+Q13. Write a query to find the employee name whose salary lies in the range of 5000 and 25000.
+
+SELECT id, name, salary FROM Employee WHERE salary BETWEEN 5000 AND 25000;
+
+
+Q14.What are the difference between NOW and CURRENT_DATE in MySQL?
+
+NOW() give you the current date time in the format 'YYYY-MM_DD HH:MM: SS'	
+
+CURRENT_DATE() will only give you the current date in format "YYYY-MM_DD"
+
+Q15. List some comparisons operators used in Mysql?
+
+Comparisons operators are used to comparing one expression to another value or expression. 
+It is just like = , < , > , => , =<, <>
+
+Q16. How to create case insensitive query in MySQL?
+
+The standard way to perform case insensitive queries in SQL is to use the SQL upper or lower functions like the following:
+
+select * from users where upper(first_name) = 'AJAY';
+
+OR
+
+select * from users where lower(first_name) = 'ajay';
+
+Q17. What is DDL, DML and DCL in MySQL?
+
+1. DDL
+------
+In MySQL, DDL is the short form for Data Definition Language, which is used in database schemas and descriptions while deciding how data should reside in the database.
+
+Here’s a list of DDL Queries:
+CREATE
+ALTER
+DROP
+TRUNCATE
+COMMENT
+RENAME
+2. DML
+------
+DML is a short form for Data Manipulation Language which is used in data manipulation and mostly includes common SQL statements to store,
+ modify, retrieve, delete and update data in a database.
+
+Here is the list of DML Queries:
+SELECT
+INSERT
+UPDATE
+DELETE
+MERGE
+CALL
+EXPLAIN PLAN
+LOCK TABLE
+3. DCL
+------
+DCL is a short form for Data Control Language including commands which are concerned with User rights, permissions and 
+other controls within the database system.
+
+Here’s a list of queries for DCL:
+GRANT
+REVOKE
+
+Q18. How do I import database through command line?
+
+MySQL -u username -p database_name < file.sql
+Here username is your database username like "root," database_name is your database name, file.sql is your SQL file name with complete path.
+
+Q19. What is the use of CONCAT() in Mysql?
+
+It is used to concatenate two or more strings.
+
+Example
+SELECT CONCAT('BestInterview', ' ', 'Question') AS 'Name';
+
+
+Q20. How to write query to get unique users in MySQL?
+
+The following SQL query can be used to obtain unique or different values for a column in MySQL Table. 
+There are different values that can be assigned to one or more columns. You must separate the column names with a comma.
+
+Syntax
+SELECT DISTINCT(column_name) FROM your_table_name;
+
+Example
+SELECT DISTINCT(email) FROM Employee;
+
+Q21. What is the default port for MySQL and how it can change?
+
+The default port is 3306.
+
+Q22. What is the difference between IS NULL & IS NOT NULL?
+
+IS NULL checks to see if the cell is empty but IS NOT NULL checks to see if the cell is not empty.
+
+Example :
+
+SELECT id FROM users WHERE 'user_type' IS NOT NULL;
+
+SELECT id FROM users WHERE 'user_type' NOT IS NULL;
+
+Note: This is very essential MySQL query interview questions.
+
+Q23. What are the drivers in MySQL?
+
+In MySQL, standards-based drivers for JDBC, ODBC, and .Net are provided in order to enable developers in building database applications with their language of choice.
+
+Available Drivers in MySQL:
+
+PHP Driver
+JDBC Driver
+ODBC Driver
+C WRAPPER
+PYTHON Driver
+PERL Driver
+RUBY Driver
+CAP11PHP Driver
+Ado.net5.mxj
+JDBC, ODBC, and .Net drivers are necessary for MySQL as they enable the developers for building their database applications.
+
+
+Q24. Explain the difference between primary key and candidate key in Mysql?
+
+PRIMARY KEY
+-----------
+It is a column that uniquely identifies a record. 
+In Mysql, only one candidate key can behave like Primary Key.
+
+CANDIDATE KEY
+-------------
+It can be any column that can qualify as a unique key in the database. 
+In MySQL, there can be multiple candidate keys in one table. Each candidate key can behave like as a primary key.
+
+
+Q25. What is TRIGGERS and how it can be used in MySQL?
+
+In Mysql, a trigger is a database object that is directly associated with a table. 
+It will be activated when a defined action is executed for the table.
+
+It can be performed when you run one of the following MySQL like INSERT, UPDATE and DELETE occurred in a table. 
+Its activation time can be BEFORE or AFTER.
+
+Types of Triggers in MySQL
+
+Before Insert: This is done before inserting data into the table.
+
+After Insert: This is after data has been entered into the table.
+
+Before update: This is activated prior to the updating of the data in the table.
+
+After update: This function is activated upon the updating of the table's data.
+
+Before delete: This is done before any data are removed from the table.
+
+After delete: This function is activated when the data has been deleted from the table.
+
+What is the purpose of triggers in MySQL?
+
+It is easy to set up triggers.
+
+Triggers allow us to validate data before it is inserted or updated.
+
+Triggers allow us to keep track of records, such as audit trails for tables.
+
+Triggers increase the performance of SQL queries as it doesn't need to compile every time the query executes.
+
+Triggers can be used to reduce client-side code, which saves time and effort.
+
+It allows us to scale our applications across multiple platforms.
+
+SQL triggers are an alternative method to verify the integrity of data.
+
+Triggers are an alternative method to perform the task.
+
+CREATE TRIGGER trigger_name    
+    (AFTER | BEFORE) (INSERT | UPDATE | DELETE)  
+         ON table_name FOR EACH ROW    
+         BEGIN
+        --trigger code    // You can write here your code
+        END;
+
+Example
+delimiter //
+CREATE TRIGGER age_check BEFORE INSERT ON people FOR EACH ROW IF NEW.age < 0 THEN SET NEW.age = 0; END IF;
+delimiter ;
+
+
+Q26. Is MySQL case-sensitive?
+
+Mysql is not case sensitive. 
+Its case-sensitivity relies on the underlying operating system as OS determines the case sensitivity of tables names and database. 
+In windows, database and table names are not case sensitive but in the case of UNIX, it is case sensitive in nature. 
+Especially on the UNIX host, database accepts the upper case and lower-case table names.
+
+
+Q27. How would you select all the users whose phone is null MySQL?
+
+SELECT id, name FROM users WHERE phone IS NULL;
+
+Q28. How can you insert data into MySQL?
+
+To insert new records into a table, use the INSERT INTO statement. You can write the INSERT INTO sentence in one of two ways.
+
+You will need to specify both column names and values that you wish to insert:
+
+INSERT INTO table_name (column1, column2, column3, ...) VALUES (value1, value2, value3, ...);
+
+You don't need to include the column names in your SQL query if you are adding values to all columns in the table. 
+But, ensure that the order of your values matches the order of the columns in the table. 
+The INSERT INTO syntax is as follows:
+
+INSERT INTO table_name VALUES (value1, value2, value3, ...);
+
+Example
+INSERT INTO Customers (name, email, salary) VALUES ('MySQL Query Interview Questions', 'mysql@bestinterviewquestion.com', 15000);
+
+
+Q29. What is cardinality in MySQL?
+
+In MySQL, the time period cardinality refers to the specialty of facts values that can be put into columns. 
+It is a type of property that influences the potential to search, cluster and kind data.
+
+Cardinality can be of two sorts which are as follows
+
+Low Cardinality − All values for a column have to be the same.
+High Cardinality − All values for a column ought to be unique.
+
+
+Q30. How to store binary data in MySQL?
+
+Binary data can be stored in Mysql in different ways such as
+
+The short length of binary data can be stored in the form of string as a VARCHAR
+A BLOB data type allows users to store an arbitrary amount of binary data.
+
+
+Q34. What is the use of enum in MySQL? How it is different from set?
+
+In MySQL, an ENUM is actually a string object whose value is selected from the list of permitted values pre-defined during
+the time of a column creation. 
+It is used because it provides compact data storage in addition to readable queries and output.
+
+Here’s the difference between an ENUM and a SET
+
+ENUM	
+----
+The value should be one listed in the column definition or internal numeric equivalent.	
+
+SET
+---
+Must be an empty string consisting of values listed in column.
+
+
+Q36. Can a primary key be dropped in MySQL? If yes, how?
+
+Yes, the primary key can be dropped in MySQL with the use of the “ALTER TABLE” statement.
+
+Syntax:
+
+ALTER TABLE table_name DROP PRIMARY KEY
+
+Q37. How to save images in MySQL?
+
+Images in MySQL can be stored as blobs. For saving them: All the database images are converted into the blobs first. 
+Then, they will get inserted into the database, and later on, it will get stored into the disk.
+
+Q38. How to write an optimized query in MySQL?
+
+To write an optimized query in MySQL, below are some guidelines:
+
+Functions should not be used in predicates.
+
+At the beginning of predicates, do not use the wildcard symbols such as %.
+
+Use only needed columns in the SELECT clause.
+
+Always use the inner join option.
+
+Use of the “Order by” clause is necessary for SQL, in case of assuming the sorted results.
+
+
+Q40. What's new in MySQL 8?
+
+There are a number of unique features that are incorporated in Mysql 8 include-
+
+Unicode 9.0 support
+Window functions
+Recursive SQL syntax statements
+Support Native JSON data
+Support for document store Functionality.
+
+
+Q41. What is federated tables in MySQL?
+Answer
+It is a table that points to a table in another MySQL database instance. 
+It can be seen as a view of this remote database. Other RDBMS have the same concepts for example database links.
+
+
+Q42. How to control the max size of a HEAP table?
+
+The maximum size of the HEAP table can be controlled by the MySQL config variable called max_heap_table_size.
+
+
+Q43. Is Mysql is a programming language?
+
+It is a language but not a Programming Language. It is a relational database management system.
+
+Q44. What are the advantages of MySQL?
+
+Data Security
+It is used to retrieve large amounts of records from a database quickly and efficiently.
+On-Demand Scalability
+High Performance
+Excellent Uptime
+Reduced Total Cost of Ownership.
+
+
+Q45. What are Storage Engines in Mysql?
+
+Storage engines are Mysql components, that can handle the operations for different table types to store and manage information in a database.
+
+InnoDB
+MyISAM
+MEMORY
+MERGE
+EXAMPLE
+CSV
+ARCHIVE etc...!
+
+
+Q46. How to change the database engine in MySQL?
+
+ALTER TABLE EnterTableName ENGINE = EnterEngineName;
+
+
+Q47. In Mysql, what is the default storage engine?
+
+InnoDB.
+
+
+Q49. What is the difference between BETWEEN and IN operators in Mysql?
+
+Between operator is used to select a range of data between two values. It can be texts, numbers, and dates, etc.
+
+Syntax: Select * from TABLENAME where FIELDNAME between VALUE1 and VALUE2
+
+IN operator is used to check for a value in the given set of values.
+
+Syntax: Select * from TABLENAME where FIELDNAME IN ('VALUE1','VALUE2',...)
+
+
+Q50. How to retrieve the current version of a MySQL?
+
+You can use this query in your PHPMyAdmin SELECT version(); -- 8.0.31 is the current version.
+
+Q51. What are aggregate functions in MySQL?
+
+The MySQL aggregate function performs a calculation on a set of values, and it returns a single value as output. 
+It ignores NULL values when it performs calculation except for the COUNT function.
+
+MySQL provides many aggregate functions that are listed below.
+
+AVG()
+COUNT()
+SUM()
+MIN()
+MAX() etc....!
+
+
+Q52. What is difference between function and procedure in MySQL?
+
+FUNCTION
+--------
+
+* The function returns the single value which is anyhow mandatory.
+
+* They only work with a statement: Select
+
+* In function, transactions are not possible.
+
+* Error handling is not possible.
+
+PROCEDURE
+---------
+
+* The procedure returns zero or N values.
+
+* They can work with multiple statements: Insert, Update, Delete, Select.
+
+* In the procedure, transactions are possible.
+
+* With try-catch, error handling is possible.
+
+
+Q53. In Mysql, what is joins? Explain
+
+In Mysql, joins are used to retrieve data from multiple tables. It is performed whenever two or more tables are joined.
+
+There are three types of MySQL joins:-
+
+MySQL INNER JOIN
+SELECT columns FROM table_1 INNER JOIN table_2 ON table_1.column = table_2.column;
+
+MySQL LEFT JOIN
+SELECT columns FROM table_1 LEFT JOIN table_2 ON table_1.column = table_2.column;
+
+MySQL RIGHT JOIN
+SELECT columns FROM table_1 RIGHT JOIN table_2 ON table_1.column = table_2.column;
+
+
+Q54. What is the difference between CHAR and VARCHAR in MySQL?
+
+CHAR can have a maximum of 255 characters, but VARCHAR can hold a maximum of 65,535 characters.
+
+CHAR field is a fixed length, but VARCHAR is a variable length field.
+
+CHAR uses static memory allocation, but VARCHAR uses dynamic memory allocation.
+
+
+Q55. How we can get the current date in MySQL?
+
+We can use SELECT NOW();
+
+Q56. Write a query to find duplicate rows In table?
+
+SELECT std_id, COUNT(std_id) as cnt FROM Student GROUP by std_id having cnt > 1
+
+Q57. How to display odd rows in Employee table in Mysql?
+
+SELECT id, name, department FROM Employee where MOD(id,2) = 1
+
+Q58. What are the stored procedures in MySQL? Also, write an example.
+
+The stored procedure is like a subprogram in a typical computing language which is stored in the database. 
+A stored procedure contains the name, list of parameters, and the SQL statements. 
+All the relational database system works as pillars for stored procedures.
+
+In this example, we are creating a simple procedure called job_data, when this procedure will get executed,
+ all the data from "jobs" tables will get displayed.
+
+DELIMITER //
+CREATE PROCEDURE GetAllPages()
+BEGIN
+    SELECT * FROM pages WHERE title LIKE '%MySQL Interview Questions%';
+END //
+DELIMITER ;
+
+
+Q59. Write a query to display even rows in student table using MySQL?
+
+SELECT * FROM Student where MOD(id,2) = 0
+
+
+Q60. How to display top 10 rows in Mysql?
+
+SELECT * FROM 'TableName' WHERE 'status' = 1 LIMIT 10
+
+Q61. Write a query to fetch duplicate records from a table using MySQL?
+
+SELECT EmpId, Project, Salary, COUNT(*) FROM EmployeeSalary GROUP BY EmpId, Project, Salary HAVING COUNT(*) > 1;
+
+
+Q62. Write a query to fetch common records between two tables using MySQL?
+
+Using INTERSECT
+SELECT * FROM EmployeeSalary
+INTERSECT
+SELECT * FROM ManagerSalary
+
+Q63. What is the difference between having and where clause in Mysql? Explain
+
+WHERE term is used for filtering rows, and it applies to every row but HAVING term is used to filter groups.
+
+WHERE can be used without the GROUP BY but HAVING clause cannot be used without the GROUP BY.
+
+Q64. What is constraints? Also explain the different types of constraints?
+
+These are the set of rules applied to columns on the table. It is used to bound the type of data that can go into a table.
+
+Types of constraints
+PRIMARY KEY
+FOREIGN KEY
+UNIQUE:
+Not NULL
+
+
+Q65. How can I see all indexes on a table in MySQL Database?
+
+SHOW INDEX FROM TABLE_NAME;
+
+Q66. How do I count the number of records in a MySQL query?
+
+select count(*) from TABLE_NAME where 'status' = 1;
+
+Q67. What is heap table in MySQL?
+
+HEAP tables are in memory. No TEXT or BLOB fields are allowed inside HEAP tables. 
+They are typically used for high-speed transient storage.
+
+Q68. What is temporary table in MySQL?
+
+In MySQL, a temporary table is a distinct type of table that approves you to save a transient end result set, 
+in which you can reuse countless instances in a single session. 
+A brief table is created with the aid of the use of the CREATE TEMPORARY TABLE.
+
+
+Q69. How to upload a large file through phpmyadmin in MySQL?
+
+It is the best way to upload large CSV files through the LOAD DATA command.
+
+Syntax:
+
+LOAD DATA LOCAL INFILE "your file name" INTO TABLE table name FIELDS TERMINATED by ’,’ LINES TERMINATED BY ’\n’
+
+
+Q70. What is the degree of a table in MySQL?
+
+The degree of a table is the number of columns in the given table. 
+It is also called as Arity. It is the range of entities inside each entity type that can be linked via a given relationship type.
+
+
+Q72. What is the difference between timestamp and datetime in MySQL?
+
+Timestamp in MySQL
+------------------
+Timestamp in MySQL is used when users want to convert the value from the current time zone to UTC zone for the sake of storage or 
+UTC time zone to the current time zone for retrieval.
+
+DateTime in MySQL
+-----------------
+DateTime in MySQL is used to insert values ‘yyyy-mm-dd’ in the table where yyyy is the year, 
+mm is the month and dd is the date. This keyword is used to retrieve or to display DATETIME values in Mysql.
+
+
+Q73. What is view in MySQL?
+
+The view is basically a virtual table which is used to view certain and preferable rows or columns of the table. 
+In practice, users can add a number of SQL functions, JOIN and WHERE clause to view the present data of the table.
+
+
+Q74. How do you create view in MySQL?
+
+In MySQL, the CREATE VIEW statement is used to create a new view inside the database.
+
+Here’s the basic syntax of the statement:
+
+CREATE VIEW productList AS SELECT qty, price, totalprice AS value FROM product;
+
+Syntax:
+-------
+
+CREATE VIEW view_name AS
+SELECT column1, column2,…
+FROM table;
+
+
+Conclusion
+----------
+In MYSQL Database, data is stored in tabular form and that is why we also call it a Relational Database Management System. 
+With the help of it, users can develop an infinite number of applications but it is mainly used for web applications. Talking about platforms, 
+it can run on various platforms like LINUX, UNIX, and WINDOWS and is reliable, fast, and very easy to use.
+
+
+
+
