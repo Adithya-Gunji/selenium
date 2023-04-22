@@ -1,0 +1,1591 @@
+Functional Testing --> Behaviour of an application.
+
+Re-Testing --> Executing same test case with multiple sets of Data.
+
+Regression Testing --> Re-validating deffects in newer builds and basis of those fixes make sure there is no side effect.
+
+Functional Testing tools
+------------------------
+QTP/UFT
+Selenium
+
+performance testing
+--------------------
+Jmeter
+LoadRunner
+
+Test management tools
+---------------------
+Ex: Quality center, MS VSTP
+Test cases
+Defects reporting
+Execution status
+report generates
+
+Defect reporting
+----------------
+BugZilla
+Remedy
+Devrack
+
+Jira--> test management,defect management,Dashboads
+
+selenium
+--------
+It is a functional and regression testing tool/collection of APIs(components).
+
+Advantages of selenium
+-----------------------
+1)Open source(free)
+2)Multiple Languages supports --> java,python,C#,Ruby etc..!
+3)multiple operating systems --> windows,Linux and MacOS.
+4)multibrowsers(cross browser testing) --> Chrome,Firefox,IE and edge....!
+5)supports parallel testing.
+6)selenium can integrates third party tools -->TestNG,Cucumber,Maven,Jenkins,Git & Github.
+
+Disadvantages(Limitations)
+--------------------------
+1)Only supports web-based applications(Not supports window based application) --> AutoIT,Sikuli
+2)Dedicated support --> Forums available
+3)No reporting facility -->TestNG,extents
+4)Images based --> Certain level
+
+selenium --> selenium is a set of components/tools.
+selenium is a suite which contains multiple components/tools.
+
+selenium suite
+--------------
+1) selenium IDE(Integrated Development Environment)
+2) selenium RC
+3)Selenium webDriver
+4)selenium grid
+
+selenium 1---> IDE,RC,Grid
+selenium 2---> IDE,webDriver, GRID
+selenium 3---> webDriver,grid.
+
+IDE --> plug-in for Firfox browser,record and playback tool.
+RC --> RC server will interact with browser and execute Automating testcases (in direct).
+webDriver --> webDriver is an API which will automate your test cases.
+Grid --> can execute test cases remotely.
+
+
+WebDriver Commands
+------------------
+
+get commands
+------------
+=> get() : used for reopen the Url on the browser.
+=> getTitle() : returns the title of the page.
+=> getCurrentUrl() : returns the URL.
+=> getText() : Returns the Text value of an Element.
+=> getPageSource()
+
+Browser commands
+----------------
+=> close()
+=> quit()
+
+Navigation commands
+-------------------
+=> navigate().forward()
+=> navigate().back()
+=> navaigate().to()
+=> navigate().refresh()
+
+Conditional commands
+--------------------
+=> isDisplayed()
+=> isEnabled()
+=> isSelected()
+
+Wait commands
+-------------
+=> Impliciwait()
+=> Explicitwait()
+
+Switch commands
+---------------
+=> switchTo().frame()
+=> switchTo().alert()
+=> switchTo().defaultContent()
+=> switchTo().window()
+=> Driver.WindowHandles()
+
+Web Elements
+------------
+=> textbox/inputbox
+=> button
+=> link
+=> radio buttons
+=> check boxes
+=> dropdown/list box/combobox
+=> frame
+=> web table
+=> calender
+=> file upload
+=> drag and drop
+
+1) webTable(html table)
+2) Calender.
+
+-------------------------------
+
+webTable
+--------
+<table border="0" >
+  <tr>
+    <th>Name</th>
+    <th>Age</th>  
+    <th>Country</th>
+  </tr>
+  <tr>
+    <td>Harry Depp</td>
+    <td>28</td>
+    <td>Britain</td>
+  </tr>
+  <tr>
+    <td>John Smith</td>
+    <td>35</td>
+    <td>USA</td>
+  </tr>
+  <tr>
+    <td>Ram Krishna</td>
+    <td>19</td>
+    <td>Nepal</td>
+  </tr>
+</table>
+-----------------------
+
+webTable2
+---------
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <style>
+    table,
+    th,
+    td {
+        border: 3px solid black;
+        border-collapse: collapse;
+    }
+    </style>
+</head>
+
+
+<body>
+	 <table style="width:20%">
+		<tr>
+			<th>product</th>
+			<th>Article</th>
+			<th>price</th>
+		</tr>
+		<tr>
+			<td>product1</td>
+              <td>001</td>
+              <td>10</td>
+		</tr>
+		<tr>
+              <td>product2</td>
+			<td>002</td>
+			<td>15</td>
+              
+		</tr>
+		<tr>
+              <td>product3</td>
+			
+			<td>003</td>
+			<td>12</td>
+              
+		</tr>
+           <tr>
+			<td>product4</td>
+              <td>004</td>
+              <td>20</td>
+		</tr>
+	</table>
+</body>
+
+</html>
+
+<!--https://jqueryui.com/datepicker/#date-range -->
+
+<!--https://www.lambdatest.com/blog/how-to-automate-calendar-using-selenium-webdriver-for-testing/ -->
+
+<!--https://demos.telerik.com/kendo-ui/datetimepicker/index-->
+
+<!--https://www.moneycontrol.com/fixed-income/calculator/state-bank-of-india-sbi/fixed-deposit-calculator-SBI-BSB001.html (url for SDETDDT)-->
+
+<!--http://the-internet.herokuapp.com/basic_auth -->
+
+<!--http://admin:admin@the-internet.herokuapp.com/basic_auth -->
+-----------------------
+
+webTable4
+---------
+<html>
+  <head>
+    <title>sample</title>
+    </head>
+  <body>
+      <table border="1">
+         <tbody>
+            <tr>
+              <td>first cell</td>
+              <td>second cell</td>
+            </tr>
+             <tr>
+              <td>third cell</td>
+              <td>forth cell</td>
+            </tr>
+         </tbody>
+      </table>
+  </body>
+</html>
+-------------------
+
+webTable5
+---------
+<html>
+  <head>
+     <title>sample</title>
+  </head>
+    <body>
+       <!--outer table-->
+        <table border="1">
+          <tbody>
+             <tr>
+                <td>ONE</td>
+                <td>TWO</td>
+              </tr>
+              <tr>
+                 <td>THREE</td>
+                 <td>
+                    <!--inner table-->
+                      <table border="1">
+                         <tbody>
+                            <tr>
+                               <td>1-2-3</td>
+                               <td>4-5-6</td>
+                             </tr>
+                              <tr>
+                               <td>7-8-9</td>
+                               <td>10-11-12</td>
+                             </tr>
+                          </tbody>
+                       </table>
+                  </td>
+              </tr>
+    </body>
+  </table>
+</tbody>
+-----------------
+
+webTable6
+---------
+<html>
+<head>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111111;
+}
+</style>
+</head>
+<body>
+
+<h2>Navigation Menu</h2>
+<p>In this example, we use CSS to style the list horizontally, to create a navigation menu:</p>
+
+<ul>
+  <li><a href="#home">Home</a></li>
+  <li><a href="#news">News</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li><a href="#about">About</a></li>
+</ul>
+
+</body>
+</html>
+-------------------------
+
+webTable7
+---------
+<html>
+<body>
+
+<div style="background-color:black;color:white;padding:20px;">
+  <h2>London</h2>
+  <p>London is the capital city of England. It is the most populous city in the United Kingdom, with a metropolitan area of over 13 million inhabitants.</p>
+  <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium.</p>
+</div> 
+
+</body>
+</html>
+-------------------------
+
+package handling_calendar_webTable;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class AccessingNestedTables {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("file:///C:/webtables/webtable5.html");
+		
+		String innerText = driver.findElement(By.xpath("/html/body/table/tbody/tr[2]/td[2]/table/tbody/tr[1]/td[1]")).getText(); 		
+		System.out.println(innerText); 
+	    driver.quit();
+		
+		
+	}
+
+}
+---------------------------
+
+package handling_calendar_webTable;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class Accessingtableinf {
+
+	public static void main(String[] args) {
+
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("file:///C:/webtables/webtable8.html");
+		
+        //String data= driver.findElement(By.xpath("/html/body/ul/li[3]/a")).getText();
+		
+		String data = driver.findElement(By.xpath("/html/body/p")).getText();
+        
+        //System.out.println("second header text : "+data);
+		
+		System.out.println("paragraph data_present in :: "+data);
+		
+		
+
+	}
+
+}
+---------------------------------
+
+package handling_calendar_webTable;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class CalendarHandling {
+
+	public static void main(String[] args) {
+		
+		// Set the driver path
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		//start edge
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		
+		// start application
+		driver.get("http://seleniumpractise.blogspot.com/2016/08/how-to-handle-calendar-in-selenium.html");
+		
+		// click on date picker so that we can get the calendar in view
+		driver.findElement(By.id("datepicker")).click();
+		
+		// Click on date 28 or any other date of your choice
+		//driver.findElement(By.xpath("//a[text()='28']")).click();   // full X-path:/html/body/div[4]/table/tbody/tr[5]/td[3]/a
+		driver.findElement(By.xpath("/html/body/div[4]/table/tbody/tr[5]/td[3]/a")).click();
+		
+		/*
+		 // this will find all matching nodes in calendar		
+		List<WebElement> allDates=driver.findElements(By.xpath("//table[@class='ui-datepicker-calendar']//td"));
+		
+                // now we will iterate all values and will capture the text. We will select when date is 28
+	   for(WebElement ele:allDates)
+		{
+			
+			String date=ele.getText();
+			
+                        // once date is 28 then click and break
+			if(date.equalsIgnoreCase("28"))
+			{
+				ele.click();
+				break;
+			}
+			
+		}
+		*/
+		
+	}
+
+}
+----------------------------------------
+
+package handling_calendar_webTable;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class SpecifiedcellData {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("file:///C:/webtables/webtable4.html");
+
+		String innerText = driver.findElement(By.xpath("//table/tbody/tr[1]/td[1]")).getText(); 
+		
+		        System.out.println(innerText); 
+			driver.quit();
+	}
+
+}
+-------------------------------------
+
+package handling_calendar_webTable;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class WebTablehandling {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("file:///C:/Users/adith/OneDrive/Documents/webtable3.html");
+		
+	   
+        // Number of columns
+        List <WebElement> col = driver.findElements(By.xpath("/html/body/table/tbody/tr[1]/th"));
+        System.out.println("No of columns : " +col.size()); 
+          
+        // Number of rows 
+        List <WebElement> rows = driver.findElements(By.xpath("/html/body/table/tbody/tr/td[1]")); 
+        System.out.println("No of rows : " + rows.size());
+        //driver.close();     
+
+	}
+
+}
+-------------------------------------
+
+package webDriverconfig;
+
+import java.security.PublicKey;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class openbrowserbyEdge {
+ 
+   public static void main(String[] args) {
+		
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("http://orangehrm.qedgetech.com"); 
+		
+		System.out.println(driver.getCurrentUrl()); // Returns the current URL 
+		
+		System.out.println(driver.getTitle()); //  Returns the TITLE of the page
+	   
+	   driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+	   driver.findElement(By.id("txtPassword")).sendKeys("Qedge123!@#");
+	   driver.findElement(By.id("btnLogin")).click();
+	   
+	   
+	 String Text  = driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div[1]")).getText();
+	 
+	  System.out.println(Text); // Returns the Text of the webElement located
+	  
+	  driver.close(); // close the current window
+	  
+	  //driver.quit(); // close the multiple windows present in a Browser
+	
+	
+   }
+}
+--------------------------------------
+
+package webDriverconfig;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class webtable {
+
+	public static void main(String[] args) {
+		
+		
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		
+		driver.get("file:///C:/Users/adith/Downloads/webtable2.html");
+		
+        int Rows= driver.findElements(By.xpath("/html/body/table/tbody/tr")).size();
+	
+	    System.out.println("Number of Rows present in a webtable is : "+Rows);
+	    
+        int cols= driver.findElements(By.xpath("/html/body/table/tbody/tr/th")).size();
+    	
+	    System.out.println("Number of Cols present in a webtable is : "+cols);
+	    
+	    for(int i=2;i<=Rows;i++)
+	    {
+	    	for(int j=1;j<=cols;j++)
+	    	{
+	   
+	    		System.out.print(driver.findElement(By.xpath("/html/body/table/tbody/tr["+i+"]/td["+j+"]")).getText()+"      ");
+	    		
+	    	}
+	    	
+	    	System.out.println(); 
+	    }
+	  
+	}
+
+}
+--------------------------------------
+
+package webDriverconfig;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class NavigationCommands {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		
+		driver.get("http://orangehrm.qedgetech.com");
+		System.out.println(driver.getTitle());
+		
+		driver.navigate().to("https://www.facebook.com");
+		System.out.println(driver.getTitle());
+		
+		driver.navigate().back();
+		System.out.println(driver.getTitle());
+		
+		driver.navigate().forward();
+		System.out.println(driver.getTitle());
+		
+		driver.navigate().refresh();
+		
+		driver.close();
+
+	}
+
+}
+----------------------------------------
+package webDriverconfig;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class OrangeHrmEmptable {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		
+		driver.get("http://orangehrm.qedgetech.com");
+		
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		driver.findElement(By.id("txtPassword")).sendKeys("Qedge123!@#");
+		driver.findElement(By.xpath("//input[@type='submit']")).click();
+		
+		driver.findElement(By.linkText("Admin")).click();
+		driver.findElement(By.linkText("User Management")).click();
+		
+        int Row_count= driver.findElements(By.xpath("/html/body/div[1]/div[3]/div[2]/div/div/form/div[4]/table/tbody/tr")).size();
+        System.out.println("Number of records present in the table is : "+Row_count);
+        
+        int statuscount =0;
+        
+        for(int i=1;i<=Row_count;i++)
+        {
+          String status= driver.findElement(By.xpath("//*[@id='resultTable']/tbody/tr["+ i +"]/td[5]")).getText();
+          //System.out.println("staus of emps : "+status);
+          
+          if(status.equals("Enabled")) {
+        	  statuscount = statuscount+1;
+          }
+        }
+        System.out.println("No of emps Enabled is : " +statuscount);
+        driver.close();
+	}
+
+}
+--------------------------------------------
+
+package webDriverconfig;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class CloseandQuit {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("http://demo.automationtesting.in/Windows.html"); 
+		
+		driver.findElement(By.xpath("//div/div[2]/div[1]/a/button")).click();// partial XPath here by // forward slash
+		
+		//driver.close();// will close the current(initial) window
+		Thread.sleep(5000);
+		driver.quit(); // will close the all browser opening windows
+		
+		
+	}
+
+}
+
+----------------------------------------------
+package Dropdowns;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class TestDropdowns {
+
+	public static void main(String[] args) {
+
+
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("https://testautomationpractice.blogspot.com");
+		
+        WebElement element= driver.findElement(By.id("animals"));
+        
+        Select se = new Select(element);
+        
+        List originalList = new ArrayList<>();
+        List tempList = new ArrayList<>();
+        
+       List<WebElement> options = se.getOptions();
+       
+       for(WebElement e:options)
+       {
+    	  originalList.add(e.getText()); 
+    	  tempList.add(e.getText());
+       }
+     //System.out.println("originalList : "+ originalList);
+     //List tempList = new ArrayList<>();
+     //tempList=originalList;
+     
+     System.out.println("Before sorting originalList : "+ originalList);
+     System.out.println("Before sorting temp List : " +tempList);
+     
+     Collections.sort(tempList);
+     
+     System.out.println("After sorting originalList : "+ originalList);
+     System.out.println("After sorting temp List : " +tempList);
+     
+     if(originalList == tempList)
+     {
+    	 System.out.println("DropdownList sorted");
+     }else {
+		System.out.println("DropdownList not sorted");
+	}
+     driver.close();
+  }
+  
+}
+--------------------------------------------------------------
+
+Switching between multiple windows
+----------------------------------
+
+package seleniumBySDET;
+
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class HandlingBrowserWindows {
+
+	public static void main(String[] args) {
+
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("https://demo.automationtesting.in/Windows.html");
+		
+		driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[1]/ul/li[2]/a")).click();
+		
+		driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[2]/div[2]/button")).click();
+		
+		//System.out.println(driver.getTitle());
+		
+		Set<String> s= driver.getWindowHandles(); // Returns the Id/key value of Browser windows
+		
+		for(String i : s)
+		{
+		 //System.out.println(i);
+			String t = driver.switchTo().window(i).getTitle();
+			System.out.println(t);
+			
+			if(t.contains("Frames & windows"))
+			{
+				driver.close();  // by using Selenium we can close child window 
+			}
+		}
+	}
+
+}
+----------------------------------------------------
+
+package seleniumBySDET;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class Authenticationpopups {
+
+	public static void main(String[] args) {
+		
+        System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		
+		//driver.get("http://the-internet.herokuapp.com/basic_auth");
+		// http://username:password@test.com
+		
+		driver.get("http://admin:admin@the-internet.herokuapp.com/basic_auth");
+		
+        String text = driver.findElement(By.cssSelector("p")).getText();
+        System.out.println(text);
+
+	}
+
+}
+-------------------------------------------------------------------------
+
+switch between frames/iframes
+-----------------------------
+
+to syntaxes :
+-------------
+              driver.switchTo.frame(frame name);
+              driver.switchTo.frame(driver.FindElement(By.Xpath("xxx")));
+
+switch between alerts/popups
+----------------------------
+
+              driver.switchTo.alert();
+
+-------------------------------------------
+
+
+Robot Class in Selenium WebDriver
+---------------------------------
+Agenda
+------
+=> Why Robot Class
+=> Benefits of Robot Class
+=> Common use cases
+=> Demo
+
+--------------------
+
+why Robot Class
+---------------
+In certain selenium Automation Tests,there is a need to control Keyboard or mouse to interact with OS windows like DropDown popups,Alerts,Print Pop-ups etc...!
+Selenium webDriver can't handle theese OS Pop-ups/applications.
+
+Benefits of Robot Class
+-----------------------
+=> Robot Class can simulate Keyboard and Mouse events .
+=> Robot Class can help in upload/download of files when using selenium webDriver.
+=> Robot Class can easily be integrated with current Automation Framework(keyword,Data-driven or hybrid)
+
+Common use cases using Robot Class
+----------------------------------
+=> To press down arrow key of keyboard we use
+        robot.keyPress(KeyEvent.VK_DOWN)
+
+=> To press TAB key of keyboard we use
+        robot.keyPress(KeyEvent.VK_TAB)
+
+=> To press Enter key of keyboard we use
+        robot.keyPress(KeyEvent.VK_ENTER)
+
+----------------------------------
+package seleniumBySDET;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class RobotAPIDemo {
+
+	public static void main(String[] args) throws AWTException, InterruptedException {
+		
+        System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		
+		driver.get("http://www.edureka.co");
+		
+		driver.findElement(By.linkText("Courses")).click();
+		Robot robot = new Robot();
+		Thread.sleep(4000);
+		robot.keyPress(KeyEvent.VK_DOWN);
+		Thread.sleep(4000);
+		robot.keyPress(KeyEvent.VK_TAB);
+		Thread.sleep(4000);
+		System.out.println("a");
+		robot.keyPress(KeyEvent.VK_TAB);
+		Thread.sleep(4000);
+		System.out.println("b");
+		robot.keyPress(KeyEvent.VK_TAB);
+		Thread.sleep(4000);
+		System.out.println("c");
+		robot.mouseMove(30,100);
+		Thread.sleep(4000);
+		System.out.println("d");
+		driver.quit();
+		 
+	}
+
+}
+-----------------------------------------------
+package seleniumBySDET;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class RobotClass {
+
+	public static void main(String[] args) throws AWTException {
+		
+        System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		
+		// Open Git
+		  driver.get("https://github.com/login");
+
+		  // Enter Username
+		  driver.findElement(By.id("login_field")).sendKeys("Adithya-Gunji");
+
+		  // Enter password
+		  driver.findElement(By.id("password")).sendKeys("Adithya9666108118");
+
+		  // Create object of Robot class
+		  Robot r=new Robot();
+
+		   // Press Enter
+		   r.keyPress(KeyEvent.VK_ENTER);
+
+		   // Release Enter
+		   r.keyRelease(KeyEvent.VK_ENTER);
+
+	}
+
+}
+---------------------------------------------------
+
+1) how to upload files
+2) how to download files
+------------------------------------------
+
+Download Files using Selenium
+------------------------------
+
+package Edge;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class DownloadFilesUsingSelenium {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("https://demo.automationtesting.in/FileDownload.html");
+		
+            //Scrolling a webpage using java script executor
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
+		jse.executeScript("window.scrollBy(0,250)");
+
+		//Download Text File
+		driver.findElement(By.id("textbox")).sendKeys("Selenium with java");
+		Thread.sleep(2000);
+		driver.findElement(By.id("createTxt")).click();
+		driver.findElement(By.id("link-to-download")).click();
+		
+		//Download PDF File
+		driver.findElement(By.id("pdfbox")).sendKeys("RestAssuredLibrary with java");
+		Thread.sleep(2000);
+		driver.findElement(By.id("createPdf")).click();
+		driver.findElement(By.id("pdf-link-to-download")).click();
+
+	}
+
+}
+--------------------------------------------------------------
+
+Upload Files using Selenium with RobotClass
+-------------------------------------------
+
+package Edge;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class RobotClassUploadFile {
+
+	public static void main(String[] args) throws AWTException, InterruptedException {
+
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("http://demo.automationtesting.in/Register.html");
+		
+		driver.findElement(By.xpath("/html/body/section/div/div/div[3]/div[2]")).click();
+		
+		/* 
+		 * 1) copy the path
+		 * 2) CTRL+V
+		 * 3) Enter
+		 */
+		
+		Robot rb = new Robot();
+		rb.delay(2000);
+		
+		//put path to file in a clipboard
+		StringSelection ss = new StringSelection("C:\\Users\\adith\\SikuliImages\\Mango.jpg");
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss,null);
+		Thread.sleep(3000);
+		//CTRL+V
+		rb.keyPress(KeyEvent.VK_CONTROL);// press on CTRL key
+		rb.keyPress(KeyEvent.VK_V);// press on CTRL key
+		
+		rb.keyRelease(KeyEvent.VK_CONTROL);
+		rb.keyRelease(KeyEvent.VK_V);
+		Thread.sleep(3000);
+		//Enter
+		rb.keyPress(KeyEvent.VK_ENTER);
+		rb.keyRelease(KeyEvent.VK_ENTER);
+	}
+
+}
+--------------------------------------------------------------------------------------
+
+switch between frames/iframes
+             
+             driver.switchTo.frame(frame name);
+             driver.switchTo.frame(driver.FindElement(By.xpath("")));
+
+switch between alerts/popups
+  
+            driver.switchTo.alert();
+
+------------------------------------
+
+package Edge;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class SwitchBetweenAlerts {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("http://demo.automationtesting.in/Alerts.html");
+		
+		//Alert with ok button example
+		driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[1]/ul/li[1]/a")).click();
+		
+		driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[2]/div[1]/button")).click();
+		Thread.sleep(3000);
+		//switch to Alert box
+		System.out.println(driver.switchTo().alert().getText());
+		driver.switchTo().alert().accept();
+		Thread.sleep(2000);
+		driver.close();
+	}
+
+}
+--------------------------------------------------
+package Edge;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class AlertwithOkCancelButtons {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("http://demo.automationtesting.in/Alerts.html");
+		
+		//Alert with ok and Cancel button example
+		driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[1]/ul/li[2]/a")).click();
+		
+		driver.findElement(By.xpath("//div/div[2]/div[2]/button")).click();
+		
+		String expTextOk ="You pressed Ok";
+		String expTextCancel ="You Pressed Cancel";
+		
+	/* driver.switchTo().alert().accept();
+
+		String ActText =driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[2]/div[2]/p")).getText();
+		
+		if(expTextOk.equals(ActText))
+		{
+			System.out.println("Accept Test pass");
+		}
+		*/
+		
+		driver.switchTo().alert().dismiss();
+		
+		String ActTextCancel = driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[2]/div[2]/p")).getText();
+		
+		if(expTextCancel.equals(ActTextCancel))
+		{
+			System.out.println("Cancel Test pass");
+		}
+		driver.close();
+	}
+
+}
+----------------------------------------------------------------
+package Edge;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class AlertwithTextBox {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("http://demo.automationtesting.in/Alerts.html");
+		
+		//Alert with AlertwithTestBox example
+		driver.findElement(By.xpath("//div/div[1]/ul/li[3]/a")).click();
+		
+		driver.findElement(By.xpath("//div/div[2]/div[3]/button")).click();
+		
+		String expTitle = "Hello Akhil How are you today";
+		
+	    driver.switchTo().alert().sendKeys("Akhil");
+		driver.switchTo().alert().accept();
+		
+		String ActTitle = driver.findElement(By.xpath("//div/div[2]/div[3]/p")).getText();
+		
+		if(expTitle.equals(ActTitle))
+		{
+			System.out.println("Alert with Text Box form Ok button Test pass");
+		}
+		
+	    //driver.switchTo().alert().dismiss();
+		Thread.sleep(2000);
+		driver.close();
+	}
+   
+}
+--------------------------------------------------------------------
+
+Actions class
+----------------
+Mouseover
+Mouse right click
+drag and drop
+Slider
+Resizable
+------------------
+
+moveToElement() --> Mouseover
+contextClick() --> Right click
+
+drag and Drop
+---------------
+clickAndHold()
+moveToElement()
+release()
+
+----------------------------------------------------
+            /*DragandDrop
+		  http://www.dhtmlgoodies.com/scripts/drag-drop-nodes/drag-drop-nodes.html
+		  http://www.dhtmlgoodies.com/scripts/drag-drop-quiz/drag-drop-quiz-d2.html
+		  http://www.dhtmlgoodies.com/scripts/drag-drop-nodes-quiz/drag-drop-nodes-quiz.html
+		   */
+		/* 
+		 * Sliders
+		 * ----------
+		 * https://demo.automationtesting.in/Slider.html
+		 */
+		/*
+		 * Re-sizing
+		 * https://strml.github.io/react-resizable/examples/1.html
+		 */
+----------------------------------------------------
+--------------------------------------------------------------------
+package Edge;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class MouseRightclick {
+
+	public static void main(String[] args) {
+
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("http://swisnl.github.io/jQuery-contextMenu/demo.html");
+		
+		Actions act = new Actions(driver);
+		
+        WebElement button= driver.findElement(By.cssSelector("body > div > section > div > div > div > p > span"));
+
+        act.contextClick(button).build().perform();//Right click on the Element
+        driver.findElement(By.xpath("/html/body/ul/li[3]")).click();//click the copy option
+        
+        System.out.println(driver.switchTo().alert().getText());// Capture the Text from the Alert
+        driver.switchTo().alert().accept();//close the Alert
+        
+        
+	}
+
+}
+----------------------------------------------------------------------
+package Edge;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Mouseover {
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("http://orangehrm.qedgetech.com");
+		
+		driver.findElement(By.id("txtUsername")).sendKeys("Admin");
+		driver.findElement(By.id("txtPassword")).sendKeys("Qedge123!@#");
+		driver.findElement(By.xpath("//input[@type='submit']")).click();
+		
+		Actions act = new Actions(driver);
+		
+		WebElement Admin= driver.findElement(By.xpath("/html/body/div[1]/div[2]/ul/li[1]/a/b"));
+		WebElement User_Management = driver.findElement(By.xpath("/html/body/div[1]/div[2]/ul/li[1]/ul/li[1]/a"));
+		WebElement users = driver.findElement(By.xpath("/html/body/div[1]/div[2]/ul/li[1]/ul/li[1]/ul/li/a"));
+		
+	/*  act.moveToElement(Admin).build().perform(); // Mouseover to Admin tab
+		act.moveToElement(User_Management).build().perform(); // mouseover to User_Management tab
+		act.moveToElement(users).click().build().perform(); // mouseover to Users tab */
+		
+		act.moveToElement(Admin).moveToElement(User_Management).moveToElement(users).click().build().perform();
+		
+		
+	}
+
+}
+----------------------------------------------------------------------
+package Edge;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class DragandDrop {
+
+	public static void main(String[] args) {
+
+        System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("http://www.dhtmlgoodies.com/scripts/drag-drop-custom/demo-drag-drop-3.html");
+		
+		WebElement source1 = driver.findElement(By.id("box3"));
+		WebElement target1 = driver.findElement(By.id("box103"));
+		
+		WebElement source = driver.findElement(By.id("box1"));
+		WebElement target = driver.findElement(By.id("box101"));
+		
+		Actions act = new Actions(driver);
+		
+	//act.clickAndHold(source).moveToElement(target).release().build().perform();
+		act.dragAndDrop(source1, target1).build().perform();
+		
+		act.dragAndDrop(source, target).build().perform();
+	}
+
+}
+---------------------------------------------------------------------
+package Edge;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Slider {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+        System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("https://jqueryui.com/slider/");
+		
+		driver.switchTo().frame(0);
+		WebElement slider= driver.findElement(By.xpath("/html/body/div/span"));
+		
+		Actions act = new Actions(driver);
+		Thread.sleep(1000);
+		act.moveToElement(slider).dragAndDropBy(slider, 300, 0).build().perform();//drag the slider based on value
+
+	}
+
+}
+------------------------------------------------------------------------
+package Edge;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Resizable {
+
+	public static void main(String[] args) throws InterruptedException {
+        System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("https://jqueryui.com/resizable/");
+		
+		driver.switchTo().frame(0);
+		WebElement resize= driver.findElement(By.xpath("/html/body/div/div[3]"));
+		
+		Actions act = new Actions(driver);
+		Thread.sleep(2000);
+		act.moveToElement(resize).dragAndDropBy(resize, 150, 150).build().perform();
+		
+
+	}
+
+}
+--------------------------------------------------------------------------
+
+Page Scrolling :
+----------------
+1. scenario 1: To scroll down the web page by pixel.
+2. scenario 2: To scroll down the web page by the visibility of the element.
+3. scenario 3: To scroll down the web page at the bottom of the page.
+
+Note: To scroll using selenium,you can use javaScriptExecutor interface that helps to execute javaScript methods through selenium webDriver.
+
+Syntax:
+   JavascriptExecutor js=(JavascriptExecutor)driver;
+   js.executeScript(Script,Arguments);
+-----------------------------------------------------------------
+package Scrolling;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.Window;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class Scrolling {
+
+	public static void main(String[] args) {
+        System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		WebDriver driver=new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("https://www.countries-ofthe-world.com/flags-of-the-world.html");
+		
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		
+		//1. scrolling by using pixel
+		//js.executeScript("window.scrollBy(0,1000)");
+		
+		//scrolling page till we find Element
+		/*WebElement flag = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div[2]/div[2]/div[2]/div[2]/table[2]/tbody/tr[96]/td[1]/img"));
+		js.executeScript("arguments[0].scrollIntoView()",flag);*/
+		
+		//3.scroll page till bottom
+		js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+
+	}
+
+}
+---------------------------------------------------------------------------
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>Selenium_mvn</groupId>
+  <artifactId>Selenium_maven</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+  
+  <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+<dependency>
+<groupId>org.seleniumhq.selenium</groupId>
+<artifactId>selenium-java</artifactId>
+<version>3.141.59</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+<dependency>
+<groupId>io.github.bonigarcia</groupId>
+<artifactId>webdrivermanager</artifactId>
+<version>3.8.1</version>
+</dependency>
+
+  </dependencies>
+</project>
+------------------------------------------------------------------------------
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class edgeLaunch {
+
+	public static void main(String[] args) {
+		
+	System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+	EdgeDriver driver = new EdgeDriver();
+	driver.manage().window().maximize();
+	 driver.get("http://facebook.com");
+
+	}
+
+}
+-----------------------------------------------------------------------------
+import java.awt.Desktop.Action;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Signature {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
+		EdgeDriver driver = new EdgeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.signwell.com/online-signature/draw/");
+		
+	    Actions acttions = new Actions(driver);
+		WebElement signatureCanvas = driver.findElement(By.id("canvas_signature"));
+		
+		
+		acttions.dragAndDropBy(signatureCanvas, 200, 0).build().perform();
+		
+		
+	}
+
+}
+----------------------------------------------------------------------------
+
+
