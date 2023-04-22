@@ -1,0 +1,2393 @@
+Selenium Frame_works
+====================================
+1)Test_NG
+----------------
+================
+package utils;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Apputils {
+	public static String url="http://orangehrm.qedgetech.com";
+	public static WebDriver driver;
+	public static void launchApp()
+	{
+		System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+	    driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get(url);
+	}
+	public static void closeApp()
+	{
+		driver.close();
+	}
+
+}
+------------------------------------------------------------------------------------
+
+package library;
+
+import org.openqa.selenium.By;
+
+import utils.Apputils;
+
+public class loginpage extends Apputils{
+	
+	public void login(String uid,String pwd)
+	{
+		driver.findElement(By.id("txtUsername")).sendKeys(uid);
+		driver.findElement(By.id("txtPassword")).sendKeys(pwd);
+		driver.findElement(By.xpath("//*[@type='submit']")).click();
+	}
+	
+	public void logout()
+	{
+		driver.findElement(By.partialLinkText("Welcome")).click();
+		driver.findElement(By.linkText("Logout")).click();
+	}
+	
+	public boolean isAdminModuleDisplayed()
+	{
+		if(driver.findElement(By.linkText("Admin")).isDisplayed())
+		{
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean isErrMsgDisplayed()
+	{
+		 String errmsg       =  driver.findElement(By.id("spanMessage")).getText();
+		 
+		 if(errmsg.toLowerCase().contains("invalid"))
+		 {
+			 return true;
+		 }else {
+			return false;
+		}
+	}
+
+}
+-------------------------------------------------------------------------------------
+package library;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import utils.Apputils;
+
+public class EmployeeRegistration extends Apputils{
+	
+	public boolean addEmployee(String fname,String lname)
+	{
+		driver.findElement(By.linkText("PIM")).click();
+		driver.findElement(By.linkText("Add Employee")).click();
+		driver.findElement(By.id("firstName")).sendKeys(fname);
+		driver.findElement(By.id("lastName")).sendKeys(lname);
+		
+		 String empno  = driver.findElement(By.id("employeeId")).getAttribute("value");
+		 
+		 driver.findElement(By.id("btnSave")).click();
+		 
+		 driver.findElement(By.linkText("Employee List")).click();
+		 driver.findElement(By.id("empsearch_id")).sendKeys(empno);
+		 driver.findElement(By.id("searchBtn")).click();
+		 
+		 WebDriverWait wait = new WebDriverWait(driver,30);
+		 wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("resultTable"))));
+		 
+		 List<WebElement> rows,cols;
+		 
+		 WebElement restable = driver.findElement(By.id("resultTable"));
+		 
+		 rows= restable.findElements(By.tagName("tr"));
+		 cols=rows.get(1).findElements(By.tagName("td"));
+		 
+		 if(cols.get(1).getText().equals(empno))
+		 {
+			 return true;
+		 }else {
+			return false;
+		}
+		
+		
+		
+	}
+
+}
+-------------------------------------------------------------------------------------------
+package testcases;
+
+import library.loginpage;
+import utils.Apputils;
+
+public class AdminLoginTest {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		Apputils.launchApp();
+		
+		loginpage lp = new loginpage();
+		lp.login("Admin","Qedge123!@#");
+		
+	boolean res	  = lp.isAdminModuleDisplayed();
+	
+	if(res)
+	{
+		System.out.println("Admin login test pass");
+	}else {
+		System.out.println("test fail");
+	}
+		
+		Thread.sleep(2000);
+		
+		lp.logout();
+		Apputils.closeApp();
+
+	}
+
+}
+----------------------------------------------------------------------------------
+package testcases;
+
+import library.loginpage;
+import utils.Apputils;
+
+public class ErrorMessageTest extends Apputils{
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		Apputils.launchApp();
+		
+		loginpage lp = new loginpage();
+		lp.login("Admi","Qedge123!@");
+		
+	boolean res 	   = lp.isErrMsgDisplayed();
+	
+	if(res)
+	{
+		System.out.println("error message Test pass");
+	}else {
+		System.out.println("test fail");
+	}
+	
+	Thread.sleep(3000);
+	
+   Apputils.closeApp();
+ }
+  
+}
+--------------------------------------------------------------------------------------
+package testcases;
+
+import library.EmployeeRegistration;
+import library.loginpage;
+import utils.Apputils;
+
+public class EmpRegTest extends Apputils{
+
+	public static void main(String[] args) {
+		
+		Apputils.launchApp();
+		
+		loginpage lp = new loginpage();
+		lp.login("Admin","Qedge123!@#");
+		
+		EmployeeRegistration emp = new EmployeeRegistration();
+boolean res		=  emp.addEmployee("bittu","gunji");
+
+       if(res)
+       {
+    	   System.out.println("employee registration successfull.......!!");
+       }else {
+		System.out.println("registartion fail ");
+	}
+		lp.logout();
+		Apputils.closeApp();
+		
+
+	}
+
+}
+-------------------------------------------------------------------------------------
+
+Note : before going to the TestNG configuration we have to install TestNG library from ecclipse market_place
+and configure build path.
+
+sample program of TestNG Report
+---------------------------------
+package testcases;
+
+import org.testng.annotations.Test;
+
+public class sendmailTest {
+	
+	@Test
+	public void sendMail()
+	{
+		System.out.println("this is send mail test");
+	}
+
+}
+----------------###---------------
+
+[RemoteTestNG] detected TestNG version 7.4.0
+this is send mail test
+PASSED: sendMail
+
+===============================================
+    Default test
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+
+-----------------------------------------------------------------------
+
+Note2: refresh the project and get test-output   then go to the properties and copy the path and pasete to the browser 
+then we get emailable report from the browser
+----------------------
+
+Test	# Passed	# Skipped	# Retried	# Failed	Time (ms)	Included Groups	Excluded Groups
+Default suite
+Default test	1	0	0	0	36		
+Class	Method	Start	Time (ms)
+Default suite
+Default test — passed
+testcases.sendmailTest	sendMail	1662011651560	8
+Default test
+testcases.sendmailTest#sendMail
+----------------------------------------------------------------------------------
+
+package utils;
+
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+
+public class Apputils1 {
+	
+	@BeforeTest
+	public static void login()
+	{
+		System.out.println("Gmail login");
+	}
+	
+	@AfterTest
+	public static void logout()
+	{
+		System.out.println("Gmail logout");
+	}
+
+}
+---------------------------------------------------
+package testcases;
+
+import org.testng.annotations.Test;
+
+import utils.Apputils1;
+
+public class sendmailTest extends Apputils1{
+	
+	@Test
+	public void sendMail()
+	{
+		System.out.println("this is send mail test");
+	}
+
+}
+----------------------------------------------------------------------
+[RemoteTestNG] detected TestNG version 7.4.0
+[Configuration] [WARN] Detected a static method [utils.Apputils1.login()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.logout()]. Static configuration methods can cause  unexpected behavior.
+Gmail login
+this is send mail test
+Gmail logout
+PASSED: sendMail
+
+===============================================
+    Default test
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+TestNG with annotations with out xml_file example and Reports
+-----------------------------------
+===================================#####=========
+package utils;
+
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+
+public class Apputils1 {
+	
+	@BeforeTest
+	public static void login()
+	{
+		System.out.println("Gmail login");
+	}
+	
+	@AfterTest
+	public static void logout()
+	{
+		System.out.println("Gmail logout");
+	}
+	
+	@BeforeSuite
+	public static void launchApp()
+	{
+		System.out.println("Launch Gmail App");
+	}
+	
+	@AfterSuite
+	public static void closeApp()
+	{
+		System.out.println("close Gmail App");
+	}
+
+}
+------------------------------------------------------------------
+package testcases;
+
+import org.testng.annotations.Test;
+
+import utils.Apputils1;
+
+public class sendmailTest extends Apputils1{
+	
+	@Test
+	public void sendMail()
+	{
+		System.out.println("this is send mail test");
+	}
+
+}
+-------------------------------------------------------------------
+package testcases;
+
+import org.testng.annotations.Test;
+
+import utils.Apputils1;
+
+public class RecivemailTest extends Apputils1{
+	
+	@Test
+	public void recivemail()
+	{
+		System.out.println("Recive mail test");
+	}
+	
+
+}
+----------------------------------------------------------------
+[RemoteTestNG] detected TestNG version 7.4.0
+[Configuration] [WARN] Detected a static method [utils.Apputils1.launchApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.closeApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.login()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.logout()]. Static configuration methods can cause  unexpected behavior.
+Launch Gmail App
+Gmail login
+this is send mail test
+Gmail logout
+PASSED: sendMail
+
+===============================================
+    Default test
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+close Gmail App
+
+===============================================
+Default suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+TestNG with annotations with  xml_file example and Reports
+-------------------------------------------
+package utils;
+
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+
+public class Apputils1 {
+	
+	@BeforeTest
+	public static void login()
+	{
+		System.out.println("Gmail login");
+	}
+	
+	@AfterTest
+	public static void logout()
+	{
+		System.out.println("Gmail logout");
+	}
+	
+	@BeforeSuite
+	public static void launchApp()
+	{
+		System.out.println("Launch Gmail App");
+	}
+	
+	@AfterSuite
+	public static void closeApp()
+	{
+		System.out.println("close Gmail App");
+	}
+
+}
+---------------------------------------------------
+package testcases;
+
+import org.testng.annotations.Test;
+
+import utils.Apputils1;
+
+public class sendmailTest extends Apputils1{
+	
+	@Test
+	public void sendMail()
+	{
+		System.out.println("this is send mail test");
+	}
+
+}
+-----------------------------------------------------------------
+package testcases;
+
+import org.testng.annotations.Test;
+
+import utils.Apputils1;
+
+public class RecivemailTest extends Apputils1{
+	
+	@Test
+	public void recivemail()
+	{
+		System.out.println("Recive mail test");
+	}
+	
+
+}
+-----------------------------------------------------
+Note : take new file from right clicking the project and name it as TestNG.xml file
+-----------
+<suite name="GMail Test suite">
+   
+   <test name="send mail testcase">
+      <classes>
+         <class name="testcases.sendmailTest"></class>
+      </classes>
+   
+   </test>
+   
+    <test name="recive mail testcase">
+      <classes>
+         <class name="testcases.RecivemailTest"></class>
+      </classes>
+   
+   </test>
+
+</suite>
+------------------------------------------
+[RemoteTestNG] detected TestNG version 7.4.0
+[TestNGContentHandler] [WARN] It is strongly recommended to add "<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >" at the top of the suite file [C:\Users\ADMIN\eclipse-workspace\TestNG\src\testNG.xml] otherwise TestNG may fail or not work as expected.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.launchApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.closeApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.login()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.logout()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.launchApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.closeApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.login()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.logout()]. Static configuration methods can cause  unexpected behavior.
+Launch Gmail App
+Gmail login
+this is send mail test
+Gmail logout
+Gmail login
+Recive mail test
+Gmail logout
+close Gmail App
+
+===============================================
+GMail Test suite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Note: commenting test cases we no need to Run 
+--------------------------
+<suite name="GMail Test suite">
+   
+   <test name="send mail testcase">
+      <classes>
+         <class name="testcases.sendmailTest"></class>
+      </classes>
+   
+   </test>
+   
+ <!--     <test name="recive mail testcase">
+      <classes>
+         <class name="testcases.RecivemailTest"></class>
+      </classes>
+   
+   </test>  -->
+
+</suite>
+--------------------------------------------------
+[RemoteTestNG] detected TestNG version 7.4.0
+[TestNGContentHandler] [WARN] It is strongly recommended to add "<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >" at the top of the suite file [C:\Users\ADMIN\eclipse-workspace\TestNG\src\testNG.xml] otherwise TestNG may fail or not work as expected.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.launchApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.closeApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.login()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils1.logout()]. Static configuration methods can cause  unexpected behavior.
+Launch Gmail App
+Gmail login
+this is send mail test
+Gmail logout
+close Gmail App
+
+===============================================
+GMail Test suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Note : without xml with annotations
+----------------------------
+package utils;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+
+public class Apputils {
+	public static String url="http://orangehrm.qedgetech.com";
+	public static WebDriver driver;
+	
+	@BeforeTest
+	public static void launchApp()
+	{
+		System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+	    driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get(url);
+	}
+	
+	@AfterTest
+	public static void closeApp() throws InterruptedException
+	{
+		Thread.sleep(2000);
+		driver.close();
+	}
+
+}
+----------------------------------------------------------------
+
+package testcases;
+
+import org.testng.annotations.Test;
+
+import utils.Apputils;
+
+public class AdminLoginTestWithValidInuts extends Apputils{
+	
+	@Test
+	public void ckeckAdminLogin()
+	{
+		
+	}
+
+}
+------------------------------------------------------------------------------------------------------------------------------------------------
+package utils;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+
+public class Apputils {
+	public static String url="http://orangehrm.qedgetech.com";
+	public static WebDriver driver;
+	
+	@BeforeTest
+	public static void launchApp()
+	{
+		System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+	    driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get(url);
+	}
+	
+	@AfterTest
+	public static void closeApp() throws InterruptedException
+	{
+		Thread.sleep(2000);
+		driver.close();
+	}
+
+}
+--------------------------------------------------------------------------
+package testcases;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import library.loginpage;
+import utils.Apputils;
+
+public class AdminLoginTestWithValidInuts extends Apputils{
+	
+	@Test
+	public void ckeckAdminLogin() throws InterruptedException
+	{
+		loginpage lp = new loginpage();
+		lp.login("Admin","Qedge123!@#");
+		
+        boolean res		= lp.isAdminModuleDisplayed();
+        
+        Assert.assertTrue(res);
+        
+        Thread.sleep(2000);
+        lp.logout();
+	}
+
+}
+------------------------------------------------------------------
+[RemoteTestNG] detected TestNG version 7.4.0
+[Configuration] [WARN] Detected a static method [utils.Apputils.launchApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils.closeApp()]. Static configuration methods can cause  unexpected behavior.
+Starting ChromeDriver 103.0.5060.134 (8ec6fce403b3feb0869b0732eda8bd95011d333c-refs/branch-heads/5060@{#1262}) on port 32334
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+[1662016857.825][WARNING]: This version of ChromeDriver has not been tested with Chrome version 104.
+Sep 01, 2022 12:50:57 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+PASSED: ckeckAdminLogin
+
+===============================================
+    Default test
+    Tests run: 1, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 1, Passes: 1, Failures: 0, Skips: 0
+===============================================
+---------------------------------------------------------------------------------------------------------------------------------------------
+Testcases with using xml file*****
+---------------------------------
+package utils;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+
+public class Apputils {
+	public static String url="http://orangehrm.qedgetech.com";
+	public static WebDriver driver;
+	
+	@BeforeTest
+	public static void launchApp()
+	{
+		System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+	    driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get(url);
+	}
+	
+	@AfterTest
+	public static void closeApp() throws InterruptedException
+	{
+		Thread.sleep(2000);
+		driver.close();
+	}
+
+}
+-------------------------------------------------------------------
+package library;
+
+import org.openqa.selenium.By;
+
+import utils.Apputils;
+
+public class loginpage extends Apputils{
+	
+	public void login(String uid,String pwd)
+	{
+		driver.findElement(By.id("txtUsername")).sendKeys(uid);
+		driver.findElement(By.id("txtPassword")).sendKeys(pwd);
+		driver.findElement(By.xpath("//*[@type='submit']")).click();
+	}
+	
+	public void logout()
+	{
+		driver.findElement(By.partialLinkText("Welcome")).click();
+		driver.findElement(By.linkText("Logout")).click();
+	}
+	
+	public boolean isAdminModuleDisplayed()
+	{
+		if(driver.findElement(By.linkText("Admin")).isDisplayed())
+		{
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean isErrMsgDisplayed()
+	{
+		 String errmsg       =  driver.findElement(By.id("spanMessage")).getText();
+		 
+		 if(errmsg.toLowerCase().contains("invalid"))
+		 {
+			 return true;
+		 }else {
+			return false;
+		}
+	}
+
+}
+----------------------------------------------------------------
+package library;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import utils.Apputils;
+
+public class EmployeeRegistration extends Apputils{
+	
+	public boolean addEmployee(String fname,String lname)
+	{
+		driver.findElement(By.linkText("PIM")).click();
+		driver.findElement(By.linkText("Add Employee")).click();
+		driver.findElement(By.id("firstName")).sendKeys(fname);
+		driver.findElement(By.id("lastName")).sendKeys(lname);
+		
+		 String empno  = driver.findElement(By.id("employeeId")).getAttribute("value");
+		 
+		 driver.findElement(By.id("btnSave")).click();
+		 
+		 driver.findElement(By.linkText("Employee List")).click();
+		 driver.findElement(By.id("empsearch_id")).sendKeys(empno);
+		 driver.findElement(By.id("searchBtn")).click();
+		 
+		 WebDriverWait wait = new WebDriverWait(driver,30);
+		 wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("resultTable"))));
+		 
+		 List<WebElement> rows,cols;
+		 
+		 WebElement restable = driver.findElement(By.id("resultTable"));
+		 
+		 rows= restable.findElements(By.tagName("tr"));
+		 cols=rows.get(1).findElements(By.tagName("td"));
+		 
+		 if(cols.get(1).getText().equals(empno))
+		 {
+			 return true;
+		 }else {
+			return false;
+		}
+		
+		
+		
+	}
+
+}
+-------------------------------------------------------------------
+package testcases;
+
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import library.loginpage;
+import utils.Apputils;
+
+public class AdminLoginTestWithValidInuts extends Apputils{
+	
+	@Parameters({"adminuid","adminpwd"})
+	@Test
+	public void ckeckAdminLogin(String uid,String pwd) throws InterruptedException
+	{
+		loginpage lp = new loginpage();
+		lp.login(uid,pwd);
+		
+        boolean res		= lp.isAdminModuleDisplayed();
+        
+        Assert.assertTrue(res);
+        
+        Thread.sleep(2000);
+        lp.logout();
+	}
+
+}
+-------------------------------------------------------------
+<suite name="OrangeHRM test suite">
+   
+   <test name="Admin Login Test">
+   
+   <parameter name="adminuid" value="Admin"></parameter>
+   <parameter name="adminpwd" value="Qedge123!@#"></parameter>
+      <classes>
+         <class name="testcases.AdminLoginTestWithValidInuts"></class>
+      </classes>
+   
+   </test>
+   
+ <!--     <test name="recive mail testcase">
+      <classes>
+         <class name="testcases.RecivemailTest"></class>
+      </classes>
+   
+   </test>  -->
+
+</suite>
+---------------------------------------------------------------------
+
+package testcases;
+
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import library.loginpage;
+import utils.Apputils;
+
+public class AdminLoginTestWithValidInuts extends Apputils{
+	
+	@Parameters({"adminuid","adminpwd"})
+	@Test
+	public void ckeckAdminLogin(String uid,String pwd) throws InterruptedException
+	{
+		loginpage lp = new loginpage();
+		lp.login(uid,pwd);
+		
+        boolean res		= lp.isAdminModuleDisplayed();
+        
+        Assert.assertTrue(res);
+        
+        Thread.sleep(2000);
+        lp.logout();
+	}
+
+}
+-----------------------------------------------------------------
+package testcases;
+
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import library.loginpage;
+import utils.Apputils;
+
+public class LoginwithInvalidinputs extends Apputils{
+	
+	@Parameters({"invaliduid","invalidpwd"})
+	@Test
+	public void checkLogin(String uid,String pwd)
+	{
+		loginpage lp = new loginpage();
+		lp.login(uid,pwd);
+		
+boolean res 		= lp.isErrMsgDisplayed();
+        Assert.assertTrue(res);
+	}
+
+}
+--------------------------------------------------------------------
+package testcases;
+
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import library.EmployeeRegistration;
+import library.loginpage;
+import utils.Apputils;
+
+public class employeeRegTest extends Apputils{
+	
+	@Parameters({"efname","elname"})
+	@Test
+	public void checkEmpReg(String fname,String lname)
+	{
+		loginpage lp = new loginpage();
+		lp.login("Admin","Qedge123!@#");
+		
+		EmployeeRegistration er= new EmployeeRegistration();
+boolean res		 = er.addEmployee(fname,lname);
+      
+        Assert.assertTrue(res);
+        
+        lp.logout();
+	}
+
+}
+--------------------------------------------------------------------
+<suite name="OrangeHRM test suite">
+   
+   <test name="Admin Login Test">
+   
+   <parameter name="adminuid" value="Admin"></parameter>
+   <parameter name="adminpwd" value="Qedge123!@#"></parameter>
+      <classes>
+         <class name="testcases.AdminLoginTestWithValidInuts"></class>
+      </classes>
+   
+   </test>
+   
+   
+      <test name="invaild credentials test">
+      
+      <parameter name="invaliduid" value="Admi"></parameter>
+   <parameter name="invalidpwd" value="Qedge123!@"></parameter>
+      <classes>
+         <class name="testcases.LoginwithInvalidinputs"></class>
+      </classes>
+      </test>
+      
+      
+      <test name="employee Registration test">
+      
+      <parameter name="efname" value="john"></parameter>
+   <parameter name="elname" value="@wwe"></parameter>
+      <classes>
+         <class name="testcases.employeeRegTest"></class>
+      </classes>
+   
+   </test>  
+
+</suite>
+---------------------------------------------------
+[RemoteTestNG] detected TestNG version 7.4.0
+[TestNGContentHandler] [WARN] It is strongly recommended to add "<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >" at the top of the suite file [C:\Users\ADMIN\eclipse-workspace\TestNG\src\testNG.xml] otherwise TestNG may fail or not work as expected.
+[Configuration] [WARN] Detected a static method [utils.Apputils.launchApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils.closeApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils.launchApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils.closeApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils.launchApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils.closeApp()]. Static configuration methods can cause  unexpected behavior.
+Starting ChromeDriver 103.0.5060.134 (8ec6fce403b3feb0869b0732eda8bd95011d333c-refs/branch-heads/5060@{#1262}) on port 37757
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+[1662030354.182][WARNING]: This version of ChromeDriver has not been tested with Chrome version 104.
+Sep 01, 2022 4:35:54 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+Starting ChromeDriver 103.0.5060.134 (8ec6fce403b3feb0869b0732eda8bd95011d333c-refs/branch-heads/5060@{#1262}) on port 13027
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+[1662030362.643][WARNING]: This version of ChromeDriver has not been tested with Chrome version 104.
+Sep 01, 2022 4:36:02 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+Starting ChromeDriver 103.0.5060.134 (8ec6fce403b3feb0869b0732eda8bd95011d333c-refs/branch-heads/5060@{#1262}) on port 21089
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+[1662030366.949][WARNING]: This version of ChromeDriver has not been tested with Chrome version 104.
+Sep 01, 2022 4:36:06 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+
+===============================================
+OrangeHRM test suite
+Total tests run: 3, Passes: 3, Failures: 0, Skips: 0
+===============================================
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+2)Datadriven framework
+-------------------------------
+===============================
+
+
+
+Note: for Datadriven frame_work we have to download and configure Apache-POI to work with Microsoft-office  file
+like PPT,word and Excel sheets.
+
+step-1:
+--------
+Download Release Artifacts - Apache POI
+
+step-2:
+--------
+Release Archives
+Apache POI became a top level project in June 2007 and POI 3.0 artifacts were re-released. Prior to that date POI was a sub-project of Apache Jakarta.
+
+Binary Artifacts
+
+
+step-3:
+--------
+Download and extract the poi zip file
+
+[   ] poi-bin-4.1.2-20200217.zip              2020-07-06 14:19   39M 
+
+step-4:
+--------
+make the excel file with name TestData
+
+sheet:-1 (LoginData)
+-----------
+uname	pword	Result
+uid1	pwd1	
+uid2	pwd2	
+uid3	pwd3	
+uid4	pwd4	
+-----------------------
+
+sheet:-2(EmpData)
+-----------
+Empno	EmpName	salary	status	Result
+E001	David	18000	TRUE	
+E002	john		FALSE	
+E003	smith	20000	TRUE	
+
+---------------------------------------------------------------------------------------------------------------------------------------------	
+
+Note: copy that excel file into java memory(ecllipse or STS), and config the poi jars to buildpath
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+* create a package with name demo
+* create a class with the name DemoTest
+
+package demo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+		FileInputStream fi = new FileInputStream("TestData1.xlsx");
+		Workbook wb = new XSSFWorkbook(fi);
+		wb.createSheet("Demosheet");
+		
+		
+		FileOutputStream fo = new FileOutputStream("TestData1.xlsx");
+		wb.write(fo);
+		wb.close();
+		
+		fi.close();
+		fo.close();
+		
+		
+	}
+
+}    //note: in this program the new sheet will be created in the excel file(same file). and we are able to create the same duplicate excel file 
+               with new created sheet.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+program to counting the rows present in  the excel sheet
+----------------------------------
+---------------
+package demo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+	/*	FileInputStream fi = new FileInputStream("TestData1.xlsx");
+		Workbook wb = new XSSFWorkbook(fi);
+		wb.createSheet("Demosheet");
+		
+		
+		FileOutputStream fo = new FileOutputStream("TestData1.xlsx");
+		wb.write(fo);
+		wb.close();
+		
+		fi.close();
+		fo.close(); */
+		
+		
+		FileInputStream fi = new FileInputStream("TestData1.xlsx");
+		Workbook wb = new XSSFWorkbook(fi);
+		
+		 org.apache.poi.ss.usermodel.Sheet ws1        =  wb.getSheet("LoginData");
+		 org.apache.poi.ss.usermodel.Sheet ws2        =  wb.getSheet("EmpData");
+		 
+		         int sheet1_rowcount           =  ws1.getLastRowNum();
+		         int sheet2_rowcount           =  ws2.getLastRowNum();
+		         
+		  System.out.println("Sheet1_rowcount :"+sheet1_rowcount); 
+		  System.out.println("Sheet2_rowcount :"+sheet2_rowcount);
+		  
+		  fi.close();
+		  wb.close();
+		
+	}
+
+}
+
+    Sheet1_rowcount :4
+    Sheet2_rowcount :3
+
+-----------------------------------------------------------------------------------------
+ script to count no.of columns present in the specified Row
+---------------------------------------------------
+package demo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+
+		
+		FileInputStream fi = new FileInputStream("TestData1.xlsx");
+		Workbook wb = new XSSFWorkbook(fi);
+		
+		org.apache.poi.ss.usermodel.Sheet ws       =  wb.getSheet("LoginData");
+		
+		                            Row row0        = ws.getRow(0);
+		                            Row row1        = ws.getRow(1);
+		                            
+		                    short row0_colcount        = row0.getLastCellNum();
+		                    short row1_colcount        = row1.getLastCellNum();
+		                    
+		                    System.out.println("Row0 cell count : "+row0_colcount);
+		                    System.out.println("Row1 cell count : "+row1_colcount);
+		                    
+		                    
+		                    fi.close();
+		                    wb.close();
+		                    
+    }
+
+}
+         Row0 cell count : 3
+         Row1 cell count : 2
+
+// note: when we are counting cell starts with 1 and row starts with 0 ,when getting cell data starts with from 0th cell 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+script to Read Data from excel sheet
+------------------------------------
+package demo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+
+		
+		FileInputStream fi = new FileInputStream("TestData1.xlsx");
+		Workbook wb = new XSSFWorkbook(fi);
+		
+		org.apache.poi.ss.usermodel.Sheet ws       =  wb.getSheet("EmpData");
+		
+		                            Row row        = ws.getRow(1);
+		                            
+		                                  Cell c1          = row.getCell(1);
+		                                  Cell c2          = row.getCell(2);
+		                                  Cell c3          = row.getCell(3);
+		                                  
+		                                 String ename       = c1.getStringCellValue();
+		                                 double salary     =   c2.getNumericCellValue();
+		                                 boolean status                 =  c3.getBooleanCellValue(); 
+		                                 
+		                                 
+		                                 System.out.println(ename+" "+salary+"  "+" "+status);
+		                                 
+		                                 wb.close();
+		                                 fi.close();
+		                            
+		                    
+    }
+
+}    David 18000.0   true
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+script to handle "null pointer exception" that occurs when no data persent in the cell
+--------------------------------------------------
+package demo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+
+		
+		FileInputStream fi = new FileInputStream("TestData1.xlsx");
+		Workbook wb = new XSSFWorkbook(fi);
+		
+		org.apache.poi.ss.usermodel.Sheet ws       =  wb.getSheet("EmpData");
+		
+		                            Row row        = ws.getRow(1);
+		                            
+		                                String data;
+		                                
+		                                try {
+											
+		                                	Cell cell = row.getCell(1);
+		                                	      data = cell.getStringCellValue();
+		                                	      
+		                                	      System.out.println(data);
+										} catch (Exception e) {
+											
+											data="";
+											System.out.println("no data found");
+										}
+		                                 
+		                                 wb.close();
+		                                 fi.close();
+		                            
+		                    
+    }
+
+}         David
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+script to write data into xlsheet cells
+------------------------------------------
+
+package demo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+
+		
+		FileInputStream fi = new FileInputStream("TestData1.xlsx");
+		Workbook wb = new XSSFWorkbook(fi);
+		
+		org.apache.poi.ss.usermodel.Sheet ws       =  wb.getSheet("EmpData");
+		
+		                            Row row        = ws.getRow(1);
+		                            Cell cell =  row.createCell(4);
+		                            
+		                                      cell.setCellValue("pass");
+		                            
+		                                          
+		                           FileOutputStream fo = new FileOutputStream("TestData1.xlsx");
+		                            wb.write(fo);
+		                            
+		                                 wb.close();
+		                                 fi.close();
+		                                 fo.close();
+		                            
+		                    }
+
+}
+
+Empno	EmpName	salary	status	Result
+E001	David	18000	TRUE	pass
+E002	john		FALSE	
+E003	smith	20000	TRUE	
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+script to fill cell color with Green 
+-------------------------------------------
+package demo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+        FileInputStream fi = new FileInputStream("TestData1.xlsx");
+		Workbook wb = new XSSFWorkbook(fi);
+		
+		org.apache.poi.ss.usermodel.Sheet ws       =  wb.getSheet("EmpData");
+		
+		                            Row row        = ws.getRow(1);
+		                            Cell cell =  row.createCell(4);
+		                            
+		                                     // cell.setCellValue("pass");
+		                                      
+		                                      
+		                            CellStyle passstyle = wb.createCellStyle();
+		                            passstyle.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+		                            passstyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		                            
+		                                        cell.setCellStyle(passstyle);
+		                            
+		                                          
+		                           FileOutputStream fo = new FileOutputStream("TestData1.xlsx");
+		                            wb.write(fo);
+		                            
+		                                 wb.close();
+		                                 fi.close();
+		                                 fo.close();
+		                            
+		                    }
+
+}
+Empno	EmpName	salary	status	Result
+E001	David	18000	TRUE	#green#
+E002	john		FALSE	
+E003	smith	20000	TRUE	
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+script to fill cell color with Red 
+-------------------------------------------
+package demo;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+        FileInputStream fi = new FileInputStream("TestData1.xlsx");
+		Workbook wb = new XSSFWorkbook(fi);
+		
+		org.apache.poi.ss.usermodel.Sheet ws       =  wb.getSheet("EmpData");
+		
+		                            Row row        = ws.getRow(1);
+		                            Cell cell =  row.createCell(4);
+		                            
+		                                      cell.setCellValue("fail");
+		                                      
+		                                      
+		                            CellStyle failstyle = wb.createCellStyle();
+		                            failstyle.setFillForegroundColor(IndexedColors.RED.getIndex());
+		                            failstyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		                            
+		                                        cell.setCellStyle(failstyle);
+		                            
+		                                          
+		                           FileOutputStream fo = new FileOutputStream("TestData1.xlsx");
+		                            wb.write(fo);
+		                            
+		                                 wb.close();
+		                                 fi.close();
+		                                 fo.close();
+		                            
+		                    }
+
+}
+Empno	EmpName	salary	status	Result
+E001	David	18000	TRUE	fail #Red_color#
+E002	john		FALSE	
+E003	smith	20000	TRUE
+---------------------------------------------------------------------------------------------------------------------------------------
+
+package utils;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.IndexedColorMap;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class XLutils {
+	
+	  public static FileInputStream fi;
+	  public static FileOutputStream fo;
+	  public static Workbook wb;
+	  public static org.apache.poi.ss.usermodel.Sheet ws;
+	  public static Row row;
+	  public static Cell cell;
+	  public static CellStyle style;
+	  
+	  public static int getRowcount(String xlfile,String xlsheet) throws IOException
+	  {
+		  fi=new FileInputStream(xlfile);
+		  wb=new XSSFWorkbook(fi);
+		  ws=wb.getSheet(xlsheet);
+		  
+          int row_count		  =  ws.getLastRowNum();
+   
+             wb.close();
+             fi.close();
+             return row_count;
+		  
+	  }
+	  
+	  public static short getCellcount(String xlfile,String xlsheet,int rownum) throws IOException
+	  {
+		  fi=new FileInputStream(xlfile);
+		  wb=new XSSFWorkbook(fi);
+		  ws=wb.getSheet(xlsheet);
+		  row = ws.getRow(rownum);
+		  
+		  short cellcount=  row.getLastCellNum();
+		  
+		  wb.close();
+          fi.close();
+          return cellcount;
+	  }
+	  
+	  public static String getStringCellData(String xlfile,String xlsheet,int rownum,int cellnum) throws IOException
+	  {
+		  fi=new FileInputStream(xlfile);
+		  wb=new XSSFWorkbook(fi);
+		  ws=wb.getSheet(xlsheet);
+		  row = ws.getRow(rownum);
+		  
+		  String data;
+		  try {
+			
+			  cell=row.getCell(cellnum);
+			  data=cell.getStringCellValue();
+			  
+		} catch (Exception e) {
+			data="";
+			System.out.println("no data found ..!");
+			
+		}
+		  wb.close();
+          fi.close();
+          return data;
+		  
+	  }
+	  
+	  public static double getNumericCellData(String xlfile,String xlsheet,int rownum,int cellnum) throws IOException
+	  {
+		  fi=new FileInputStream(xlfile);
+		  wb=new XSSFWorkbook(fi);
+		  ws=wb.getSheet(xlsheet);
+		  row = ws.getRow(rownum);
+		  
+		  double data;
+		  try {
+			 cell=row.getCell(cellnum);
+			 data = cell.getNumericCellValue();
+		} catch (Exception e) {
+			
+			data=0.0;
+			
+		}
+		  wb.close();
+          fi.close();
+          return data; 
+	  }
+	  
+	  public static boolean getBooleanCellData(String xlfile,String xlsheet,int rownum,int colnum) throws IOException
+		{
+			
+			fi = new FileInputStream(xlfile);
+			wb = new XSSFWorkbook(fi);
+			ws = wb.getSheet(xlsheet);
+			row = ws.getRow(rownum);
+			
+			boolean data;
+			try 
+			{
+				cell = row.getCell(colnum);
+				data = cell.getBooleanCellValue();
+				
+			} catch (Exception e) 
+			{
+				data = false;			
+			}
+			wb.close();
+			fi.close();
+			return data;		
+		}
+		
+		public static void setCellData(String xlfile,String xlsheet,int rownum,int colnum,String data) throws IOException
+		{
+		
+			fi = new FileInputStream(xlfile);
+			wb = new XSSFWorkbook(fi);
+			ws = wb.getSheet(xlsheet);
+			row = ws.getRow(rownum);
+			cell = row.createCell(colnum);
+			cell.setCellValue(data);
+			fo = new FileOutputStream(xlfile);
+			wb.write(fo);
+			wb.close();
+			fi.close();
+			fo.close();
+		}	
+		
+		public static void fillGreenColor(String xlfile,String xlsheet,int rownum,int colnum) throws IOException
+		{
+			
+			fi = new FileInputStream(xlfile);
+			wb = new XSSFWorkbook(fi);
+			ws = wb.getSheet(xlsheet);
+			row = ws.getRow(rownum);
+			cell = row.getCell(colnum);
+			
+			style = wb.createCellStyle();
+			style.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+			style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			
+			cell.setCellStyle(style);
+			
+			fo = new FileOutputStream(xlfile);
+			wb.write(fo);
+			wb.close();
+			fi.close();
+			fo.close();		
+		}
+		
+		
+		public static void fillRedColor(String xlfile,String xlsheet,int rownum,int colnum) throws IOException
+		{
+			
+			fi = new FileInputStream(xlfile);
+			wb = new XSSFWorkbook(fi);
+			ws = wb.getSheet(xlsheet);
+			row = ws.getRow(rownum);
+			cell = row.getCell(colnum);
+			
+			style = wb.createCellStyle();
+			style.setFillForegroundColor(IndexedColors.RED.getIndex());
+			style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			
+			cell.setCellStyle(style);
+			
+			fo = new FileOutputStream(xlfile);
+			wb.write(fo);
+			wb.close();
+			fi.close();
+			fo.close();		
+		}
+
+}
+----------------------------------------
+
+TestData1.xlsx
+
+LoginData
+
+uname	pword	Result
+uid1	pwd1	
+uid2	pwd2	
+uid3	pwd3	
+uid4	pwd4	
+
+EmpData
+
+Empno	EmpName	salary	status	Result
+E001	David	18000	TRUE	
+E002	john		FALSE	
+E003	smith	20000	TRUE	
+
+
+
+
+
+------------------------------------------
+
+package demos;
+
+import java.io.IOException;
+
+import utils.XLutils;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+		   int x           =  XLutils.getRowcount("TestData1.xlsx","LoginData");
+		   
+		   System.out.println(x);
+	}
+
+}      '4'
+-------------------------------
+
+package demos;
+
+import java.io.IOException;
+
+import utils.XLutils;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+		   int x           =  XLutils.getCellcount("TestData1.xlsx","LoginData",1);
+		   
+		   System.out.println(x);
+	}
+
+}     '2'
+-------------------------------------------------------
+
+package demos;
+
+import java.io.IOException;
+
+import utils.XLutils;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+		   String x           =  XLutils.getStringCellData("TestData1.xlsx","EmpData",1,0);
+		   
+		   System.out.println(x);
+	}
+
+}      uid1
+---------------------------------------------------------
+package demos;
+
+import java.io.IOException;
+
+import utils.XLutils;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+		   double x           =  XLutils.getNumericCellData("TestData1.xlsx","EmpData",1,2);
+		   
+		   System.out.println(x);
+	}
+
+}     18000.0
+----------------------------------------------------------
+
+package demos;
+
+import java.io.IOException;
+
+import utils.XLutils;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+		   boolean x           =  XLutils.getBooleanCellData("TestData1.xlsx","EmpData",1,3);
+		   
+		   System.out.println(x);
+	}
+
+}     true
+------------------------------------------------------------
+
+package demos;
+
+import java.io.IOException;
+
+import utils.XLutils;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+		    XLutils.setCellData("TestData1.xlsx","EmpData",1,4, "pass");
+		   
+		   //System.out.println(x);
+	}
+
+}    
+
+Empno	EmpName	salary	status	Result
+E001	David	18000	TRUE	pass
+E002	john		FALSE	
+E003	smith	20000	TRUE	
+	
+
+----------------------------------------------------
+
+package demos;
+
+import java.io.IOException;
+
+import utils.XLutils;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+		    XLutils.fillGreenColor("TestData1.xlsx","EmpData",1,4);
+		   
+		 
+	}
+
+}
+
+
+Empno	EmpName	salary	status	Result
+E001	David	18000	TRUE	pass(with green color)
+E002	john		FALSE	
+E003	smith	20000	TRUE	
+-------------------------------------------------------------------
+
+package demos;
+
+import java.io.IOException;
+
+import utils.XLutils;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+		    XLutils.setCellData("TestData1.xlsx","EmpData",2,4,"fail");
+		   
+		 
+	}
+
+}
+
+Empno	EmpName	salary	status	Result
+E001	David	18000	TRUE	pass
+E002	john		FALSE	fail
+E003	smith	20000	TRUE	
+
+------------------------------------------------------------------------
+
+package demos;
+
+import java.io.IOException;
+
+import utils.XLutils;
+
+public class DemoTest {
+
+	public static void main(String[] args) throws IOException {
+		
+		    XLutils.fillRedColor("TestData1.xlsx","EmpData",2,4);
+		   
+		 
+	}
+
+}
+
+Empno	EmpName	salary	status	Result
+E001	David	18000	TRUE	pass
+E002	john		FALSE	fail(with Red color)
+E003	smith	20000	TRUE	
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+PagewiseobjectModel/pageobjectModel/POM
+----------------------------------
+----------------------------------
+
+Note: add selenium server and configure TestNG copy the chromedriver.exe
+------------------------------------
+package utils;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+
+public class Apputils {
+	
+public static	WebDriver driver;
+     @BeforeTest
+	public static void launchApp()
+	{
+		System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+	    driver = new ChromeDriver();
+	    
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		driver.get("http://orangehrm.qedgetech.com");
+	}
+	
+     @AfterTest
+	public static void closeApp()
+	{
+		driver.close();
+	}
+
+}
+------------------------------------------------------------------
+package library;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+import utils.Apputils;
+
+public class Loginpage {
+	
+	//Elements
+	
+	@FindBy(id="txtUsername")
+	WebElement uid;
+	
+	@FindBy(id="txtPassword")
+	WebElement pwd;
+	
+	@FindBy(xpath = "//*[@name='Submit']")
+	WebElement login;
+	
+	@FindBy(linkText ="Admin")
+	WebElement admin;
+	
+	@FindBy(partialLinkText ="Welcome")
+	WebElement welcome;
+	
+	@FindBy(linkText ="Logout")
+	WebElement logout;
+	
+	@FindBy(id="spanMessage")
+	WebElement errmsg;
+	
+	//Functions
+	
+	public void login(String uname,String pword)
+	{
+		uid.sendKeys(uname);
+		pwd.sendKeys(pword);
+		
+		login.click();
+	}
+	
+	public boolean isAdminModuleDisplayed()
+	{
+		if(admin.isDisplayed())
+		{
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public void logout()
+	{
+		welcome.click();
+		logout.click();
+		
+	}
+	public boolean isErrorMessageDisplayed()
+	{
+		if(errmsg.isDisplayed())
+		{
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+}
+---------------------------------------------------------
+package testcases;
+
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import library.Loginpage;
+import utils.Apputils;
+
+public class AdminLoginTest extends Apputils{
+	
+	@Test
+	@Parameters({"adminuid","adminpwd"})
+	public void checkAdminLogin(String uid,String pwd) throws InterruptedException {
+		
+	
+	     Loginpage lp = PageFactory.initElements(driver,Loginpage.class);
+	     lp.login(uid,pwd);
+	     
+	boolean res      = lp.isAdminModuleDisplayed();
+	     
+	       Assert.assertTrue(res);
+	       
+	       Thread.sleep(3000);
+	       lp.logout();
+	}
+
+}
+--------------------------------------------------------------------
+package testcases;
+
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import library.Loginpage;
+import utils.Apputils;
+
+public class ErrormessageTest extends Apputils{
+	
+	@Test
+	@Parameters({"invaliduid","invalidpwd"})
+	public void checkErrormessage(String uid,String pwd) throws InterruptedException
+	{
+		 Loginpage lp = PageFactory.initElements(driver,Loginpage.class);
+	     lp.login(uid,pwd);
+	     
+	     Thread.sleep(4000);
+	 boolean res    = lp.isErrorMessageDisplayed();
+	 
+	      Assert.assertTrue(res);
+	}
+
+}
+------------------------------------------------------------------
+<suite name="orangeHRMtestsuite">
+
+   <test name="AdminLoginTest">
+   
+    <parameter name="adminuid" value="Admin"></parameter>
+    <parameter name="adminpwd" value="Qedge123!@#"></parameter>
+     <classes>
+     
+       <class name="testcases.AdminLoginTest">
+       
+       </class>
+     
+     </classes>
+   
+   
+   </test>
+
+           <test name="ErrormessageTest">
+   
+    <parameter name="invaliduid" value="Admi"></parameter>
+    <parameter name="invalidpwd" value="edge123!@#"></parameter>
+     <classes>
+     
+       <class name="testcases.ErrormessageTest">
+       
+       </class>
+     
+     </classes>
+   
+   
+   </test>
+
+</suite>
+----------------------------------------------------------------------
+[RemoteTestNG] detected TestNG version 7.4.0
+[TestNGContentHandler] [WARN] It is strongly recommended to add "<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >" at the top of the suite file [C:\Users\ADMIN\eclipse-workspace\pagewiseObjectModel1\TestNG.xml] otherwise TestNG may fail or not work as expected.
+[Configuration] [WARN] Detected a static method [utils.Apputils.launchApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils.closeApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils.launchApp()]. Static configuration methods can cause  unexpected behavior.
+[Configuration] [WARN] Detected a static method [utils.Apputils.closeApp()]. Static configuration methods can cause  unexpected behavior.
+Starting ChromeDriver 105.0.5195.52 (412c95e518836d8a7d97250d62b29c2ae6a26a85-refs/branch-heads/5195@{#853}) on port 45853
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Sep 12, 2022 10:03:33 AM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+Starting ChromeDriver 105.0.5195.52 (412c95e518836d8a7d97250d62b29c2ae6a26a85-refs/branch-heads/5195@{#853}) on port 2729
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Sep 12, 2022 10:03:42 AM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+
+===============================================
+orangeHRMtestsuite
+Total tests run: 2, Passes: 2, Failures: 0, Skips: 0
+===============================================
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Cucumber BDD framework
+
+---------------------------------
+----------------------------------
+
+(1). create a maven project and Add dependencies to POM.xml(io.cucumber7.2.2)
+------------------------------------------------------------
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.cucumber</groupId>
+  <artifactId>selenium_iconframeworkforAgilemodel</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  
+  <dependencies>
+<!--  https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java  -->
+<dependency>
+<groupId>org.seleniumhq.selenium</groupId>
+<artifactId>selenium-java</artifactId>
+<version>3.141.59</version>
+</dependency>
+<!--  https://mvnrepository.com/artifact/junit/junit  -->
+<dependency>
+<groupId>junit</groupId>
+<artifactId>junit</artifactId>
+<version>4.12</version>
+<scope>test</scope>
+</dependency>
+<!--  https://mvnrepository.com/artifact/org.testng/testng  -->
+<dependency>
+<groupId>org.testng</groupId>
+<artifactId>testng</artifactId>
+<version>6.14.3</version>
+<scope>test</scope>
+</dependency>
+<!--  https://mvnrepository.com/artifact/info.cukes/cucumber-java  -->
+<dependency>
+<groupId>io.cucumber</groupId>
+<artifactId>cucumber-java</artifactId>
+<version>7.2.2</version>
+</dependency>
+<!--  https://mvnrepository.com/artifact/info.cukes/cucumber-junit  -->
+<dependency>
+<groupId>io.cucumber</groupId>
+<artifactId>cucumber-junit</artifactId>
+<version>7.2.2</version>
+<scope>test</scope>
+</dependency>
+<!--  https://mvnrepository.com/artifact/info.cukes/cucumber-testng  -->
+<dependency>
+<groupId>io.cucumber</groupId>
+<artifactId>cucumber-testng</artifactId>
+<version>7.2.2</version>
+</dependency>
+<!--  https://mvnrepository.com/artifact/com.aventstack/extentreports  -->
+<dependency>
+<groupId>com.aventstack</groupId>
+<artifactId>extentreports</artifactId>
+<version>3.1.5</version>
+</dependency>
+<!--  https://mvnrepository.com/artifact/com.vimalselvam/cucumber-extentsreport  -->
+<dependency>
+<groupId>com.vimalselvam</groupId>
+<artifactId>cucumber-extentsreport</artifactId>
+<version>3.1.0</version>
+</dependency>
+</dependencies>
+</project>
+----------------------------------------------------------------------------------
+
+(2) create a folder with name featurefiles
+    and create file with names like
+     --> login.feature
+    --> emp.feature
+
+
+@tag
+Feature: AdminLogin
+  I want to use this template to check Admin login
+
+  @tag1
+  Scenario: AdminLogin with valid inputs
+    Given I open browser with url "http://orangehrm.qedgetech.com"
+    Then i should see login page
+    When i enter username as "Admin"
+    And i enter password as "Qedge123!@#"
+    And i click login
+    Then i should see Admin Module
+    When i click logout
+    Then i should see login page
+    When i close browser
+
+  @tag2
+  Scenario Outline: check Adnin Login with invalid inputs
+    Given I open browser with url "http://orangehrm.qedgetech.com"
+    Then i should see login page
+    When i enter username as "<username>"
+    And i enter password as "<password>"
+    And i click login
+    Then i should see error message
+    When i close browser
+
+    Examples: 
+      | username  | password|
+      | Admin |abc|
+      | abc |Qedge123!@#|
+      |abc | xyz |
+----------------------------------------------------------------------------------------
+
+    src/test/java
+(3) create testrunners package and classes
+      -->AdminLoginTest
+      -->EmpRegTest
+
+
+package testrunners;
+
+import org.junit.runner.RunWith;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+
+
+@RunWith(Cucumber.class )
+@CucumberOptions(features ="featurefiles/login.feature",glue ="stepdefinition",dryRun =false,
+tags =("@tag2"))
+public class AdminLoginTest {
+
+}
+-----------------------------------------------------------------------------------------------
+
+    src/test/java
+(4) create a stepdefinitions package with class NAME OrangeHRMLibrary
+
+    package stepdefinition;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class OrangeHRMLibrary 
+{
+  public static WebDriver driver;
+
+  @Given("I open browser with url {string}")
+   public void i_open_browser_with_url(String url) 
+   {
+    System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+    driver= new ChromeDriver();
+    driver.manage().window().maximize();
+    driver.manage().deleteAllCookies();
+    driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+    driver.get(url);
+   }
+  @Then("i should see login page")
+  public void i_should_see_login_page() {
+	  
+	  if(driver.findElement(By.id("btnLogin")).isDisplayed())
+	  {
+		  System.out.println("system Displayed Loginpage");
+	  }
+    
+  }
+  @When("i enter username as {string}")
+   public void i_enter_username_as(String username) {
+	  
+	  driver.findElement(By.id("txtUsername")).sendKeys(username);
+    
+   }
+@When("i enter password as {string}")
+public void i_enter_password_as(String password) {
+	
+	driver.findElement(By.id("txtPassword")).sendKeys(password);
+    
+}
+@When("i click login")
+public void i_click_login() {
+	driver.findElement(By.id("btnLogin")).click();
+}
+@Then("i should see Admin Module")
+public void i_should_see_admin_module() {
+	if(driver.findElement(By.linkText("Admin")).isDisplayed())
+	{
+		System.out.println("Admin Login successfull");
+	}else {
+		System.out.println("Admin Login unsuccessfull");
+	}
+    
+}
+@When("i click logout")
+public void i_click_logout() {
+	
+	driver.findElement(By.partialLinkText("Welcome")).click();
+	driver.findElement(By.linkText("Logout")).click();
+   
+}
+@When("i close browser")
+public void i_close_browser() throws InterruptedException {
+	Thread.sleep(3000);
+	driver.close();
+   
+}
+
+@Then("i should see error message")
+public void i_should_see_error_message() {
+    
+	String errmsg = driver.findElement(By.id("spanMessage")).getText().toLowerCase();
+	
+	if(errmsg.contains("invalid"))
+	{
+		System.out.println("system Displayed appropriate error message for invalid inputs");
+	}
+  }
+  
+@When("go to employee registration page")
+public void go_to_employee_registration_page() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("i enter firstname as {string}")
+public void i_enter_firstname_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("i enter last name as {string}")
+public void i_enter_last_name_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("i click save")
+public void i_click_save() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@Then("we should see new employee registered successfully")
+public void we_should_see_new_employee_registered_successfully() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@Then("we should see login page")
+public void we_should_see_login_page() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+
+
+
+}
+----------------------------------------------------------------------------------------------
+(5) associate chromeDriver.exe
+
+note : always copy paste the lines in .feature files
+
+Apply DryRun=true 
+before building the suite
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+
+
+undefined step_exception
+---------------------------------
+
+io.cucumber.junit.UndefinedStepException: The step 'i enter lastname as "kothapalli"' and 1 other step(s) are undefined.
+You can implement these steps using the snippet(s) below:
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
